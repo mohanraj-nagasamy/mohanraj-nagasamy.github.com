@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Performance | mohanraj nagasamy]]></title>
+  <link href="http://mohanraj-nagasamy.github.io/blog/categories/performance/atom.xml" rel="self"/>
+  <link href="http://mohanraj-nagasamy.github.io/"/>
+  <updated>2014-02-23T16:53:48-07:00</updated>
+  <id>http://mohanraj-nagasamy.github.io/</id>
+  <author>
+    <name><![CDATA[Mohanraj Nagasamy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Browser Cache: How ETags works in Rails 3 and Rails 4]]></title>
+    <link href="http://mohanraj-nagasamy.github.io/blog/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4/"/>
+    <updated>2014-02-22T15:39:52-07:00</updated>
+    <id>http://mohanraj-nagasamy.github.io/blog/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4</id>
+    <content type="html"><![CDATA[<p>Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser&rsquo;s cache matches the one on the origin server.</p>
+
+<!-- more -->
+
+
+<p>Rails 3 and Rails 4 uses ETags by default and let’s look at how they work first:</p>
+
+<p><img class="center" src="/images/etags-rails-3-and-rails-4.png" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
+
+<p>Lets say you are going to a blog website and requesting a list of posts:</p>
+
+<ul>
+<li>First Request:
+
+<ul>
+<li>Browser makes the initial first request</li>
+</ul>
+</li>
+<li>First Response:
+
+<ul>
+<li>Rails creates response body</li>
+<li>Rails creates ETag</li>
+<li>Rails responds with ETag header, status code 200</li>
+</ul>
+</li>
+</ul>
+
+
+<p>The browser caches the response now. When the browser makes subsequent request, here is the flow:</p>
+
+<ul>
+<li>Subsequent Request:
+
+<ul>
+<li>Browser makes request with header ‘If-None-Matched’ with ETag value from the initial request.</li>
+</ul>
+</li>
+<li>Subsequent Response:
+
+<ul>
+<li>Rails creates body and creates ETag</li>
+<li>Compares ETag value with ‘If-None-Matched’ value</li>
+<li>If ETag match then response body is not included in response and returns with 304 Not Modified status</li>
+<li>If ETag doesn’t match then body is included in the response and ETags are included in header</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Advantage</h4>
+
+<p>So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes website faster.</p>
+
+<h5>Enable ETag</h5>
+
+<p>So what you have to do to enable ETag chache? Nothing. You don’t have to do anything to take advantage of ETag cache.</p>
+
+<p>The below code uses Rails default ETag cache:</p>
+
+<p>``` ruby</p>
+
+<p>class PostsController &lt; ApplicationController
+def show</p>
+
+<pre><code>@post = Post. find(params[:id])
+
+respond_to do |format|
+  format.html # show.html.erb
+  format.json { render json: @post }
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>  def edit</p>
+
+<pre><code>@post = Post.find(params[:id])
+</code></pre>
+
+<p>  end</p>
+
+<p>end</p>
+
+<p>```</p>
+
+<p>So how do rails generate ETags? Well, it will render the response and generates the ETags from the response body.
+The code may look like something like this in rails:</p>
+
+<p><code>
+headers['ETag'] = Digest::MD5.hexdigest(body)
+</code></p>
+
+<h4>Custom ETags</h4>
+
+<p>It is not a good idea to process the entire response body everytime to generate ETag. Generating entire response body involves calling the DB to fetch all the related data and processing html templates and partial page renderings. This is a costly process.
+How do you solve this issue? You have fresh_when and stale? rails cache helper come in handy to rescue you.</p>
+
+<p>The code will look like this with fresh_when and stale?:</p>
+
+<p>``` ruby
+class PostsController &lt; ApplicationController
+  def show</p>
+
+<pre><code>@post = Post. find(params[:id])
+if stale? @post
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @post }
+  end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>  def edit</p>
+
+<pre><code>@post = Post.find(params[:id])
+fresh_when @post
+</code></pre>
+
+<p>  end</p>
+
+<p>end
+```</p>
+
+<p>So how do rails generate ETags now? The code may look like something like this in rails for stale? and fresh_when helpers:</p>
+
+<p><code>
+headers['ETag'] = Digest::MD5.hexdigest(@post.cache_key)
+</code></p>
+
+<p>Cache_key is combination of <code>model_name/model.id-model.updated_at</code>. It will be like this for Post model: <code>post/123-201312121212</code></p>
+
+<h5>When do you use fresh_when and stale? cache helper and what’s difference?</h5>
+
+<p>If you have special response processing like the one in show method, then use stale? helper. If you don’t have any special response processing like the one in edit method and using default-rendering mechanism (i.e. you’re not using respond_to or calling render yourself) then use fresh_when.</p>
+
+<h4>Customize ETag generation</h4>
+
+<p>If you cache based on <code>current_user or current_customer</code>, you can pass multiple arguments to generate ETag. The arguments have to be a Hash.</p>
+
+<p>The sample code will look like:</p>
+
+<p>``` ruby
+class PostsController &lt; ApplicationController
+  def show</p>
+
+<pre><code>@post = Post. find(params[:id])
+if stale? @post, current_user_id: current_user.id
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @post }
+  end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>  def edit</p>
+
+<pre><code>@post = Post.find(params[:id])
+fresh_when @post, current_user_id: current_user.id
+</code></pre>
+
+<p>  end</p>
+
+<p>  def recent</p>
+
+<pre><code>@post = Post.find(params[:id])
+fresh_when @post, current_user_id: current_user.id
+</code></pre>
+
+<p>  end</p>
+
+<p>end
+```</p>
+
+<h4>Rails 4</h4>
+
+<p>When look at edit and recent methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.</p>
+
+<p>Rails 3 and Rails 4 uses ETags by default for browser caching. But Rails 4 has a feature called declarative ETags, which allows you to add additional controller-wide information when generating an ETag.</p>
+
+<p>Let’s look at how to apply Rails 4 declarative ETags to the above code:</p>
+
+<p>``` ruby
+class PostsController &lt; ApplicationController
+etag { current_user.id }
+  def show</p>
+
+<pre><code>@post = Post. find(params[:id])
+if stale? @post
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @post }
+  end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>  def edit</p>
+
+<pre><code>@post = Post.find(params[:id])
+fresh_when @post
+</code></pre>
+
+<p>  end</p>
+
+<p>  def recent</p>
+
+<pre><code>@post = Post.find(params[:id])
+fresh_when @post
+</code></pre>
+
+<p>  end</p>
+
+<p>end
+```</p>
+
+<p>You can have multiple declarative ETags like this:</p>
+
+<p><code>ruby
+class PostsController &lt; ApplicationController
+  etag { current_user.id }
+  etag { current_customer.id }
+.
+.
+.
+end
+</code></p>
+
+<p>You can have conditions inside declarative ETags like this one to run them only on certain actions:</p>
+
+<p>``` ruby
+class PostsController &lt; ApplicationController
+  etag do</p>
+
+<pre><code>{ current_user_id: current_user.id } if %w(show edit).include? params[:action]
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Declarative ETags doesn’t support :only, :if options yet like one we have on before_filter/before_action or after_filer/after_action to run call back only on certain actions.</p>
+
+<h4>Resouces</h4>
+
+<ul>
+<li><a href="http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013">http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013</a></li>
+<li><a href="http://www.upgradingtorails4.com/">http://www.upgradingtorails4.com/</a></li>
+<li><a href="http://guides.rubyonrails.org/caching_with_rails.html">http://guides.rubyonrails.org/caching_with_rails.html</a></li>
+<li><a href="https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers">https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
