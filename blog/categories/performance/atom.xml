@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Performance | mohanraj nagasamy]]></title>
   <link href="http://mohanraj-nagasamy.github.io/blog/categories/performance/atom.xml" rel="self"/>
   <link href="http://mohanraj-nagasamy.github.io/"/>
-  <updated>2014-02-23T19:07:57-07:00</updated>
+  <updated>2014-02-23T19:44:45-07:00</updated>
   <id>http://mohanraj-nagasamy.github.io/</id>
   <author>
     <name><![CDATA[Mohanraj Nagasamy]]></name>
@@ -12,6 +12,126 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Performance test your application with Gatling]]></title>
+    <link href="http://mohanraj-nagasamy.github.io/blog/2014/02/23/performance-test-your-application-with-gatling/"/>
+    <updated>2014-02-23T19:18:00-07:00</updated>
+    <id>http://mohanraj-nagasamy.github.io/blog/2014/02/23/performance-test-your-application-with-gatling</id>
+    <content type="html"><![CDATA[<p>When you think about performance testing your application, you may think about the below picture and a tool to test.</p>
+
+<p><img class="right" src="/images/truck-load.png" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
+
+<p>One open source tool that comes to mind is <a href="http://jmeter.apache.org/">JMeter</a>. For very simple tests, I tend use <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">apache benchmarking</a>. But there are other tools like <a href="http://grinder.sourceforge.net/">Grinder</a>, <a href="http://www8.hp.com/us/en/software-solutions/software.html?compURI=1175451">LoadRunner</a>, <a href="http://www.neotys.com/product/overview-neoload.html">NeoLoad</a>, <a href="http://tsung.erlang-projects.org/">Tsung</a>, and <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a> for web services testing. Then there is <a href="https://code.google.com/p/caliper/">Caliper</a> and <a href="http://openjdk.java.net/projects/code-tools/jmh">jmh</a> for micro benchmarking, which target use cases.</p>
+
+<!-- more -->
+
+
+<h5>So what makes <a href="http://gatling-tool.org/">Gatling</a> different from other tools is:</h5>
+
+<ul>
+<li>Usability – GUI vs Script (Code)</li>
+<li>Maintainability</li>
+<li>Reporting</li>
+<li>Integration with other tools like Maven, Jenkins</li>
+<li>Underlying Technologies</li>
+</ul>
+
+
+<h4>Usability – GUI vs Script (Code)</h4>
+
+<p>Using the GUI to do performance tests is difficult and unintuitive.</p>
+
+<p>Gatling provides an elegant <a href="http://gatling-tool.org/cheat-sheet/">DSL</a> written in <a href="http://www.scala-lang.org/">Scala</a> to describe your test scenarios of your app. DSL scripts are intuitive and simple to create. Using the recorder (like <a href="http://jmeter.apache.org/">JMeter</a>) it can generate scripts that will look similar to a hand written one. Your can then tweak the generated scripts anyway you want.</p>
+
+<p>You don’t have to know Scala to write scripts. You can get an introduction <a href="http://twitter.github.io/scala_school/">here</a> or just think of them as Javascript code (at least for usage purpose). Scals’s variable declarations are either by var (mutable variable) or by val (immutable variable).</p>
+
+<p>```scala
+ val httpConf = http.baseURL(&ldquo;<a href="https://twitter.com">https://twitter.com</a>&rdquo;)
+  val scn = scenario(&ldquo;Twitter test&rdquo;)
+    .exec(
+      http(&ldquo;get login&rdquo;)
+        .get(&ldquo;/&rdquo;)
+        .check(authenticity_token))
+    .exec(
+      http(&ldquo;post login &amp; get the twitter page&rdquo;)
+        .post(&ldquo;/sessions&rdquo;)
+        .param(&ldquo;session[username_or_email]&rdquo;, username)
+        .param(&ldquo;session[password]&rdquo;, password)
+        .param(&ldquo;authenticity_token&rdquo;, authenticity_token)
+        .check(status.is(200))
+        .check(bodyString(&ldquo;test_some_text&rdquo;).exists)
+        .check(regex(&ldquo;<strong>444</strong> Tweets&rdquo;).exists))
+    .exec(
+      http(&ldquo;logout from twitter&rdquo;)
+        .post(&ldquo;/logout&rdquo;)
+        .check(status.is(200)))
+ 
+setUp(scn.inject(atOnce(2 users))).protocols(httpConf)</p>
+
+<p>```</p>
+
+<p>I created the above script, which load tests the twitter.com site. You can checkout the full source code <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo">here</a>, which is a cloned maven project from <a href="https://github.com/excilys/gatling/tree/master/gatling-maven-plugin">gatling-maven-plugin</a>. Take a look at the <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo/blob/master/src/test/scala/twitter/TwitterSimulation.scala">TwitterSimulation.scala</a> file that I added to the project.</p>
+
+<p>Once downloaded, execute with the following maven command with your tweeter username and password:</p>
+
+<p><code>
+mvn gatling:execute -Dgatling.simulationClass=twitter.TwitterSimulation -Dusers=&lt;no-of-concurrent-users&gt; -Dtweets=&lt;no-of-your-tweets&gt; -Dusername=&lt;twitter-user-name&gt; -Dpassword=&lt;twitter-password&gt;
+</code></p>
+
+<p><em>Note</em>: Keep the concurrent user count between 2 and 5. If you add more load twitter they will display the CAPTCHA login page instead. This is to avoid a <a href="http://en.wikipedia.org/wiki/Denial-of-service_attack">DoS</a> attack. In other words the login test may fail intermittently based on how many times you run the test.</p>
+
+<p>This script gets you to twitter.com and posts with username, password and authenticity token that is get generated when you request twitter.com.</p>
+
+<p>You can extract values from the HTTP response like this:</p>
+
+<p><code>scala
+val authenticity_token = regex("""input type="hidden" value="([^"]*)"""").saveAs("authenticity_token")
+</code></p>
+
+<p>With the response from the HTTP post, it verifies the http status code and the content of the body using bodyString()and regex() utility methods. It also logs-out from the site.</p>
+
+<p>Real users usually reads the pages and clicks through the links. To get this real user simulation, there is a <a href="https://github.com/excilys/gatling/wiki/Structure-Elements#wiki-pause">pause()</a> method that can be used for this purpose. There are other <a href="https://github.com/excilys/gatling/wiki/Structure-Elements">structural elements</a> available.</p>
+
+<p>The project has two more tests – basic and advanced simulation. Take a look at and run them in the same way as twitter one.</p>
+
+<p>Gatling automatically handles http headers and cookies. It also auto redirects based on headers, which makes testing sessions and OAuth based applications easier.</p>
+
+<p>Testing a RESTful service layer is mush easier with a script than using the GUI.
+Here is nice blog post on how Gatling is used to test the <a href="http://maxdemarzi.com/2013/02/14/neo4j-and-gatling-sitting-in-a-tree-performance-t-e-s-t-ing/">Neo4j REST</a> interface.</p>
+
+<p>To test the SOAP interface, I may use <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a>, which handles most of the SOAP plumbing. You can use Gatling to load test SOAP as well, however you will have to write the SOAP headers and xml body yourself.</p>
+
+<p><em>Note</em>: Gatling 2.x undertook major <a href="https://github.com/excilys/gatling/wiki/Gatling-2">API</a> refactoring and is not compatible with Gatling 1.x. You may want to watch out for this. I am using version 2.0.0-M3 in all my examples.</p>
+
+<p>There are other tools that support scripting like Beanshell, Python, Clojure and Erlang. But they are not simple to use and learn like Gatling.</p>
+
+<h4>Maintainability</h4>
+
+<p>A script is always easier to modify as a project evolves than maintaining a GUI based load test file. A script also fits very well into your daily workflow as it integrates very well with developer tools like maven, jenkins and your favorite <a href="https://github.com/excilys/gatling/wiki/Ide-integration">IDE</a>.</p>
+
+<h4>Reporting</h4>
+
+<p>Gatling generates nice and easy to understand <a href="https://github.com/excilys/gatling/wiki/Reports">static reports</a> with metrics, which easily can be shared with anyone on your team. The reports are static and can be run with the daily build or when you release your application. You can then compare the results between each release to monitor how the app is performing.
+You can also send the simulation data to <a href="https://github.com/excilys/gatling/wiki/Graphite">Graphite</a> which gives you live statistics.</p>
+
+<h4>Integration with other tools and IDEs</h4>
+
+<p>Gatling integrates with other tools of your choice (which supports scala) like <a href="https://github.com/excilys/gatling/wiki/Maven-plugin">maven</a> and eclipse (or Intelli J) to integrate with your daily workflow. Thus, you don’t have to use another tool to load test your app. There is also a <a href="https://github.com/excilys/gatling/wiki/Jenkins-Plugin">Jenkins plugin</a> available.</p>
+
+<h4>Underlying Technologies</h4>
+
+<p>Gatling uses <a href="http://en.wikipedia.org/wiki/Actor_model">actor model</a> and doesn’t require 1 thread per user like <a href="http://jmeter.apache.org/">JMeter</a>. This is one of the main reasons that JMeter tends to choke on a high load scenario.</p>
+
+<p>Gatling is built on <a href="http://akka.io/">Akka actors</a> to handle large-scale tests and Scala’s DSL capability to build clean and simple scripts. It also uses <a href="https://github.com/AsyncHttpClient/async-http-client">asynchronous http client</a> and non-blocking IO libraries (<a href="http://netty.io/">Netty</a>, <a href="http://grizzly.java.net/">Grizzly</a>).</p>
+
+<h4>Conclusion</h4>
+
+<p>Gatling is definitely a nice tool to have under your belt. Check out their <a href="https://github.com/excilys/gatling/wiki">wiki</a> and <a href="https://github.com/excilys/gatling">soucecode</a>. It has great documentation.</p>
+
+<p>Thanks to <a href="https://twitter.com/whittierta">@whittierta</a> for proofreading and suggestions.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Browser Cache: How ETags works in Rails 3 and Rails 4]]></title>
