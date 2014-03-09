@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[mohanraj nagasamy]]></title>
+  <link href="http://mohanraj-nagasamy.github.io/atom.xml" rel="self"/>
+  <link href="http://mohanraj-nagasamy.github.io/"/>
+  <updated>2014-02-23T19:44:45-07:00</updated>
+  <id>http://mohanraj-nagasamy.github.io/</id>
+  <author>
+    <name><![CDATA[Mohanraj Nagasamy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Performance test your application with Gatling]]></title>
+    <link href="http://mohanraj-nagasamy.github.io/blog/2014/02/23/performance-test-your-application-with-gatling/"/>
+    <updated>2014-02-23T19:18:00-07:00</updated>
+    <id>http://mohanraj-nagasamy.github.io/blog/2014/02/23/performance-test-your-application-with-gatling</id>
+    <content type="html"><![CDATA[<p>When you think about performance testing your application, you may think about the below picture and a tool to test.</p>
+
+<p><img class="right" src="http://mohanraj-nagasamy.github.io/images/truck-load.png" title="image" alt="images"></p>
+
+<p>One open source tool that comes to mind is <a href="http://jmeter.apache.org/">JMeter</a>. For very simple tests, I tend use <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">apache benchmarking</a>. But there are other tools like <a href="http://grinder.sourceforge.net/">Grinder</a>, <a href="http://www8.hp.com/us/en/software-solutions/software.html?compURI=1175451">LoadRunner</a>, <a href="http://www.neotys.com/product/overview-neoload.html">NeoLoad</a>, <a href="http://tsung.erlang-projects.org/">Tsung</a>, and <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a> for web services testing. Then there is <a href="https://code.google.com/p/caliper/">Caliper</a> and <a href="http://openjdk.java.net/projects/code-tools/jmh">jmh</a> for micro benchmarking, which target use cases.</p>
+
+<!-- more -->
+
+
+<h5>So what makes <a href="http://gatling-tool.org/">Gatling</a> different from other tools is:</h5>
+
+<ul>
+<li>Usability – GUI vs Script (Code)</li>
+<li>Maintainability</li>
+<li>Reporting</li>
+<li>Integration with other tools like Maven, Jenkins</li>
+<li>Underlying Technologies</li>
+</ul>
+
+
+<h4>Usability – GUI vs Script (Code)</h4>
+
+<p>Using the GUI to do performance tests is difficult and unintuitive.</p>
+
+<p>Gatling provides an elegant <a href="http://gatling-tool.org/cheat-sheet/">DSL</a> written in <a href="http://www.scala-lang.org/">Scala</a> to describe your test scenarios of your app. DSL scripts are intuitive and simple to create. Using the recorder (like <a href="http://jmeter.apache.org/">JMeter</a>) it can generate scripts that will look similar to a hand written one. Your can then tweak the generated scripts anyway you want.</p>
+
+<p>You don’t have to know Scala to write scripts. You can get an introduction <a href="http://twitter.github.io/scala_school/">here</a> or just think of them as Javascript code (at least for usage purpose). Scals’s variable declarations are either by var (mutable variable) or by val (immutable variable).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="err"> </span><span class="k">val</span> <span class="n">httpConf</span> <span class="k">=</span> <span class="n">http</span><span class="o">.</span><span class="n">baseURL</span><span class="o">(</span><span class="s">&quot;https://twitter.com&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">  </span><span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">&quot;Twitter test&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">    </span><span class="o">.</span><span class="n">exec</span><span class="o">(</span>
+</span><span class='line'><span class="err">      </span><span class="n">http</span><span class="o">(</span><span class="s">&quot;get login&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">authenticity_token</span><span class="o">))</span>
+</span><span class='line'><span class="err">    </span><span class="o">.</span><span class="n">exec</span><span class="o">(</span>
+</span><span class='line'><span class="err">      </span><span class="n">http</span><span class="o">(</span><span class="s">&quot;post login &amp; get the twitter page&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">post</span><span class="o">(</span><span class="s">&quot;/sessions&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">param</span><span class="o">(</span><span class="s">&quot;session[username_or_email]&quot;</span><span class="o">,</span> <span class="n">username</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">param</span><span class="o">(</span><span class="s">&quot;session[password]&quot;</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">param</span><span class="o">(</span><span class="s">&quot;authenticity_token&quot;</span><span class="o">,</span> <span class="n">authenticity_token</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">))</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">bodyString</span><span class="o">(</span><span class="s">&quot;test_some_text&quot;</span><span class="o">).</span><span class="n">exists</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">regex</span><span class="o">(</span><span class="s">&quot;&lt;strong&gt;444&lt;/strong&gt; Tweets&quot;</span><span class="o">).</span><span class="n">exists</span><span class="o">))</span>
+</span><span class='line'><span class="err">    </span><span class="o">.</span><span class="n">exec</span><span class="o">(</span>
+</span><span class='line'><span class="err">      </span><span class="n">http</span><span class="o">(</span><span class="s">&quot;logout from twitter&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">post</span><span class="o">(</span><span class="s">&quot;/logout&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">)))</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="n">setUp</span><span class="o">(</span><span class="n">scn</span><span class="o">.</span><span class="n">inject</span><span class="o">(</span><span class="n">atOnce</span><span class="o">(</span><span class="mi">2</span> <span class="n">users</span><span class="o">))).</span><span class="n">protocols</span><span class="o">(</span><span class="n">httpConf</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I created the above script, which load tests the twitter.com site. You can checkout the full source code <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo">here</a>, which is a cloned maven project from <a href="https://github.com/excilys/gatling/tree/master/gatling-maven-plugin">gatling-maven-plugin</a>. Take a look at the <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo/blob/master/src/test/scala/twitter/TwitterSimulation.scala">TwitterSimulation.scala</a> file that I added to the project.</p>
+
+<p>Once downloaded, execute with the following maven command with your tweeter username and password:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">mvn</span> <span class="n">gatling</span><span class="k">:</span><span class="kt">execute</span> <span class="kt">-Dgatling.simulationClass</span><span class="o">=</span><span class="n">twitter</span><span class="o">.</span><span class="nc">TwitterSimulation</span> <span class="o">-</span><span class="nc">Dusers</span><span class="o">=&lt;</span><span class="n">no</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">concurrent</span><span class="o">-</span><span class="n">users</span><span class="o">&gt;</span> <span class="o">-</span><span class="nc">Dtweets</span><span class="o">=&lt;</span><span class="n">no</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">your</span><span class="o">-</span><span class="n">tweets</span><span class="o">&gt;</span> <span class="o">-</span><span class="nc">Dusername</span><span class="o">=&lt;</span><span class="n">twitter</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="nc">Dpassword</span><span class="o">=&lt;</span><span class="n">twitter</span><span class="o">-</span><span class="n">password</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Note</em>: Keep the concurrent user count between 2 and 5. If you add more load twitter they will display the CAPTCHA login page instead. This is to avoid a <a href="http://en.wikipedia.org/wiki/Denial-of-service_attack">DoS</a> attack. In other words the login test may fail intermittently based on how many times you run the test.</p>
+
+<p>This script gets you to twitter.com and posts with username, password and authenticity token that is get generated when you request twitter.com.</p>
+
+<p>You can extract values from the HTTP response like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">authenticity_token</span> <span class="k">=</span> <span class="n">regex</span><span class="o">(</span><span class="s">&quot;&quot;&quot;input type=&quot;hidden&quot; value=&quot;([^&quot;]*)&quot;&quot;&quot;&quot;</span><span class="o">).</span><span class="n">saveAs</span><span class="o">(</span><span class="s">&quot;authenticity_token&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With the response from the HTTP post, it verifies the http status code and the content of the body using bodyString()and regex() utility methods. It also logs-out from the site.</p>
+
+<p>Real users usually reads the pages and clicks through the links. To get this real user simulation, there is a <a href="https://github.com/excilys/gatling/wiki/Structure-Elements#wiki-pause">pause()</a> method that can be used for this purpose. There are other <a href="https://github.com/excilys/gatling/wiki/Structure-Elements">structural elements</a> available.</p>
+
+<p>The project has two more tests – basic and advanced simulation. Take a look at and run them in the same way as twitter one.</p>
+
+<p>Gatling automatically handles http headers and cookies. It also auto redirects based on headers, which makes testing sessions and OAuth based applications easier.</p>
+
+<p>Testing a RESTful service layer is mush easier with a script than using the GUI.
+Here is nice blog post on how Gatling is used to test the <a href="http://maxdemarzi.com/2013/02/14/neo4j-and-gatling-sitting-in-a-tree-performance-t-e-s-t-ing/">Neo4j REST</a> interface.</p>
+
+<p>To test the SOAP interface, I may use <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a>, which handles most of the SOAP plumbing. You can use Gatling to load test SOAP as well, however you will have to write the SOAP headers and xml body yourself.</p>
+
+<p><em>Note</em>: Gatling 2.x undertook major <a href="https://github.com/excilys/gatling/wiki/Gatling-2">API</a> refactoring and is not compatible with Gatling 1.x. You may want to watch out for this. I am using version 2.0.0-M3 in all my examples.</p>
+
+<p>There are other tools that support scripting like Beanshell, Python, Clojure and Erlang. But they are not simple to use and learn like Gatling.</p>
+
+<h4>Maintainability</h4>
+
+<p>A script is always easier to modify as a project evolves than maintaining a GUI based load test file. A script also fits very well into your daily workflow as it integrates very well with developer tools like maven, jenkins and your favorite <a href="https://github.com/excilys/gatling/wiki/Ide-integration">IDE</a>.</p>
+
+<h4>Reporting</h4>
+
+<p>Gatling generates nice and easy to understand <a href="https://github.com/excilys/gatling/wiki/Reports">static reports</a> with metrics, which easily can be shared with anyone on your team. The reports are static and can be run with the daily build or when you release your application. You can then compare the results between each release to monitor how the app is performing.
+You can also send the simulation data to <a href="https://github.com/excilys/gatling/wiki/Graphite">Graphite</a> which gives you live statistics.</p>
+
+<h4>Integration with other tools and IDEs</h4>
+
+<p>Gatling integrates with other tools of your choice (which supports scala) like <a href="https://github.com/excilys/gatling/wiki/Maven-plugin">maven</a> and eclipse (or Intelli J) to integrate with your daily workflow. Thus, you don’t have to use another tool to load test your app. There is also a <a href="https://github.com/excilys/gatling/wiki/Jenkins-Plugin">Jenkins plugin</a> available.</p>
+
+<h4>Underlying Technologies</h4>
+
+<p>Gatling uses <a href="http://en.wikipedia.org/wiki/Actor_model">actor model</a> and doesn’t require 1 thread per user like <a href="http://jmeter.apache.org/">JMeter</a>. This is one of the main reasons that JMeter tends to choke on a high load scenario.</p>
+
+<p>Gatling is built on <a href="http://akka.io/">Akka actors</a> to handle large-scale tests and Scala’s DSL capability to build clean and simple scripts. It also uses <a href="https://github.com/AsyncHttpClient/async-http-client">asynchronous http client</a> and non-blocking IO libraries (<a href="http://netty.io/">Netty</a>, <a href="http://grizzly.java.net/">Grizzly</a>).</p>
+
+<h4>Conclusion</h4>
+
+<p>Gatling is definitely a nice tool to have under your belt. Check out their <a href="https://github.com/excilys/gatling/wiki">wiki</a> and <a href="https://github.com/excilys/gatling">soucecode</a>. It has great documentation.</p>
+
+<p>Thanks to <a href="https://twitter.com/whittierta">@whittierta</a> for proofreading and suggestions.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Blocks in Java Lang]]></title>
+    <link href="http://mohanraj-nagasamy.github.io/blog/2014/02/23/blocks-in-java-lang/"/>
+    <updated>2014-02-23T18:29:28-07:00</updated>
+    <id>http://mohanraj-nagasamy.github.io/blog/2014/02/23/blocks-in-java-lang</id>
+    <content type="html"><![CDATA[<p>We all love blocks in Ruby. Wouldn’t it be great if Java Lang had support for blocks? Well, Java Lang will support <a href="http://openjdk.java.net/projects/lambda/">blocks/lambdas</a> in <a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">jdk8</a>, but in a limited way.</p>
+
+<p>Until you get a chance to work with <a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">jdk8</a> for real blocks/lambdas, there is an old trick we can apply while creating/initializing an object. That is called the less known <a href="http://c2.com/cgi/wiki?DoubleBraceInitialization">“Double Brace Initialization”</a> java idiom. This just works for <strong>creating/initializing an object</strong>. You can’t apply this idiom in other places like you would in Ruby. But, this trick works in all the version of java as well including java 1.2</p>
+
+<!-- more -->
+
+
+<p>Let’s say you have the following class and want to create a list of valid order statuses:</p>
+
+<figure class='code'><figcaption><span>OrderStatus.java</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderStatus</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">String</span> <span class="n">code</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">String</span> <span class="n">description</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">OrderStatus</span><span class="o">(</span><span class="n">String</span> <span class="n">code</span><span class="o">,</span> <span class="n">String</span> <span class="n">description</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">description</span> <span class="o">=</span> <span class="n">description</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">OrderStatus</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">String</span> <span class="nf">getCode</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">code</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">setCode</span><span class="o">(</span><span class="n">String</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">String</span> <span class="nf">getDescription</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">description</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">setDescription</span><span class="o">(</span><span class="n">String</span> <span class="n">description</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">description</span> <span class="o">=</span> <span class="n">description</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">o</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">getClass</span><span class="o">()</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">OrderStatus</span> <span class="n">that</span> <span class="o">=</span> <span class="o">(</span><span class="n">OrderStatus</span><span class="o">)</span> <span class="n">o</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">code</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="o">!</span><span class="n">code</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">that</span><span class="o">.</span><span class="na">code</span><span class="o">)</span> <span class="o">:</span> <span class="n">that</span><span class="o">.</span><span class="na">code</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">description</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="o">!</span><span class="n">description</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">that</span><span class="o">.</span><span class="na">description</span><span class="o">)</span> <span class="o">:</span> <span class="n">that</span><span class="o">.</span><span class="na">description</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">code</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">code</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">:</span> <span class="mi">0</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">result</span> <span class="o">=</span> <span class="mi">31</span> <span class="o">*</span> <span class="n">result</span> <span class="o">+</span> <span class="o">(</span><span class="n">description</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">description</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">:</span> <span class="mi">0</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First you would create something like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="kd">static</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">OrderStatus</span><span class="o">&gt;</span> <span class="n">VALID_ORDER_STATUSES</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">OrderStatus</span><span class="o">&gt;();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And you would create a static block and add the valid order statuses:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">static</span> <span class="o">{</span>
+</span><span class='line'><span class="err">    </span><span class="n">VALID_ORDER_STATUSES</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;01&quot;</span><span class="o">,</span> <span class="s">&quot;Order Placed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">    </span><span class="n">VALID_ORDER_STATUSES</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;02&quot;</span><span class="o">,</span> <span class="s">&quot;Order Processed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">    </span><span class="n">VALID_ORDER_STATUSES</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;03&quot;</span><span class="o">,</span> <span class="s">&quot;Order Cancelled&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">    </span><span class="n">VALID_ORDER_STATUSES</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;04&quot;</span><span class="o">,</span> <span class="s">&quot;Order Failed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Wouldn’t be great if we can combine into one step? Well, we can do by using Double Brace Initialization. Let’s see how it would look:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="kd">static</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">OrderStatus</span><span class="o">&gt;</span> <span class="n">VALID_ORDER_STATUSES_WITH_DOUBLE_BRACE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">OrderStatus</span><span class="o">&gt;()</span> <span class="o">{</span> <span class="o">{</span>
+</span><span class='line'><span class="err">            </span><span class="n">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;01&quot;</span><span class="o">,</span> <span class="s">&quot;Order Placed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">            </span><span class="n">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;02&quot;</span><span class="o">,</span> <span class="s">&quot;Order Processed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">            </span><span class="n">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;03&quot;</span><span class="o">,</span> <span class="s">&quot;Order Cancelled&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">            </span><span class="n">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;04&quot;</span><span class="o">,</span> <span class="s">&quot;Order Failed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">        </span><span class="o">}</span> <span class="o">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code is completely valid and works in <strong>all the versions of java</strong>. You may wonder what is going on here.</p>
+
+<p>The first brace creates <strong>anonymous inner/sub class</strong> that extends HashSet and the second one declares <strong>instance initializer</strong>. The inner class doesn’t add new instance variables, but it contains an initializer block.</p>
+
+<p>Let’s see how we can apply this trick while creating <em>OrderStatus</em> with default constructor, not using two params constructor.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="n">OrderStatus</span> <span class="n">INVALID_ORDER_STATUS</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OrderStatus</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span>
+</span><span class='line'><span class="err">        </span><span class="n">setCode</span><span class="o">(</span><span class="s">&quot;XX&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="err">        </span><span class="n">setDescription</span><span class="o">(</span><span class="s">&quot;Invalid&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="err">    </span><span class="o">}</span> <span class="o">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You have to note that if you create a new object with the same order status code and description is <strong>not exactly equal</strong> to the one you created.</p>
+
+<p>The condition would be false in equals() methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="k">if</span> <span class="o">(</span><span class="n">o</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">getClass</span><span class="o">()</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'><span class="err">    </span><span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&rsquo;s say you are creating a new:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="n">OrderStatus</span> <span class="n">INVALID_ORDER_STATUS</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OrderStatus</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span>
+</span><span class='line'><span class="err">        </span><span class="n">setCode</span><span class="o">(</span><span class="s">&quot;XX&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="err">        </span><span class="n">setDescription</span><span class="o">(</span><span class="s">&quot;Invalid&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="err">    </span><span class="o">}</span> <span class="o">};</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="n">OrderStatus</span> <span class="n">INVALID_ORDER_STATUS_2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OrderStatus</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span>
+</span><span class='line'><span class="err">        </span><span class="n">setCode</span><span class="o">(</span><span class="s">&quot;XX&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="err">        </span><span class="n">setDescription</span><span class="o">(</span><span class="s">&quot;Invalid&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="err">    </span><span class="o">}</span> <span class="o">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>INVALID_ORDER_STATUS.equals(INVALID_ORDER_STATUS_2)</code> and <code>INVALID_ORDER_STATUS.equals(INVALID_ORDER_STATUS_3)</code> will return false, because it has different anonymous class.</p>
+
+<p>Collection classes should be fine if you create objects like the one we created. <code>VALID_ORDER_STATUSES_WITH_DOUBLE_BRACE.contains(new OrderStatus("01", "Order Placed"))</code> will return true.</p>
+
+<p>You can use the same trick, if you want to call some methods just after creating an object like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Action</span> <span class="n">action</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Action</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span>
+</span><span class='line'><span class="err">        </span><span class="n">step1</span><span class="o">();</span>
+</span><span class='line'><span class="err">        </span><span class="n">step2</span><span class="o">();</span>
+</span><span class='line'><span class="err">    </span><span class="o">}</span> <span class="o">};</span>
+</span><span class='line'><span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="na">result</span><span class="o">();</span>
+</span><span class='line'><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;action result = &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And, you can use this idiom while passing object as a parameter.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">valideOrderStatues</span><span class="o">(</span><span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">OrderStatus</span><span class="o">&gt;()</span> <span class="o">{</span> <span class="o">{</span>
+</span><span class='line'><span class="err">            </span><span class="n">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;01&quot;</span><span class="o">,</span> <span class="s">&quot;Order Placed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">            </span><span class="n">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;02&quot;</span><span class="o">,</span> <span class="s">&quot;Order Processed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">            </span><span class="n">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;03&quot;</span><span class="o">,</span> <span class="s">&quot;Order Cancelled&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">            </span><span class="n">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OrderStatus</span><span class="o">(</span><span class="s">&quot;04&quot;</span><span class="o">,</span> <span class="s">&quot;Order Failed&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="err">        </span><span class="o">}</span> <span class="o">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It just makes your code more concise. Try to use wherever it makes sense. All the code is in <a href="https://github.com/mohanraj-nagasamy/DoubleBrace/">github</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Browser Cache: How ETags works in Rails 3 and Rails 4]]></title>
+    <link href="http://mohanraj-nagasamy.github.io/blog/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4/"/>
+    <updated>2014-02-22T15:39:52-07:00</updated>
+    <id>http://mohanraj-nagasamy.github.io/blog/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4</id>
+    <content type="html"><![CDATA[<p>Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser&rsquo;s cache matches the one on the origin server.</p>
+
+<!-- more -->
+
+
+<p>Rails 3 and Rails 4 uses ETags by default and let’s look at how they work first:</p>
+
+<p><img class="center" src="http://mohanraj-nagasamy.github.io/images/etags-rails-3-and-rails-4.png" title="image" alt="images"></p>
+
+<p>Lets say you are going to a blog website and requesting a list of posts:</p>
+
+<ul>
+<li>First Request:
+
+<ul>
+<li>Browser makes the initial first request</li>
+</ul>
+</li>
+<li>First Response:
+
+<ul>
+<li>Rails creates response body</li>
+<li>Rails creates ETag</li>
+<li>Rails responds with ETag header, status code 200</li>
+</ul>
+</li>
+</ul>
+
+
+<p>The browser caches the response now. When the browser makes subsequent request, here is the flow:</p>
+
+<ul>
+<li>Subsequent Request:
+
+<ul>
+<li>Browser makes request with header ‘If-None-Matched’ with ETag value from the initial request.</li>
+</ul>
+</li>
+<li>Subsequent Response:
+
+<ul>
+<li>Rails creates body and creates ETag</li>
+<li>Compares ETag value with ‘If-None-Matched’ value</li>
+<li>If ETag match then response body is not included in response and returns with 304 Not Modified status</li>
+<li>If ETag doesn’t match then body is included in the response and ETags are included in header</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Advantage</h4>
+
+<p>So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes website faster.</p>
+
+<h5>Enable ETag</h5>
+
+<p>So what you have to do to enable ETag chache? Nothing. You don’t have to do anything to take advantage of ETag cache.</p>
+
+<p>The below code uses Rails default ETag cache:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">show</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span> <span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+</span><span class='line'>      <span class="nb">format</span><span class="o">.</span><span class="n">html</span> <span class="c1"># show.html.erb</span>
+</span><span class='line'>      <span class="nb">format</span><span class="o">.</span><span class="n">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@post</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">edit</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So how do rails generate ETags? Well, it will render the response and generates the ETags from the response body.
+The code may look like something like this in rails:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">headers</span><span class="o">[</span><span class="s1">&#39;ETag&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="ss">Digest</span><span class="p">:</span><span class="ss">:MD5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Custom ETags</h4>
+
+<p>It is not a good idea to process the entire response body everytime to generate ETag. Generating entire response body involves calling the DB to fetch all the related data and processing html templates and partial page renderings. This is a costly process.
+How do you solve this issue? You have fresh_when and stale? rails cache helper come in handy to rescue you.</p>
+
+<p>The code will look like this with fresh_when and stale?:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">show</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span> <span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">stale?</span> <span class="vi">@post</span>
+</span><span class='line'>      <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+</span><span class='line'>        <span class="nb">format</span><span class="o">.</span><span class="n">html</span> <span class="c1"># show.html.erb</span>
+</span><span class='line'>        <span class="nb">format</span><span class="o">.</span><span class="n">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@post</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">edit</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">fresh_when</span> <span class="vi">@post</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So how do rails generate ETags now? The code may look like something like this in rails for stale? and fresh_when helpers:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">headers</span><span class="o">[</span><span class="s1">&#39;ETag&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="ss">Digest</span><span class="p">:</span><span class="ss">:MD5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(</span><span class="vi">@post</span><span class="o">.</span><span class="n">cache_key</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cache_key is combination of <code>model_name/model.id-model.updated_at</code>. It will be like this for Post model: <code>post/123-201312121212</code></p>
+
+<h5>When do you use fresh_when and stale? cache helper and what’s difference?</h5>
+
+<p>If you have special response processing like the one in show method, then use stale? helper. If you don’t have any special response processing like the one in edit method and using default-rendering mechanism (i.e. you’re not using respond_to or calling render yourself) then use fresh_when.</p>
+
+<h4>Customize ETag generation</h4>
+
+<p>If you cache based on <code>current_user or current_customer</code>, you can pass multiple arguments to generate ETag. The arguments have to be a Hash.</p>
+
+<p>The sample code will look like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">show</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span> <span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">stale?</span> <span class="vi">@post</span><span class="p">,</span> <span class="n">current_user_id</span><span class="p">:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'>      <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+</span><span class='line'>        <span class="nb">format</span><span class="o">.</span><span class="n">html</span> <span class="c1"># show.html.erb</span>
+</span><span class='line'>        <span class="nb">format</span><span class="o">.</span><span class="n">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@post</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">edit</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">fresh_when</span> <span class="vi">@post</span><span class="p">,</span> <span class="n">current_user_id</span><span class="p">:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">recent</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">fresh_when</span> <span class="vi">@post</span><span class="p">,</span> <span class="n">current_user_id</span><span class="p">:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Rails 4</h4>
+
+<p>When look at edit and recent methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.</p>
+
+<p>Rails 3 and Rails 4 uses ETags by default for browser caching. But Rails 4 has a feature called declarative ETags, which allows you to add additional controller-wide information when generating an ETag.</p>
+
+<p>Let’s look at how to apply Rails 4 declarative ETags to the above code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'><span class="n">etag</span> <span class="p">{</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">show</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span> <span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">stale?</span> <span class="vi">@post</span>
+</span><span class='line'>      <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+</span><span class='line'>        <span class="nb">format</span><span class="o">.</span><span class="n">html</span> <span class="c1"># show.html.erb</span>
+</span><span class='line'>        <span class="nb">format</span><span class="o">.</span><span class="n">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@post</span> <span class="p">}</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">edit</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">fresh_when</span> <span class="vi">@post</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">recent</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">fresh_when</span> <span class="vi">@post</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can have multiple declarative ETags like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="n">etag</span> <span class="p">{</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">etag</span> <span class="p">{</span> <span class="n">current_customer</span><span class="o">.</span><span class="n">id</span> <span class="p">}</span>
+</span><span class='line'><span class="o">.</span>
+</span><span class='line'><span class="o">.</span>
+</span><span class='line'><span class="o">.</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can have conditions inside declarative ETags like this one to run them only on certain actions:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="n">etag</span> <span class="k">do</span>
+</span><span class='line'>    <span class="p">{</span> <span class="n">current_user_id</span><span class="p">:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span> <span class="p">}</span> <span class="k">if</span> <span class="sx">%w(show edit)</span><span class="o">.</span><span class="n">include?</span> <span class="n">params</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Declarative ETags doesn’t support :only, :if options yet like one we have on before_filter/before_action or after_filer/after_action to run call back only on certain actions.</p>
+
+<h4>Resouces</h4>
+
+<ul>
+<li><a href="http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013">http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013</a></li>
+<li><a href="http://www.upgradingtorails4.com/">http://www.upgradingtorails4.com/</a></li>
+<li><a href="http://guides.rubyonrails.org/caching_with_rails.html">http://guides.rubyonrails.org/caching_with_rails.html</a></li>
+<li><a href="https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers">https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

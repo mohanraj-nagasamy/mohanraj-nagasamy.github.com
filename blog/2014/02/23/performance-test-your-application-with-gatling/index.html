@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Performance test your application with Gatling - mohanraj nagasamy</title>
+  <meta name="author" content="Mohanraj Nagasamy">
+
+  
+  <meta name="description" content="When you think about performance testing your application, you may think about the below picture and a tool to test. One open source tool that comes &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mohanraj-nagasamy.github.io/blog/2014/02/23/performance-test-your-application-with-gatling">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="mohanraj nagasamy" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-48302354-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">mohanraj nagasamy</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mohanraj-nagasamy.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Performance Test Your Application With Gatling</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-23T19:18:00-07:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>When you think about performance testing your application, you may think about the below picture and a tool to test.</p>
+
+<p><img class="right" src="/images/truck-load.png" title="image" alt="images"></p>
+
+<p>One open source tool that comes to mind is <a href="http://jmeter.apache.org/">JMeter</a>. For very simple tests, I tend use <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">apache benchmarking</a>. But there are other tools like <a href="http://grinder.sourceforge.net/">Grinder</a>, <a href="http://www8.hp.com/us/en/software-solutions/software.html?compURI=1175451">LoadRunner</a>, <a href="http://www.neotys.com/product/overview-neoload.html">NeoLoad</a>, <a href="http://tsung.erlang-projects.org/">Tsung</a>, and <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a> for web services testing. Then there is <a href="https://code.google.com/p/caliper/">Caliper</a> and <a href="http://openjdk.java.net/projects/code-tools/jmh">jmh</a> for micro benchmarking, which target use cases.</p>
+
+<!-- more -->
+
+
+<h5>So what makes <a href="http://gatling-tool.org/">Gatling</a> different from other tools is:</h5>
+
+<ul>
+<li>Usability – GUI vs Script (Code)</li>
+<li>Maintainability</li>
+<li>Reporting</li>
+<li>Integration with other tools like Maven, Jenkins</li>
+<li>Underlying Technologies</li>
+</ul>
+
+
+<h4>Usability – GUI vs Script (Code)</h4>
+
+<p>Using the GUI to do performance tests is difficult and unintuitive.</p>
+
+<p>Gatling provides an elegant <a href="http://gatling-tool.org/cheat-sheet/">DSL</a> written in <a href="http://www.scala-lang.org/">Scala</a> to describe your test scenarios of your app. DSL scripts are intuitive and simple to create. Using the recorder (like <a href="http://jmeter.apache.org/">JMeter</a>) it can generate scripts that will look similar to a hand written one. Your can then tweak the generated scripts anyway you want.</p>
+
+<p>You don’t have to know Scala to write scripts. You can get an introduction <a href="http://twitter.github.io/scala_school/">here</a> or just think of them as Javascript code (at least for usage purpose). Scals’s variable declarations are either by var (mutable variable) or by val (immutable variable).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="err"> </span><span class="k">val</span> <span class="n">httpConf</span> <span class="k">=</span> <span class="n">http</span><span class="o">.</span><span class="n">baseURL</span><span class="o">(</span><span class="s">&quot;https://twitter.com&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">  </span><span class="k">val</span> <span class="n">scn</span> <span class="k">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">&quot;Twitter test&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">    </span><span class="o">.</span><span class="n">exec</span><span class="o">(</span>
+</span><span class='line'><span class="err">      </span><span class="n">http</span><span class="o">(</span><span class="s">&quot;get login&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">&quot;/&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">authenticity_token</span><span class="o">))</span>
+</span><span class='line'><span class="err">    </span><span class="o">.</span><span class="n">exec</span><span class="o">(</span>
+</span><span class='line'><span class="err">      </span><span class="n">http</span><span class="o">(</span><span class="s">&quot;post login &amp; get the twitter page&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">post</span><span class="o">(</span><span class="s">&quot;/sessions&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">param</span><span class="o">(</span><span class="s">&quot;session[username_or_email]&quot;</span><span class="o">,</span> <span class="n">username</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">param</span><span class="o">(</span><span class="s">&quot;session[password]&quot;</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">param</span><span class="o">(</span><span class="s">&quot;authenticity_token&quot;</span><span class="o">,</span> <span class="n">authenticity_token</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">))</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">bodyString</span><span class="o">(</span><span class="s">&quot;test_some_text&quot;</span><span class="o">).</span><span class="n">exists</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">regex</span><span class="o">(</span><span class="s">&quot;&lt;strong&gt;444&lt;/strong&gt; Tweets&quot;</span><span class="o">).</span><span class="n">exists</span><span class="o">))</span>
+</span><span class='line'><span class="err">    </span><span class="o">.</span><span class="n">exec</span><span class="o">(</span>
+</span><span class='line'><span class="err">      </span><span class="n">http</span><span class="o">(</span><span class="s">&quot;logout from twitter&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">post</span><span class="o">(</span><span class="s">&quot;/logout&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="err">        </span><span class="o">.</span><span class="n">check</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">)))</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="n">setUp</span><span class="o">(</span><span class="n">scn</span><span class="o">.</span><span class="n">inject</span><span class="o">(</span><span class="n">atOnce</span><span class="o">(</span><span class="mi">2</span> <span class="n">users</span><span class="o">))).</span><span class="n">protocols</span><span class="o">(</span><span class="n">httpConf</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I created the above script, which load tests the twitter.com site. You can checkout the full source code <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo">here</a>, which is a cloned maven project from <a href="https://github.com/excilys/gatling/tree/master/gatling-maven-plugin">gatling-maven-plugin</a>. Take a look at the <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo/blob/master/src/test/scala/twitter/TwitterSimulation.scala">TwitterSimulation.scala</a> file that I added to the project.</p>
+
+<p>Once downloaded, execute with the following maven command with your tweeter username and password:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">mvn</span> <span class="n">gatling</span><span class="k">:</span><span class="kt">execute</span> <span class="kt">-Dgatling.simulationClass</span><span class="o">=</span><span class="n">twitter</span><span class="o">.</span><span class="nc">TwitterSimulation</span> <span class="o">-</span><span class="nc">Dusers</span><span class="o">=&lt;</span><span class="n">no</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">concurrent</span><span class="o">-</span><span class="n">users</span><span class="o">&gt;</span> <span class="o">-</span><span class="nc">Dtweets</span><span class="o">=&lt;</span><span class="n">no</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">your</span><span class="o">-</span><span class="n">tweets</span><span class="o">&gt;</span> <span class="o">-</span><span class="nc">Dusername</span><span class="o">=&lt;</span><span class="n">twitter</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="nc">Dpassword</span><span class="o">=&lt;</span><span class="n">twitter</span><span class="o">-</span><span class="n">password</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Note</em>: Keep the concurrent user count between 2 and 5. If you add more load twitter they will display the CAPTCHA login page instead. This is to avoid a <a href="http://en.wikipedia.org/wiki/Denial-of-service_attack">DoS</a> attack. In other words the login test may fail intermittently based on how many times you run the test.</p>
+
+<p>This script gets you to twitter.com and posts with username, password and authenticity token that is get generated when you request twitter.com.</p>
+
+<p>You can extract values from the HTTP response like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">authenticity_token</span> <span class="k">=</span> <span class="n">regex</span><span class="o">(</span><span class="s">&quot;&quot;&quot;input type=&quot;hidden&quot; value=&quot;([^&quot;]*)&quot;&quot;&quot;&quot;</span><span class="o">).</span><span class="n">saveAs</span><span class="o">(</span><span class="s">&quot;authenticity_token&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With the response from the HTTP post, it verifies the http status code and the content of the body using bodyString()and regex() utility methods. It also logs-out from the site.</p>
+
+<p>Real users usually reads the pages and clicks through the links. To get this real user simulation, there is a <a href="https://github.com/excilys/gatling/wiki/Structure-Elements#wiki-pause">pause()</a> method that can be used for this purpose. There are other <a href="https://github.com/excilys/gatling/wiki/Structure-Elements">structural elements</a> available.</p>
+
+<p>The project has two more tests – basic and advanced simulation. Take a look at and run them in the same way as twitter one.</p>
+
+<p>Gatling automatically handles http headers and cookies. It also auto redirects based on headers, which makes testing sessions and OAuth based applications easier.</p>
+
+<p>Testing a RESTful service layer is mush easier with a script than using the GUI.
+Here is nice blog post on how Gatling is used to test the <a href="http://maxdemarzi.com/2013/02/14/neo4j-and-gatling-sitting-in-a-tree-performance-t-e-s-t-ing/">Neo4j REST</a> interface.</p>
+
+<p>To test the SOAP interface, I may use <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a>, which handles most of the SOAP plumbing. You can use Gatling to load test SOAP as well, however you will have to write the SOAP headers and xml body yourself.</p>
+
+<p><em>Note</em>: Gatling 2.x undertook major <a href="https://github.com/excilys/gatling/wiki/Gatling-2">API</a> refactoring and is not compatible with Gatling 1.x. You may want to watch out for this. I am using version 2.0.0-M3 in all my examples.</p>
+
+<p>There are other tools that support scripting like Beanshell, Python, Clojure and Erlang. But they are not simple to use and learn like Gatling.</p>
+
+<h4>Maintainability</h4>
+
+<p>A script is always easier to modify as a project evolves than maintaining a GUI based load test file. A script also fits very well into your daily workflow as it integrates very well with developer tools like maven, jenkins and your favorite <a href="https://github.com/excilys/gatling/wiki/Ide-integration">IDE</a>.</p>
+
+<h4>Reporting</h4>
+
+<p>Gatling generates nice and easy to understand <a href="https://github.com/excilys/gatling/wiki/Reports">static reports</a> with metrics, which easily can be shared with anyone on your team. The reports are static and can be run with the daily build or when you release your application. You can then compare the results between each release to monitor how the app is performing.
+You can also send the simulation data to <a href="https://github.com/excilys/gatling/wiki/Graphite">Graphite</a> which gives you live statistics.</p>
+
+<h4>Integration with other tools and IDEs</h4>
+
+<p>Gatling integrates with other tools of your choice (which supports scala) like <a href="https://github.com/excilys/gatling/wiki/Maven-plugin">maven</a> and eclipse (or Intelli J) to integrate with your daily workflow. Thus, you don’t have to use another tool to load test your app. There is also a <a href="https://github.com/excilys/gatling/wiki/Jenkins-Plugin">Jenkins plugin</a> available.</p>
+
+<h4>Underlying Technologies</h4>
+
+<p>Gatling uses <a href="http://en.wikipedia.org/wiki/Actor_model">actor model</a> and doesn’t require 1 thread per user like <a href="http://jmeter.apache.org/">JMeter</a>. This is one of the main reasons that JMeter tends to choke on a high load scenario.</p>
+
+<p>Gatling is built on <a href="http://akka.io/">Akka actors</a> to handle large-scale tests and Scala’s DSL capability to build clean and simple scripts. It also uses <a href="https://github.com/AsyncHttpClient/async-http-client">asynchronous http client</a> and non-blocking IO libraries (<a href="http://netty.io/">Netty</a>, <a href="http://grizzly.java.net/">Grizzly</a>).</p>
+
+<h4>Conclusion</h4>
+
+<p>Gatling is definitely a nice tool to have under your belt. Check out their <a href="https://github.com/excilys/gatling/wiki">wiki</a> and <a href="https://github.com/excilys/gatling">soucecode</a>. It has great documentation.</p>
+
+<p>Thanks to <a href="https://twitter.com/whittierta">@whittierta</a> for proofreading and suggestions.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mohanraj Nagasamy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-23T19:18:00-07:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/performance/'>Performance</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/23/blocks-in-java-lang/" title="Previous Post: Blocks in Java Lang">&laquo; Blocks in Java Lang</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/23/performance-test-your-application-with-gatling/">Performance test your application with Gatling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/23/blocks-in-java-lang/">Blocks in Java Lang</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4/">Browser Cache: How ETags works in Rails 3 and Rails 4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/https://github.com/mohanraj-nagasamy">@https://github.com/mohanraj-nagasamy</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'https://github.com/mohanraj-nagasamy',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Mohanraj Nagasamy -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
