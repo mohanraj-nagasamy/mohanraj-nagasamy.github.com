@@ -8,7 +8,7 @@ categories: Notes
 
 I went to [Utah Code Camp 2014](http://utahcodecamp.com/). It has happened at University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with [great schedule ](/assets/posts/UTCCschedule2014.pdf) this time.
 
-I want to capture some notes from the sessions that I went to.
+I want to capture some notes from the sessions I went to.
 
 #### Conceptual Data Modeling by *Tyler Young*
 Tyler talked about ORM tool - this not the [tool](http://en.wikipedia.org/wiki/Object-relational_mapping) you are thinking. It is about [object-role modeling ](http://www.ormfoundation.org/) and how you can use this tool to do modeling and generate ER diagrams and SQLs for different DBs.
