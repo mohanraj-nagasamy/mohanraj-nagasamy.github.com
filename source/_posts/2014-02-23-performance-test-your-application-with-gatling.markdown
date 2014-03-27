@@ -8,7 +8,7 @@ categories: Performance
 
 When you think about performance testing your application, you may think about the below picture and a tool to test.
 
-{% img right /images/truck-load.png 'image' 'images' %}
+{% img right /images/posts/truck-load.png 'image' 'images' %}
 
 One open source tool that comes to mind is [JMeter](http://jmeter.apache.org/). For very simple tests, I tend use [apache benchmarking](http://httpd.apache.org/docs/2.2/programs/ab.html). But there are other tools like [Grinder](http://grinder.sourceforge.net/), [LoadRunner](http://www8.hp.com/us/en/software-solutions/software.html?compURI=1175451), [NeoLoad](http://www.neotys.com/product/overview-neoload.html), [Tsung](http://tsung.erlang-projects.org/), and [SoapUI](http://www.soapui.org/Getting-Started/load-testing.html) for web services testing. Then there is [Caliper](https://code.google.com/p/caliper/) and [jmh](http://openjdk.java.net/projects/code-tools/jmh) for micro benchmarking, which target use cases.
 

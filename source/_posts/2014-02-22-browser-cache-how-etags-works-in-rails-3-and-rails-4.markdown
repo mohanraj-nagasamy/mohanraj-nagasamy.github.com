@@ -12,7 +12,7 @@ Entity tags (ETags) are a mechanism that web/application servers and browsers us
 
 Rails 3 and Rails 4 uses ETags by default and let’s look at how they work first:
 
-{% img center /images/etags-rails-3-and-rails-4.png 'image' 'images' %}
+{% img center /images/posts/etags-rails-3-and-rails-4.png 'image' 'images' %}
 
 Lets say you are going to a blog website and requesting a list of posts:
 
