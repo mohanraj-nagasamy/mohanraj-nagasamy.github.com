@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Java Performance - mohanraj nagasamy</title>
+  <meta name="author" content="Mohanraj Nagasamy">
+
+  
+  <meta name="description" content="Notes from Java Performance by Charlie Hunt. Reference book by Charlie Hunt and Binu John. Lesson 1: JVM Overview From Java 7u21, there is server JRE &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mohanraj-nagasamy.github.io/blog/2014/03/12/java-performance">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="mohanraj nagasamy" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-48302354-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">mohanraj nagasamy</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mohanraj-nagasamy.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Java Performance</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-12T21:20:11-06:00" pubdate data-updated="true">Mar 12<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Notes from <a href="http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554">Java Performance</a> by Charlie Hunt. Reference <a href="http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528">book</a> by Charlie Hunt and Binu John.</p>
+
+<h4>Lesson 1: JVM Overview</h4>
+
+<ul>
+<li><p>From Java 7u21, there is <a href="http://www.oracle.com/technetwork/java/javase/downloads/server-jre7-downloads-1931105.html">server JRE</a> available for UNIX 64 bit OSes. It has got it everything jdk has, except no browser plug-in, no auto updater.</p></li>
+<li><p>Understand the major components of a modern Java Virtual Machine</p>
+
+<ul>
+<li>HotSpot VM runtime</li>
+<li>Garbage collector/ memory manager
+
+<ul>
+<li>Generational GC &ndash; it partitions the Java heap into two or more regions / generations
+
+<ul>
+<li>Young vs Old</li>
+</ul>
+</li>
+<li>Permanent Generation &ndash; Holds class data structures
+
+<ul>
+<li>In Java 8 &ndash; it has been eliminated in favor of a meta-space</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>JIT Compiler
+
+<ul>
+<li>Generates native byte code</li>
+<li>Client mode</li>
+<li>Server mode</li>
+<li>Tiered &ndash; Default In Java 8 &ndash; enabled via -XX:+TieredCompilation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Runtime subsystem</p>
+
+<ul>
+<li><code>-XX:+PrintFlagsFinal</code></li>
+<li><code>-XX:+PrintGCDetails</code></li>
+</ul>
+</li>
+<li>Understand the memory management garbage collection (GC) subsystem
+
+<ul>
+<li>jvisualvm
+
+<ul>
+<li>Install plug-in visual GC</li>
+<li>Install memory-pool plug-in from <a href="https://java.net/projects/memorypoolview">here</a></li>
+<li>Once objects reaches 15 max tenuring, will promoted to old gen space</li>
+</ul>
+</li>
+<li>JIT compiler subsystem
+
+<ul>
+<li>Look at code cache from memory-pool plug-in for JIT compilation</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<h4>Lesson 2: Collecting Performance Statistics</h4>
+
+<ul>
+<li>Understand the importance of a methodology</li>
+<li>Understand which operating system metrics to monitor
+
+<ul>
+<li><p>Understand which operating system metrics to monitor: Monitor metrics on Windows.
+  You can monitoring CPU, Memory, Network:</p>
+
+<ol>
+<li> GUI Tool: Performance Monitor</li>
+<li> CMD Tool: <code>typeperf</code></li>
+</ol>
+</li>
+<li><p>Understand which operating system metrics to monitor: Monitor metrics on Linux</p>
+
+<ol>
+<li> GUI Tool: System Monitory in Ubuntu</li>
+<li>CMD tool: <code>vm_stat</code> <interval>
+           <code>mpstat -P ALL</code>
+           <code>top</code></li>
+<li>Monitor the CPU Scheduler Run Queue
+  use vmstat to monitor run queue</li>
+<li>Monitor High Voluntary Context Switching
+
+<ul>
+<li>Can indicate Java application that are experiencing lock contention
+
+<ul>
+<li>Makes it difficulties in scaling</li>
+</ul>
+</li>
+<li>Use <code>pidstat</code> to monitor (need <code>sysstat</code> package required)  <br/>
+  ex: <code>pidstat -w -I -t -p &lt;pid&gt; &lt;interval&gt;</code>
+Monitor network
+use nicstat
+Monitor disk/io
+use iostat</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Understand what JVM metrics to monitor
+
+<ul>
+<li>Important JVM metrics:</li>
+<li>Garbage collection:
+  Use <code>PrintGCDetails</code> to log gc details
+  you can also use <code>-XX:+PrintGCDateStamps</code> or <code>-XX:+PrintGCTimeStamps</code> &ndash; gives point and time when the gc has occurred
+  use <code>-Xloggc=/somepath/gc.log</code> &ndash; to log gc log</li>
+<li>Monitor app exectution time and stopped time
+
+<ul>
+<li>Use <code>-XX:+PrintGCApplicationStoppedTime</code> and <code>-XX:+PrintApplicationConcurrentTime</code></li>
+</ul>
+</li>
+<li>Other to consider but not necessarily required
+
+<ul>
+<li>JIT compilation: <code>-XX:+PrintCompilation</code>, <code>-XX:+PrintInlining</code> &ndash; these flags are not generally used.</li>
+<li>Fine tune JVM heap space sizes: <code>-XX:+PrintTenuringDistribution</code>, <code>PrintAdaptiveSizePolicy</code> (Paraller GC or G1 only)</li>
+</ul>
+</li>
+<li>Remote monitoring using <code>jstatd</code>
+
+<ul>
+<li>Requires a security manager and security policy file</li>
+</ul>
+</li>
+<li>App level metrics to monitor:
+
+<ul>
+<li>Begin and end time of a transaction</li>
+<li>Observing app level JMX MBeans especially those that offer performance information</li>
+<li>Java EE container stats:
+
+<ul>
+<li>Available JDBC connections</li>
+<li>Active/Available Threads</li>
+<li>Request arrival rate</li>
+<li>Request response times</li>
+</ul>
+</li>
+<li>Build App level stats via <code>MBeans</code>. Example is on the book.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<h4>Lesson 3: Understand HotSpot JVM GC Logs</h4>
+
+<ul>
+<li>Understand how Parallel GC works
+
+<ul>
+<li>Understand Parallel GC logs</li>
+</ul>
+</li>
+<li>Understand how CMS GC works
+
+<ul>
+<li>Understand CMS GC logs</li>
+</ul>
+</li>
+<li>Understand how G1 GC works
+
+<ul>
+<li>Understand G1 GC logs</li>
+</ul>
+</li>
+</ul>
+
+
+<blockquote><p>All of them produces totally different information</p></blockquote>
+
+<hr />
+
+<h4>Lesson 4: Tune the HotSpot JVM Step-by-Step</h4>
+
+<ul>
+<li>Create a plan of attack
+
+<ul>
+<li>Throughput vs Latency vs Footprint</li>
+</ul>
+</li>
+<li>Understand the step-by-step process</li>
+<li>Determine memory footprint size</li>
+<li>Tune for latency / responsiveness:    Tools to help visualize gc pause times: <a href="https://java.net/projects/gchisto">gchisto</a>, <a href="http://www.jclarity.com/censum/">censum</a> from jclarity.com</li>
+<li>Tune for throughput: <code>-XX:+AggresiveOpts</code> to turn on aggressive gc optimizations</li>
+</ul>
+
+
+<h2>More resources:</h2>
+
+<ul>
+<li><a href="http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf">http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf</a></li>
+<li><a href="http://java.ociweb.com/mark/other-presentations/JavaGC.pdf">http://java.ociweb.com/mark/other-presentations/JavaGC.pdf</a></li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html">http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html</a></li>
+<li><a href="http://www-01.ibm.com/support/docview.wss?uid=swg27013456&amp;aid=1">http://www-01.ibm.com/support/docview.wss?uid=swg27013456&amp;aid=1</a></li>
+<li><a href="https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf">https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf</a></li>
+<li><a href="http://www.infoq.com/articles/book-java-performance">http://www.infoq.com/articles/book-java-performance</a></li>
+<li><a href="http://www.infoq.com/presentations/Extreme-Performance-Java">http://www.infoq.com/presentations/Extreme-Performance-Java</a></li>
+</ul>
+
+
+<p>I would hight encourage to read the <a href="http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528">book</a> or take the <a href="http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554">LiveLessons</a>. Charlie Hunt is awesome!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mohanraj Nagasamy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-12T21:20:11-06:00" pubdate data-updated="true">Mar 12<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/performance/'>Performance</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/03/08/interesting-project-nashorn/" title="Previous Post: Interesting project: Nashorn">&laquo; Interesting project: Nashorn</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/03/18/utah-code-camp-2014-notes/" title="Next Post: Utah Code Camp 2014: Notes">Utah Code Camp 2014: Notes &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/18/utah-code-camp-2014-notes/">Utah Code Camp 2014: Notes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/12/java-performance/">Java Performance</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/08/interesting-project-nashorn/">Interesting project: Nashorn</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/23/performance-test-your-application-with-gatling/">Performance test your application with Gatling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/23/blocks-in-java-lang/">Blocks in Java Lang</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/https://github.com/mohanraj-nagasamy">@https://github.com/mohanraj-nagasamy</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'https://github.com/mohanraj-nagasamy',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Mohanraj Nagasamy -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

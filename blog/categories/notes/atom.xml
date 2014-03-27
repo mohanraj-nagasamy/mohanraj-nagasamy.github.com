@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Notes | mohanraj nagasamy]]></title>
+  <link href="http://mohanraj-nagasamy.github.io/blog/categories/notes/atom.xml" rel="self"/>
+  <link href="http://mohanraj-nagasamy.github.io/"/>
+  <updated>2014-03-26T23:06:04-06:00</updated>
+  <id>http://mohanraj-nagasamy.github.io/</id>
+  <author>
+    <name><![CDATA[Mohanraj Nagasamy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Utah Code Camp 2014: Notes]]></title>
+    <link href="http://mohanraj-nagasamy.github.io/blog/2014/03/18/utah-code-camp-2014-notes/"/>
+    <updated>2014-03-18T15:54:41-06:00</updated>
+    <id>http://mohanraj-nagasamy.github.io/blog/2014/03/18/utah-code-camp-2014-notes</id>
+    <content type="html"><![CDATA[<p>I went to <a href="http://utahcodecamp.com/">Utah Code Camp 2014</a>. It has happened at University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with <a href="/assets/posts/UTCCschedule2014.pdf">great schedule </a> this time.</p>
+
+<p>I want to captures some notes from the sessions that I went to.</p>
+
+<h4>Conceptual Data Modeling by <em>Tyler Young</em></h4>
+
+<p>Tyler talked about ORM tool &ndash; this not the <a href="http://en.wikipedia.org/wiki/Object-relational_mapping">tool</a> you are thinking. It is about <a href="http://www.ormfoundation.org/">object-role modeling </a> and how you can use this tool to do modeling and generate ER diagrams and SQLs for different DBs.</p>
+
+<ul>
+<li><a href="http://www.ormfoundation.org/files/10/default.aspx">Norma</a> &ndash; plugin for visual studio</li>
+<li><a href="http://dataconstellation.com/ActiveFacts/index.shtml">ActiveFacts</a> &ndash; Ruby implementation</li>
+</ul>
+
+
+<h4>Introduction to HBase by <em>Giri Vislawath</em></h4>
+
+<p>Giri talked about HBase overview. <a href="/assets/posts/introduction_to_hbase.pptx">Slides</a></p>
+
+<h4>Building web apps with node.js by <em>Scott Hillman</em></h4>
+
+<p>Scott went over Node.js&rsquo;s event loop model. And explained why it is not good for CPU bound intensive tasks but it is great for IO bound tasks.
+Talked about npm. And why there is only one package manager (because they are awesome and no one wants yet an another one).</p>
+
+<p>Talked about node developer work flow with tools like <a href="http://nodemon.io/">nodemon</a> and <a href="https://github.com/isaacs/node-supervisor">node-supervisor</a>.</p>
+
+<h4>Machine Learning the easy way with Weka by <em>Alton Alexander</em></h4>
+
+<p><a href="http://www.cs.waikato.ac.nz/ml/weka/">Weka</a> is a tool that will give you easy and fast ML results. Programmed with all of the common ML algorithms, you can start to impress fast!. He went over the Weka tool GUI and some of the ML algorithms.</p>
+
+<ul>
+<li>Wake has been used by pentaho for their <a href="http://community.pentaho.com/projects/data-mining/">data mining</a></li>
+<li><a href="http://wiki.pentaho.com/display/DATAMINING/Handling+Large+Data+Sets+with+Weka">Handling Large Data Sets with Weka</a></li>
+<li><a href="http://wiki.pentaho.com/display/DATAMINING/Data+Mining+Algorithms+and+Tools+in+Weka">Data Mining Algorithms and Tools in Weka</a></li>
+</ul>
+
+
+<h4>Ember.js Lessons Learned by <em><a href="http://www.justinball.com">Justin Ball</a></em></h4>
+
+<p>The slides are available <a href="http://www.justinball.com/2014/03/12/emberjs-lessons-learned-so-far">here</a>.</p>
+
+<ul>
+<li>Underscorejs&rsquo;s <a href="http://underscorejs.org/#debounce">debounce</a>.</li>
+<li>And <a href="http://underscorejs.org/#throttle">throttle</a>.</li>
+</ul>
+
+
+<p>There is jQuery <a href="http://benalman.com/code/projects/jquery-throttle-debounce/examples/debounce/">plugin</a> as well.</p>
+
+<h4>And useful links</h4>
+
+<ul>
+<li><a href="/assets/posts/LocalUserGroupsFlyer.pdf">List of local user groups</a></li>
+<li><a href="http://www.freelancersshow.com/">devchat</a></li>
+<li>And met some Indian friends from tomax</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
