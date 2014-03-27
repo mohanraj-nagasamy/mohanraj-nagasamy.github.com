@@ -6,17 +6,15 @@ comments: true
 categories: Notes
 ---
 
-I went to [Utah Code Camp 2014](http://utahcodecamp.com/). It has happened at University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with [great schedule](/assets/posts/UTCCschedule2014.pdf) this time.
+I went to [Utah Code Camp 2014](http://utahcodecamp.com/). It has happened at University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with [great schedule ](/assets/posts/UTCCschedule2014.pdf) this time.
 
 I want to captures some notes from the sessions that I went to.
 
 #### Conceptual Data Modeling by *Tyler Young*
-Tyler talked about ORM tool - this not the [tool](http://en.wikipedia.org/wiki/Object-relational_mapping) you are thinking. It is about [object-role modeling](http://www.ormfoundation.org/) and how you can use this tool to do modeling and generate ER diagrams and SQLs for different DBs.
+Tyler talked about ORM tool - this not the [tool](http://en.wikipedia.org/wiki/Object-relational_mapping) you are thinking. It is about [object-role modeling ](http://www.ormfoundation.org/) and how you can use this tool to do modeling and generate ER diagrams and SQLs for different DBs.
 
-* Norma -> plugin for visual studio
-* [ActiveFacts](http://dataconstellation.com/ActiveFacts/index.shtml) -> Ruby implementation
-
-`I guess I went to the wrong session :sleepy:`
+* [Norma](http://www.ormfoundation.org/files/10/default.aspx) - plugin for visual studio
+* [ActiveFacts](http://dataconstellation.com/ActiveFacts/index.shtml) - Ruby implementation
 
 #### Introduction to HBase by *Giri Vislawath*
 Giri talked about HBase overview. [Slides](/assets/posts/introduction_to_hbase.pptx)
@@ -49,5 +47,5 @@ There is jQuery [plugin](http://benalman.com/code/projects/jquery-throttle-debou
 
 * [List of local user groups](/assets/posts/LocalUserGroupsFlyer.pdf)
 * [devchat](http://www.freelancersshow.com/)
-* And Met some Indian friends from tomax
+* And met some Indian friends from tomax
 
