@@ -32,6 +32,7 @@ Notes from [Java Performance](http://www.informit.com/store/java-performance-liv
 		- Install plug-in visual GC
 		- Install memory-pool plug-in from [here](https://java.net/projects/memorypoolview)
 		- Once objects reaches 15 max tenuring, will promoted to old gen space
+		- [jTop](https://code.google.com/p/hatter-source-code/wiki/jtop)
 	- JIT compiler subsystem
 		- Look at code cache from memory-pool plug-in for JIT compilation 
 ---
@@ -106,6 +107,7 @@ Notes from [Java Performance](http://www.informit.com/store/java-performance-liv
 
 ## More resources:
 
+- http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html
 - http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf
 - http://java.ociweb.com/mark/other-presentations/JavaGC.pdf
 - http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html
@@ -113,6 +115,13 @@ Notes from [Java Performance](http://www.informit.com/store/java-performance-liv
 - https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf
 - http://www.infoq.com/articles/book-java-performance
 - http://www.infoq.com/presentations/Extreme-Performance-Java
+- http://www.oracle.com/technetwork/java/javaseproducts/mission-control/index.html
+- [Java Language and Virtual Machine Specifications](http://docs.oracle.com/javase/specs/)
+- [linux-performance-analysis-and-tools](http://hatter-source-code.googlecode.com/svn/trunk/attachments/wiki/performance/linux-performance-analysis-and-tools.pdf)
+- [Study_Java_Diagnosis](https://code.google.com/p/hatter-source-code/wiki/Study_Java_Diagnosis)
+- [Java Performance Tuning tool reports](http://www.javaperformancetuning.com/tools/index.shtml)
+- [Samurai](http://samuraism.jp/samurai/en/index.html)
+- [OSCON2012 TroubleShoot Java](http://people.apache.org/~billa/oscon2012/OSCON2012TroubleShootJava.pdf)
 
-I would hight encourage to read the [book](http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528) or take the [LiveLessons](http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554). Charlie Hunt is awesome!
+I would highly encourage to read the [book](http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528) or take the [LiveLessons](http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554). Charlie Hunt is awesome!
 
