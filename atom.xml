@@ -4,7 +4,7 @@
   <title><![CDATA[mohanraj nagasamy]]></title>
   <link href="http://mohanraj-nagasamy.github.io/atom.xml" rel="self"/>
   <link href="http://mohanraj-nagasamy.github.io/"/>
-  <updated>2014-03-26T23:06:04-06:00</updated>
+  <updated>2014-04-14T19:16:20-06:00</updated>
   <id>http://mohanraj-nagasamy.github.io/</id>
   <author>
     <name><![CDATA[Mohanraj Nagasamy]]></name>
@@ -20,7 +20,7 @@
     <id>http://mohanraj-nagasamy.github.io/blog/2014/03/18/utah-code-camp-2014-notes</id>
     <content type="html"><![CDATA[<p>I went to <a href="http://utahcodecamp.com/">Utah Code Camp 2014</a>. It has happened at University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with <a href="http://mohanraj-nagasamy.github.io/assets/posts/UTCCschedule2014.pdf">great schedule </a> this time.</p>
 
-<p>I want to captures some notes from the sessions that I went to.</p>
+<p>I want to capture some notes from the sessions I went to.</p>
 
 <h4>Conceptual Data Modeling by <em>Tyler Young</em></h4>
 
@@ -136,6 +136,7 @@ Talked about npm. And why there is only one package manager (because they are aw
 <li>Install plug-in visual GC</li>
 <li>Install memory-pool plug-in from <a href="https://java.net/projects/memorypoolview">here</a></li>
 <li>Once objects reaches 15 max tenuring, will promoted to old gen space</li>
+<li><a href="https://code.google.com/p/hatter-source-code/wiki/jtop">jTop</a></li>
 </ul>
 </li>
 <li>JIT compiler subsystem
@@ -294,6 +295,7 @@ use iostat</li>
 <h2>More resources:</h2>
 
 <ul>
+<li><a href="http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html">http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html</a></li>
 <li><a href="http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf">http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf</a></li>
 <li><a href="http://java.ociweb.com/mark/other-presentations/JavaGC.pdf">http://java.ociweb.com/mark/other-presentations/JavaGC.pdf</a></li>
 <li><a href="http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html">http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html</a></li>
@@ -301,10 +303,43 @@ use iostat</li>
 <li><a href="https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf">https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf</a></li>
 <li><a href="http://www.infoq.com/articles/book-java-performance">http://www.infoq.com/articles/book-java-performance</a></li>
 <li><a href="http://www.infoq.com/presentations/Extreme-Performance-Java">http://www.infoq.com/presentations/Extreme-Performance-Java</a></li>
+<li><a href="http://www.oracle.com/technetwork/java/javaseproducts/mission-control/index.html">http://www.oracle.com/technetwork/java/javaseproducts/mission-control/index.html</a></li>
+<li><a href="http://docs.oracle.com/javase/specs/">Java Language and Virtual Machine Specifications</a></li>
+<li><a href="http://hatter-source-code.googlecode.com/svn/trunk/attachments/wiki/performance/linux-performance-analysis-and-tools.pdf">linux-performance-analysis-and-tools</a></li>
+<li><a href="https://code.google.com/p/hatter-source-code/wiki/Study_Java_Diagnosis">Study_Java_Diagnosis</a></li>
+<li><a href="http://www.javaperformancetuning.com/tools/index.shtml">Java Performance Tuning tool reports</a></li>
+<li><a href="http://samuraism.jp/samurai/en/index.html">Samurai</a></li>
+<li><a href="http://people.apache.org/~billa/oscon2012/OSCON2012TroubleShootJava.pdf">OSCON2012 TroubleShoot Java</a></li>
 </ul>
 
 
-<p>I would hight encourage to read the <a href="http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528">book</a> or take the <a href="http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554">LiveLessons</a>. Charlie Hunt is awesome!</p>
+<p>I would highly encourage to read the <a href="http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528">book</a> or take the <a href="http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554">LiveLessons</a>. Charlie Hunt is awesome!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Clojure Fundamentals]]></title>
+    <link href="http://mohanraj-nagasamy.github.io/blog/2014/03/09/clojure-fundamentals/"/>
+    <updated>2014-03-09T12:14:14-06:00</updated>
+    <id>http://mohanraj-nagasamy.github.io/blog/2014/03/09/clojure-fundamentals</id>
+    <content type="html"><![CDATA[<p>There are things I want to remember about Clojure lang.
+Im listing dowing things for me, So I can come back it.</p>
+
+<p><a href="http://alandipert.github.io/oscon2012-clojure">http://alandipert.github.io/oscon2012-clojure</a></p>
+
+<p><a href="http://clojure.org/cheatsheet">http://clojure.org/cheatsheet</a></p>
+
+<p><a href="http://clojure-cookbook.com/">http://clojure-cookbook.com/</a></p>
+
+<p><a href="http://learnxinyminutes.com/docs/clojure/">http://learnxinyminutes.com/docs/clojure/</a></p>
+
+<p><a href="http://adambard.com/blog/clojure-in-15-minutes/">http://adambard.com/blog/clojure-in-15-minutes/</a></p>
+
+<p><a href="http://adambard.com/blog/PHP-ruby-python-clojure-webapps-by-example/">http://adambard.com/blog/PHP-ruby-python-clojure-webapps-by-example/</a></p>
+
+<p><a href="http://clojure-notes.rubylearning.org/">http://clojure-notes.rubylearning.org/</a></p>
+
+<p>Clojure Inside Out</p>
 ]]></content>
   </entry>
   

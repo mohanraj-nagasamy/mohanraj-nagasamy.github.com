@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Performance | mohanraj nagasamy]]></title>
   <link href="http://mohanraj-nagasamy.github.io/blog/categories/performance/atom.xml" rel="self"/>
   <link href="http://mohanraj-nagasamy.github.io/"/>
-  <updated>2014-03-26T23:06:04-06:00</updated>
+  <updated>2014-04-14T19:16:20-06:00</updated>
   <id>http://mohanraj-nagasamy.github.io/</id>
   <author>
     <name><![CDATA[Mohanraj Nagasamy]]></name>
@@ -72,6 +72,7 @@
 <li>Install plug-in visual GC</li>
 <li>Install memory-pool plug-in from <a href="https://java.net/projects/memorypoolview">here</a></li>
 <li>Once objects reaches 15 max tenuring, will promoted to old gen space</li>
+<li><a href="https://code.google.com/p/hatter-source-code/wiki/jtop">jTop</a></li>
 </ul>
 </li>
 <li>JIT compiler subsystem
@@ -230,6 +231,7 @@ use iostat</li>
 <h2>More resources:</h2>
 
 <ul>
+<li><a href="http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html">http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html</a></li>
 <li><a href="http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf">http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf</a></li>
 <li><a href="http://java.ociweb.com/mark/other-presentations/JavaGC.pdf">http://java.ociweb.com/mark/other-presentations/JavaGC.pdf</a></li>
 <li><a href="http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html">http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html</a></li>
@@ -237,10 +239,17 @@ use iostat</li>
 <li><a href="https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf">https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf</a></li>
 <li><a href="http://www.infoq.com/articles/book-java-performance">http://www.infoq.com/articles/book-java-performance</a></li>
 <li><a href="http://www.infoq.com/presentations/Extreme-Performance-Java">http://www.infoq.com/presentations/Extreme-Performance-Java</a></li>
+<li><a href="http://www.oracle.com/technetwork/java/javaseproducts/mission-control/index.html">http://www.oracle.com/technetwork/java/javaseproducts/mission-control/index.html</a></li>
+<li><a href="http://docs.oracle.com/javase/specs/">Java Language and Virtual Machine Specifications</a></li>
+<li><a href="http://hatter-source-code.googlecode.com/svn/trunk/attachments/wiki/performance/linux-performance-analysis-and-tools.pdf">linux-performance-analysis-and-tools</a></li>
+<li><a href="https://code.google.com/p/hatter-source-code/wiki/Study_Java_Diagnosis">Study_Java_Diagnosis</a></li>
+<li><a href="http://www.javaperformancetuning.com/tools/index.shtml">Java Performance Tuning tool reports</a></li>
+<li><a href="http://samuraism.jp/samurai/en/index.html">Samurai</a></li>
+<li><a href="http://people.apache.org/~billa/oscon2012/OSCON2012TroubleShootJava.pdf">OSCON2012 TroubleShoot Java</a></li>
 </ul>
 
 
-<p>I would hight encourage to read the <a href="http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528">book</a> or take the <a href="http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554">LiveLessons</a>. Charlie Hunt is awesome!</p>
+<p>I would highly encourage to read the <a href="http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528">book</a> or take the <a href="http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554">LiveLessons</a>. Charlie Hunt is awesome!</p>
 ]]></content>
   </entry>
   
