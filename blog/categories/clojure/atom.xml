@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Clojure | mohanraj nagasamy]]></title>
+  <link href="http://mohanraj-nagasamy.github.io/blog/categories/clojure/atom.xml" rel="self"/>
+  <link href="http://mohanraj-nagasamy.github.io/"/>
+  <updated>2014-09-08T16:08:00-06:00</updated>
+  <id>http://mohanraj-nagasamy.github.io/</id>
+  <author>
+    <name><![CDATA[Mohanraj Nagasamy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Clojure Fundamentals]]></title>
+    <link href="http://mohanraj-nagasamy.github.io/blog/2014/03/09/clojure-fundamentals/"/>
+    <updated>2014-03-09T12:14:14-06:00</updated>
+    <id>http://mohanraj-nagasamy.github.io/blog/2014/03/09/clojure-fundamentals</id>
+    <content type="html"><![CDATA[<p>I haven&rsquo;t this excited when I am learning programing languages. Clojure is very simple and powerful Lisp dialect on JVM.</p>
+
+<p>You code as data in Clojure. So my personal feeling is that Lisp dialects should have been the go to programming language to develop multi-tenant applications like <a href="http://blogs.workday.com/why_workday_is_different_by_design.html">Workday</a>, <a href="http://www.developerforce.com/media/ForcedotcomBookLibrary/Force.com_Multitenancy_WP_101508.pdf">Salesforce</a>. And to create rule engines. There has been some attempts made by <a href="https://github.com/rbrush/clara-rules">clara-rules</a> and <a href="https://github.com/hraberg/mimir">mimir</a> projects to create rule engines.
+We can store the Clojure code as data in any storage (ex: DB) and read into JVM memory as the semantics and the structures remain the same. It makes Clojure so powerful and elegant to work with.</p>
+
+<p>I would like list some of the resources that I used to learn Clojure.</p>
+
+<ul>
+<li><p><a href="https://github.com/alandipert">Alan Dipert</a> has 3 hour course on <a href="http://pluralsight.com/training/Courses/TableOfContents/clojure-fundamentals-part-one">pluralsight</a> and you find <a href="http://alandipert.github.io/oscon2012-clojure">course notes</a> which are highly useful.</p></li>
+<li><p><a href="http://clojure.org/cheatsheet">Clojure &ndash; Cheat Sheet</a></p></li>
+<li><p>O'Reilly&rsquo;s free online <a href="http://clojure-cookbook.com/">Clojure Cookbook</a></p></li>
+<li><p><a href="http://learnxinyminutes.com/docs/clojure/">http://learnxinyminutes.com/docs/clojure/</a></p></li>
+<li><p><a href="http://adambard.com/blog/clojure-in-15-minutes/">http://adambard.com/blog/clojure-in-15-minutes/</a></p></li>
+<li><p><a href="http://adambard.com/blog/PHP-ruby-python-clojure-webapps-by-example/">http://adambard.com/blog/PHP-ruby-python-clojure-webapps-by-example/</a></p></li>
+<li><p><a href="http://clojure-notes.rubylearning.org/">http://clojure-notes.rubylearning.org/</a></p></li>
+<li><p><a href="http://shop.oreilly.com/product/0636920030409.do">Clojure Inside Out</a> and course slides are available <a href="http://nealford.com/past.html">here</a>.</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

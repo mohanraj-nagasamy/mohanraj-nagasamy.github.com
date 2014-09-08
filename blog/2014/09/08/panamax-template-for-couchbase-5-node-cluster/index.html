@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Java - mohanraj nagasamy</title>
+  <title>Panamax template for couchbase 5 node cluster - mohanraj nagasamy</title>
   <meta name="author" content="Mohanraj Nagasamy">
 
   
-  <meta name="description" content="Category: Java">
+  <meta name="description" content="Panamax is Docker Management for Humans. You can get started with simple steps described here. It provides a friendly interface for users of Docker, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mohanraj-nagasamy.github.ioblog/categories/java">
+  <link rel="canonical" href="http://mohanraj-nagasamy.github.io/blog/2014/09/08/panamax-template-for-couchbase-5-node-cluster">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="mohanraj nagasamy" type="application/atom+xml">
@@ -74,35 +74,140 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Java</h1>
+    
+      <h1 class="entry-title">Panamax Template for Couchbase 5 Node Cluster</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-08T15:29:30-06:00" pubdate data-updated="true">Sep 8<span>th</span>, 2014</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>Panamax is Docker Management for Humans. You can get started with simple steps described <a href="http://panamax.io/get-panamax/">here</a>. It provides a friendly interface for users of Docker, Fleet &amp; CoreOS. With Panamax, you can easily create, share and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to outside world. You can start and stop docker containers everything within panamax web ui.</p>
 
-  
-  <h2>2014</h2>
+<p>I have created &ldquo;Panamax template for couchbase 5 node cluster&rdquo;. Let&rsquo;s see how simple it is to setup the cluster.</p>
 
-<article>
-  
-<h1><a href="/blog/2014/02/23/blocks-in-java-lang/">Blocks in Java Lang</a></h1>
-<time datetime="2014-02-23T18:29:28-07:00" pubdate><span class='month'>Feb</span> <span class='day'>23</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/java/'>Java</a></span>
-</footer>
+<!-- more -->
 
 
-</article>
+<p>Most of the steps taken from <a href="http://blog.abhinav.ca/blog/2014/07/31/kickstart-a-couchbase-cluster-with-docker">here</a>. I just made a panamax template.</p>
+
+<h4>Step 1 : Login into coreOS</h4>
+
+<p><code>panamax ssh</code></p>
+
+<h4>Step 2: Run the blow command from coreOS</h4>
+
+<p>  <code>docker ps</code></p>
+
+<p>  <code>for name in dustin_couchbase_{1..4}; do docker inspect -f '' $name; done</code></p>
+
+<p>  It will give you 4 IP address:</p>
+
+<ul>
+<li>172.17.36.140</li>
+<li>172.17.36.139</li>
+<li>172.17.36.142</li>
+<li>172.17.36.141</li>
+</ul>
+
+
+<h4>Step 3: Open new terminal and run all these commands in host OS (where your Virtual box running)</h4>
+
+<p>  <code>VboxManage controlvm panamax-vm natpf1 rule1,tcp,,8091,,8091</code>
+  <code>VboxManage controlvm panamax-vm natpf1 rule2,tcp,,8092,,8092</code>
+  <code>VboxManage controlvm panamax-vm natpf1 rule3,tcp,,11210,,11210</code></p>
+
+<p>  Note: If you are not clear why you have to do this, here is <a href="https://github.com/CenturyLinkLabs/panamax-ui/wiki/How-To%3A-Port-Forwarding-on-VirtualBox">panamax wiki</a> that explains in detail.</p>
+
+<h4>Step 4: Go to (couchbase admin web console)</h4>
+
+<p>  <a href="http://localhost:8091/">http://localhost:8091/</a></p>
+
+<p> Login with <br/>
+  &ndash; <code>Username:</code> Administrator <br/>
+  &ndash; <code>Password:</code> password</p>
+
+<h4>Step 5: Go to &ldquo;Server Nodes&rdquo;</h4>
+
+<p>  Add servers by IP address (Ref# Step: 2)</p>
+
+<h3>More resources to follow:</h3>
+
+<ul>
+<li><a href="https://twitter.com/panamax_io">Twitter @panamax_io</a></li>
+<li><a href="http://panamax.io/documentation/">panamax documentation</a></li>
+<li><a href="https://github.com/CenturyLinkLabs/panamax-ui/wiki">panamax wiki</a></li>
+<li><a href="https://www.youtube.com/watch?v=15IKkYCfymk">Installing Panamax videos</a> by <a href="https://twitter.com/cardmagic">https://twitter.com/cardmagic</a></li>
+<li><a href="http://www.slideshare.net/cardmagic/introduction-to-panamax-from-century-link">Introduction to Panamax from CenturyLink</a></li>
+</ul>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Mohanraj Nagasamy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-08T15:29:30-06:00" pubdate data-updated="true">Sep 8<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/docker/'>Docker</a>, <a class='category' href='/blog/categories/panamax/'>Panamax</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/03/18/utah-code-camp-2014-notes/" title="Previous Post: Utah Code Camp 2014: Notes">&laquo; Utah Code Camp 2014: Notes</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 
