@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Browser Cache: How ETags works in Rails 3 and Rails 4</title>
+
+  
+  <meta name="author" content="mohanraj nagasamy">
+  
+
+  <meta name="description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
+
+  
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="mohanraj nagasamy" href="http://0.0.0.0:4000/feed.xml">
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="mohanraj nagasamy">
+  <meta property="og:title" content="Browser Cache: How ETags works in Rails 3 and Rails 4">
+  <meta property="og:description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="mohanraj nagasamy">
+  <meta property="og:article:published_time" content="2014-02-22T16:39:52-06:00">
+  <meta property="og:url" content="http://0.0.0.0:4000/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4.html">
+  <link rel="canonical" href="http://0.0.0.0:4000/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4.html">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@nmrmohanraj">
+  <meta name="twitter:creator" content="@nmrmohanraj">
+
+  <meta property="twitter:title" content="Browser Cache: How ETags works in Rails 3 and Rails 4">
+  <meta property="twitter:description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://0.0.0.0:4000/">mohanraj nagasamy</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Me</a>
+          </li></ul>
+  </div>
+
+  
+
+</nav>
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Browser Cache: How ETags works in Rails 3 and Rails 4</h1>
+          
+
+          
+            <span class="post-meta">Posted on February 22, 2014</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server.</p>
+
+<!-- more -->
+
+<p>Rails 3 and Rails 4 uses ETags by default and let’s look at how they work first:</p>
+
+<p><img src="/assets/images/posts/etags-rails-3-and-rails-4.png" alt="image-center" class="align-center" /></p>
+
+<p>Lets say you are going to a blog website and requesting a list of posts:</p>
+
+<ul>
+  <li>First Request:
+    <ul>
+      <li>Browser makes the initial first request</li>
+    </ul>
+  </li>
+  <li>First Response:
+    <ul>
+      <li>Rails creates response body</li>
+      <li>Rails creates ETag</li>
+      <li>Rails responds with ETag header, status code 200</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The browser caches the response now. When the browser makes subsequent request, here is the flow:</p>
+
+<ul>
+  <li>Subsequent Request:
+    <ul>
+      <li>Browser makes request with header ‘If-None-Matched’ with ETag value from the initial request.</li>
+    </ul>
+  </li>
+  <li>Subsequent Response:
+    <ul>
+      <li>Rails creates body and creates ETag</li>
+      <li>Compares ETag value with ‘If-None-Matched’ value</li>
+      <li>If ETag match then response body is not included in response and returns with 304 Not Modified status</li>
+      <li>If ETag doesn’t match then body is included in the response and ETags are included in header</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="advantage">Advantage</h4>
+<p>So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes website faster.</p>
+
+<h5 id="enable-etag">Enable ETag</h5>
+<p>So what you have to do to enable ETag chache? Nothing. You don’t have to do anything to take advantage of ETag cache.</p>
+
+<p>The below code uses Rails default ETag cache:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+<span class="k">def</span> <span class="nf">show</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span> <span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+
+    <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+      <span class="nb">format</span><span class="p">.</span><span class="nf">html</span> <span class="c1"># show.html.erb</span>
+      <span class="nb">format</span><span class="p">.</span><span class="nf">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json: </span><span class="vi">@post</span> <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">edit</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>So how do rails generate ETags? Well, it will render the response and generates the ETags from the response body.
+The code may look like something like this in rails:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>headers['ETag'] = Digest::MD5.hexdigest(body)
+</code></pre></div></div>
+
+<h4 id="custom-etags">Custom ETags</h4>
+<p>It is not a good idea to process the entire response body everytime to generate ETag. Generating entire response body involves calling the DB to fetch all the related data and processing html templates and partial page renderings. This is a costly process. 
+How do you solve this issue? You have fresh_when and stale? rails cache helper come in handy to rescue you.</p>
+
+<p>The code will look like this with fresh_when and stale?:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span> <span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">stale?</span> <span class="vi">@post</span>
+      <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+        <span class="nb">format</span><span class="p">.</span><span class="nf">html</span> <span class="c1"># show.html.erb</span>
+        <span class="nb">format</span><span class="p">.</span><span class="nf">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json: </span><span class="vi">@post</span> <span class="p">}</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">edit</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="n">fresh_when</span> <span class="vi">@post</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>So how do rails generate ETags now? The code may look like something like this in rails for stale? and fresh_when helpers:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>headers['ETag'] = Digest::MD5.hexdigest(@post.cache_key)
+</code></pre></div></div>
+
+<p>Cache_key is combination of <code class="language-plaintext highlighter-rouge">model_name/model.id-model.updated_at</code>. It will be like this for Post model: <code class="language-plaintext highlighter-rouge">post/123-201312121212</code></p>
+
+<h5 id="when-do-you-use-fresh_when-and-stale-cache-helper-and-whats-difference">When do you use fresh_when and stale? cache helper and what’s difference?</h5>
+<p>If you have special response processing like the one in show method, then use stale? helper. If you don’t have any special response processing like the one in edit method and using default-rendering mechanism (i.e. you’re not using respond_to or calling render yourself) then use fresh_when.</p>
+
+<h4 id="customize-etag-generation">Customize ETag generation</h4>
+<p>If you cache based on <code class="language-plaintext highlighter-rouge">current_user or current_customer</code>, you can pass multiple arguments to generate ETag. The arguments have to be a Hash.</p>
+
+<p>The sample code will look like:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span> <span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">stale?</span> <span class="vi">@post</span><span class="p">,</span> <span class="ss">current_user_id: </span><span class="n">current_user</span><span class="p">.</span><span class="nf">id</span>
+      <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+        <span class="nb">format</span><span class="p">.</span><span class="nf">html</span> <span class="c1"># show.html.erb</span>
+        <span class="nb">format</span><span class="p">.</span><span class="nf">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json: </span><span class="vi">@post</span> <span class="p">}</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">edit</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="n">fresh_when</span> <span class="vi">@post</span><span class="p">,</span> <span class="ss">current_user_id: </span><span class="n">current_user</span><span class="p">.</span><span class="nf">id</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">recent</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="n">fresh_when</span> <span class="vi">@post</span><span class="p">,</span> <span class="ss">current_user_id: </span><span class="n">current_user</span><span class="p">.</span><span class="nf">id</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="rails-4">Rails 4</h4>
+<p>When look at edit and recent methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.</p>
+
+<p>Rails 3 and Rails 4 uses ETags by default for browser caching. But Rails 4 has a feature called declarative ETags, which allows you to add additional controller-wide information when generating an ETag.</p>
+
+<p>Let’s look at how to apply Rails 4 declarative ETags to the above code:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+<span class="n">etag</span> <span class="p">{</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">id</span> <span class="p">}</span>
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span> <span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">stale?</span> <span class="vi">@post</span>
+      <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+        <span class="nb">format</span><span class="p">.</span><span class="nf">html</span> <span class="c1"># show.html.erb</span>
+        <span class="nb">format</span><span class="p">.</span><span class="nf">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json: </span><span class="vi">@post</span> <span class="p">}</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">edit</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="n">fresh_when</span> <span class="vi">@post</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">recent</span>
+    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+    <span class="n">fresh_when</span> <span class="vi">@post</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>You can have multiple declarative ETags like this:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="n">etag</span> <span class="p">{</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">id</span> <span class="p">}</span>
+  <span class="n">etag</span> <span class="p">{</span> <span class="n">current_customer</span><span class="p">.</span><span class="nf">id</span> <span class="p">}</span>
+<span class="p">.</span>
+<span class="nf">.</span>
+<span class="p">.</span>
+<span class="nf">end</span>
+</code></pre></div></div>
+
+<p>You can have conditions inside declarative ETags like this one to run them only on certain actions:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="n">etag</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">current_user_id: </span><span class="n">current_user</span><span class="p">.</span><span class="nf">id</span> <span class="p">}</span> <span class="k">if</span> <span class="sx">%w(show edit)</span><span class="p">.</span><span class="nf">include?</span> <span class="n">params</span><span class="p">[</span><span class="ss">:action</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Declarative ETags doesn’t support :only, :if options yet like one we have on before_filter/before_action or after_filer/after_action to run call back only on certain actions.</p>
+
+<h4 id="resouces">Resouces</h4>
+<ul>
+  <li><a href="http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013">http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013</a></li>
+  <li><a href="http://www.upgradingtorails4.com/">http://www.upgradingtorails4.com/</a></li>
+  <li><a href="http://guides.rubyonrails.org/caching_with_rails.html">http://guides.rubyonrails.org/caching_with_rails.html</a></li>
+  <li><a href="https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers">https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers</a></li>
+</ul>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#Cache">Cache</a>
+          
+            <a href="/tags#Performance">Performance</a>
+          
+        </div>
+      
+
+      
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2014/02/23/blocks-in-java-lang.html" data-toggle="tooltip" data-placement="top" title="Blocks in Java Lang">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="https://github.com/mohanraj-nagasamy" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/nmrmohanraj" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/mohanrajnagasamy" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        mohanraj nagasamy
+        &nbsp;&bull;&nbsp;
+      
+      2021
+
+      
+
+      
+      </p>
+      <!-- Please don't remove this, keep my open source work credited :) -->
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

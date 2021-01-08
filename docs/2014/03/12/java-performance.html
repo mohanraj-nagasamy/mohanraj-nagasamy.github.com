@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Java Performance</title>
+
+  
+  <meta name="author" content="mohanraj nagasamy">
+  
+
+  <meta name="description" content="Notes from Java Performance by Charlie Hunt. Reference book by Charlie Hunt and Binu John. Lesson 1: JVM Overview From Java 7u21, there is server JRE available for UNIX 64 bit OSes. It has got it everything jdk has, except no browser plug-in, no auto updater. Understand the major components...">
+
+  
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="mohanraj nagasamy" href="http://0.0.0.0:4000/feed.xml">
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="mohanraj nagasamy">
+  <meta property="og:title" content="Java Performance">
+  <meta property="og:description" content="Notes from Java Performance by Charlie Hunt. Reference book by Charlie Hunt and Binu John. Lesson 1: JVM Overview From Java 7u21, there is server JRE available for UNIX 64 bit OSes. It has got it everything jdk has, except no browser plug-in, no auto updater. Understand the major components...">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="mohanraj nagasamy">
+  <meta property="og:article:published_time" content="2014-03-12T22:20:11-05:00">
+  <meta property="og:url" content="http://0.0.0.0:4000/2014/03/12/java-performance.html">
+  <link rel="canonical" href="http://0.0.0.0:4000/2014/03/12/java-performance.html">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@nmrmohanraj">
+  <meta name="twitter:creator" content="@nmrmohanraj">
+
+  <meta property="twitter:title" content="Java Performance">
+  <meta property="twitter:description" content="Notes from Java Performance by Charlie Hunt. Reference book by Charlie Hunt and Binu John. Lesson 1: JVM Overview From Java 7u21, there is server JRE available for UNIX 64 bit OSes. It has got it everything jdk has, except no browser plug-in, no auto updater. Understand the major components...">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://0.0.0.0:4000/">mohanraj nagasamy</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Me</a>
+          </li></ul>
+  </div>
+
+  
+
+</nav>
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Java Performance</h1>
+          
+
+          
+            <span class="post-meta">Posted on March 12, 2014</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>Notes from <a href="http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554">Java Performance</a> by Charlie Hunt. Reference <a href="http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528">book</a> by Charlie Hunt and Binu John.</p>
+
+<h4 id="lesson-1-jvm-overview">Lesson 1: JVM Overview</h4>
+<ul>
+  <li>
+    <p>From Java 7u21, there is <a href="http://www.oracle.com/technetwork/java/javase/downloads/server-jre7-downloads-1931105.html">server JRE</a> available for UNIX 64 bit OSes. It has got it everything jdk has, except no browser plug-in, no auto updater.</p>
+  </li>
+  <li>Understand the major components of a modern Java Virtual Machine
+    <ul>
+      <li>HotSpot VM runtime</li>
+      <li>Garbage collector/ memory manager
+        <ul>
+          <li>Generational GC - it partitions the Java heap into two or more regions / generations
+            <ul>
+              <li>Young vs Old</li>
+            </ul>
+          </li>
+          <li>Permanent Generation - Holds class data structures
+            <ul>
+              <li>In Java 8 - it has been eliminated in favor of a meta-space</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>JIT Compiler
+        <ul>
+          <li>Generates native byte code</li>
+          <li>Client mode</li>
+          <li>Server mode</li>
+          <li>Tiered - Default In Java 8 - enabled via -XX:+TieredCompilation</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Runtime subsystem
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">-XX:+PrintFlagsFinal</code></li>
+      <li><code class="language-plaintext highlighter-rouge">-XX:+PrintGCDetails</code></li>
+    </ul>
+  </li>
+  <li>Understand the memory management garbage collection (GC) subsystem
+    <ul>
+      <li>jvisualvm
+        <ul>
+          <li>Install plug-in visual GC</li>
+          <li>Install memory-pool plug-in from <a href="https://java.net/projects/memorypoolview">here</a></li>
+          <li>Once objects reaches 15 max tenuring, will promoted to old gen space</li>
+          <li><a href="https://code.google.com/p/hatter-source-code/wiki/jtop">jTop</a></li>
+        </ul>
+      </li>
+      <li>JIT compiler subsystem
+        <ul>
+          <li>
+            <h2 id="look-at-code-cache-from-memory-pool-plug-in-for-jit-compilation">Look at code cache from memory-pool plug-in for JIT compilation</h2>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="lesson-2-collecting-performance-statistics">Lesson 2: Collecting Performance Statistics</h4>
+<ul>
+  <li>Understand the importance of a methodology</li>
+  <li>Understand which operating system metrics to monitor
+    <ul>
+      <li>Understand which operating system metrics to monitor: Monitor metrics on Windows.
+  You can monitoring CPU, Memory, Network:
+        <ol>
+          <li>GUI Tool: Performance Monitor</li>
+          <li>CMD Tool: <code class="language-plaintext highlighter-rouge">typeperf</code></li>
+        </ol>
+      </li>
+      <li>Understand which operating system metrics to monitor: Monitor metrics on Linux
+        <ol>
+          <li>GUI Tool: System Monitory in Ubuntu
+            <ul>
+              <li>CMD tool: <code class="language-plaintext highlighter-rouge">vm_stat</code> <interval>
+      `mpstat -P ALL`
+      `top`</interval></li>
+              <li>Monitor the CPU Scheduler Run Queue
+ use vmstat to monitor run queue</li>
+              <li>Monitor High Voluntary Context Switching</li>
+            </ul>
+            <ul>
+              <li>Can indicate Java application that are experiencing lock contention
+                <ul>
+                  <li>Makes it difficulties in scaling</li>
+                </ul>
+              </li>
+              <li>Use <code class="language-plaintext highlighter-rouge">pidstat</code> to monitor (need <code class="language-plaintext highlighter-rouge">sysstat</code> package required)	
+  ex: <code class="language-plaintext highlighter-rouge">pidstat -w -I -t -p &lt;pid&gt; &lt;interval&gt;</code>
+  Monitor network
+ use nicstat
+  Monitor disk/io
+ use iostat</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>Understand what JVM metrics to monitor
+    <ul>
+      <li>Important JVM metrics:</li>
+      <li>Garbage collection:
+  Use <code class="language-plaintext highlighter-rouge">PrintGCDetails</code> to log gc details
+  you can also use <code class="language-plaintext highlighter-rouge">-XX:+PrintGCDateStamps</code> or <code class="language-plaintext highlighter-rouge">-XX:+PrintGCTimeStamps</code> - gives point and time when the gc has occurred
+  use <code class="language-plaintext highlighter-rouge">-Xloggc=/somepath/gc.log</code> - to log gc log</li>
+      <li>Monitor app exectution time and stopped time
+        <ul>
+          <li>Use <code class="language-plaintext highlighter-rouge">-XX:+PrintGCApplicationStoppedTime</code> and <code class="language-plaintext highlighter-rouge">-XX:+PrintApplicationConcurrentTime</code></li>
+        </ul>
+      </li>
+      <li>Other to consider but not necessarily required
+        <ul>
+          <li>JIT compilation: <code class="language-plaintext highlighter-rouge">-XX:+PrintCompilation</code>, <code class="language-plaintext highlighter-rouge">-XX:+PrintInlining</code> - these flags are not generally used.</li>
+          <li>Fine tune JVM heap space sizes: <code class="language-plaintext highlighter-rouge">-XX:+PrintTenuringDistribution</code>, <code class="language-plaintext highlighter-rouge">PrintAdaptiveSizePolicy</code> (Paraller GC or G1 only)</li>
+        </ul>
+      </li>
+      <li>Remote monitoring using <code class="language-plaintext highlighter-rouge">jstatd</code>
+        <ul>
+          <li>Requires a security manager and security policy file</li>
+        </ul>
+      </li>
+      <li>App level metrics to monitor:
+        <ul>
+          <li>Begin and end time of a transaction</li>
+          <li>Observing app level JMX MBeans especially those that offer performance information</li>
+          <li>Java EE container stats:
+            <ul>
+              <li>Available JDBC connections</li>
+              <li>Active/Available Threads</li>
+              <li>Request arrival rate</li>
+              <li>Request response times</li>
+            </ul>
+          </li>
+          <li>
+            <h2 id="build-app-level-stats-via-mbeans-example-is-on-the-book">Build App level stats via <code class="language-plaintext highlighter-rouge">MBeans</code>. Example is on the book.</h2>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="lesson-3-understand-hotspot-jvm-gc-logs">Lesson 3: Understand HotSpot JVM GC Logs</h4>
+<ul>
+  <li>Understand how Parallel GC works
+    <ul>
+      <li>Understand Parallel GC logs</li>
+    </ul>
+  </li>
+  <li>Understand how CMS GC works
+    <ul>
+      <li>Understand CMS GC logs</li>
+    </ul>
+  </li>
+  <li>Understand how G1 GC works
+    <ul>
+      <li>Understand G1 GC logs</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>All of them produces totally different information</p>
+</blockquote>
+
+<hr />
+
+<h4 id="lesson-4-tune-the-hotspot-jvm-step-by-step">Lesson 4: Tune the HotSpot JVM Step-by-Step</h4>
+<ul>
+  <li>Create a plan of attack
+    <ul>
+      <li>Throughput vs Latency vs Footprint</li>
+    </ul>
+  </li>
+  <li>Understand the step-by-step process</li>
+  <li>Determine memory footprint size</li>
+  <li>Tune for latency / responsiveness: 	Tools to help visualize gc pause times: <a href="https://java.net/projects/gchisto">gchisto</a>, <a href="http://www.jclarity.com/censum/">censum</a> from jclarity.com</li>
+  <li>Tune for throughput: <code class="language-plaintext highlighter-rouge">-XX:+AggresiveOpts</code> to turn on aggressive gc optimizations</li>
+</ul>
+
+<h2 id="more-resources">More resources:</h2>
+
+<ul>
+  <li><a href="http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html">http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html</a></li>
+  <li><a href="http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf">http://www.nbl.fi/~nbl97/java/tuning/jvm_internals.pdf</a></li>
+  <li><a href="http://java.ociweb.com/mark/other-presentations/JavaGC.pdf">http://java.ociweb.com/mark/other-presentations/JavaGC.pdf</a></li>
+  <li><a href="http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html">http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136373.html</a></li>
+  <li><a href="http://www-01.ibm.com/support/docview.wss?uid=swg27013456&amp;aid=1">http://www-01.ibm.com/support/docview.wss?uid=swg27013456&amp;aid=1</a></li>
+  <li><a href="https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf">https://secure.trifork.com/dl/qcon-newyork-2012/slides/5.%20ExtremeJavaPerformanceQConNYC.pdf</a></li>
+  <li><a href="http://www.infoq.com/articles/book-java-performance">http://www.infoq.com/articles/book-java-performance</a></li>
+  <li><a href="http://www.infoq.com/presentations/Extreme-Performance-Java">http://www.infoq.com/presentations/Extreme-Performance-Java</a></li>
+  <li><a href="http://www.oracle.com/technetwork/java/javaseproducts/mission-control/index.html">http://www.oracle.com/technetwork/java/javaseproducts/mission-control/index.html</a></li>
+  <li><a href="http://docs.oracle.com/javase/specs/">Java Language and Virtual Machine Specifications</a></li>
+  <li><a href="http://hatter-source-code.googlecode.com/svn/trunk/attachments/wiki/performance/linux-performance-analysis-and-tools.pdf">linux-performance-analysis-and-tools</a></li>
+  <li><a href="https://code.google.com/p/hatter-source-code/wiki/Study_Java_Diagnosis">Study_Java_Diagnosis</a></li>
+  <li><a href="http://www.javaperformancetuning.com/tools/index.shtml">Java Performance Tuning tool reports</a></li>
+  <li><a href="http://samuraism.jp/samurai/en/index.html">Samurai</a></li>
+  <li><a href="http://people.apache.org/~billa/oscon2012/OSCON2012TroubleShootJava.pdf">OSCON2012 TroubleShoot Java</a></li>
+</ul>
+
+<p>I would highly encourage to read the <a href="http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528">book</a> or take the <a href="http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554">LiveLessons</a>. Charlie Hunt is awesome!</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#Performance">Performance</a>
+          
+        </div>
+      
+
+      
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2014/03/09/clojure-fundamentals.html" data-toggle="tooltip" data-placement="top" title="Clojure Fundamentals">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2014/03/18/utah-code-camp-2014-notes.html" data-toggle="tooltip" data-placement="top" title="Utah Code Camp 2014: Notes">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="https://github.com/mohanraj-nagasamy" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/nmrmohanraj" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/mohanrajnagasamy" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        mohanraj nagasamy
+        &nbsp;&bull;&nbsp;
+      
+      2021
+
+      
+
+      
+      </p>
+      <!-- Please don't remove this, keep my open source work credited :) -->
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

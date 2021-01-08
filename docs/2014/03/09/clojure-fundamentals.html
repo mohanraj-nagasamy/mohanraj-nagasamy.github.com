@@ -9,13 +9,13 @@
 
   
 
-  <title>About</title>
+  <title>Clojure Fundamentals</title>
 
   
   <meta name="author" content="mohanraj nagasamy">
   
 
-  <meta name="description" content="This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/) You can find the source code for Minima at GitHub: [jekyll][jekyll-organization] / [minima](https://github.com/jekyll/minima) You can find the source code for Jekyll at GitHub: [jekyll][jekyll-organization]...">
+  <meta name="description" content="I haven’t this excited when I am learning programing languages. Clojure is very simple and powerful Lisp dialect on JVM. You code as data in Clojure. So my personal feeling is that Lisp dialects should have been the go to programming language to develop multi-tenant applications like Workday, Salesforce. And...">
 
   
 
@@ -72,15 +72,17 @@
 
   
   <meta property="og:site_name" content="mohanraj nagasamy">
-  <meta property="og:title" content="About">
-  <meta property="og:description" content="This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/) You can find the source code for Minima at GitHub: [jekyll][jekyll-organization] / [minima](https://github.com/jekyll/minima) You can find the source code for Jekyll at GitHub: [jekyll][jekyll-organization]...">
+  <meta property="og:title" content="Clojure Fundamentals">
+  <meta property="og:description" content="I haven’t this excited when I am learning programing languages. Clojure is very simple and powerful Lisp dialect on JVM. You code as data in Clojure. So my personal feeling is that Lisp dialects should have been the go to programming language to develop multi-tenant applications like Workday, Salesforce. And...">
 
   
 
   
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://0.0.0.0:4000/about/">
-  <link rel="canonical" href="http://0.0.0.0:4000/about/">
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="mohanraj nagasamy">
+  <meta property="og:article:published_time" content="2014-03-09T13:14:14-05:00">
+  <meta property="og:url" content="http://0.0.0.0:4000/2014/03/09/clojure-fundamentals.html">
+  <link rel="canonical" href="http://0.0.0.0:4000/2014/03/09/clojure-fundamentals.html">
   
 
   
@@ -89,8 +91,8 @@
   <meta name="twitter:site" content="@nmrmohanraj">
   <meta name="twitter:creator" content="@nmrmohanraj">
 
-  <meta property="twitter:title" content="About">
-  <meta property="twitter:description" content="This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/) You can find the source code for Minima at GitHub: [jekyll][jekyll-organization] / [minima](https://github.com/jekyll/minima) You can find the source code for Jekyll at GitHub: [jekyll][jekyll-organization]...">
+  <meta property="twitter:title" content="Clojure Fundamentals">
+  <meta property="twitter:description" content="I haven’t this excited when I am learning programing languages. Clojure is very simple and powerful Lisp dialect on JVM. You code as data in Clojure. So my personal feeling is that Lisp dialects should have been the go to programming language to develop multi-tenant applications like Workday, Salesforce. And...">
 
   
 
@@ -139,10 +141,14 @@
   <div class="container-md">
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
-        <div class="page-heading">
-          <h1>About</h1>
+        <div class="post-heading">
+          <h1>Clojure Fundamentals</h1>
           
 
+          
+            <span class="post-meta">Posted on March 9, 2014</span>
+            
+            
           
         </div>
       </div>
@@ -155,26 +161,86 @@
 
 
 
-<div class=" container-md " role="main">
+<div class=" container-md ">
   <div class="row">
     <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
-      
-
-      <p>This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at <a href="https://jekyllrb.com/">jekyllrb.com</a></p>
-
-<p>You can find the source code for Minima at GitHub:
-<a href="https://github.com/jekyll">jekyll</a> /
-<a href="https://github.com/jekyll/minima">minima</a></p>
-
-<p>You can find the source code for Jekyll at GitHub:
-<a href="https://github.com/jekyll">jekyll</a> /
-<a href="https://github.com/jekyll/jekyll">jekyll</a></p>
-
-
 
       
 
       
+
+      <article role="main" class="blog-post">
+        <p>I haven’t this excited when I am learning programing languages. Clojure is very simple and powerful Lisp dialect on JVM.</p>
+
+<p>You code as data in Clojure. So my personal feeling is that Lisp dialects should have been the go to programming language to develop multi-tenant applications like <a href="http://blogs.workday.com/why_workday_is_different_by_design.html">Workday</a>, <a href="http://www.developerforce.com/media/ForcedotcomBookLibrary/Force.com_Multitenancy_WP_101508.pdf">Salesforce</a>. And to create rule engines. There has been some attempts made by <a href="https://github.com/rbrush/clara-rules">clara-rules</a> and <a href="https://github.com/hraberg/mimir">mimir</a> projects to create rule engines.
+We can store the Clojure code as data in any storage (ex: DB) and read into JVM memory as the semantics and the structures remain the same. It makes Clojure so powerful and elegant to work with.</p>
+
+<p>I would like list some of the resources that I used to learn Clojure.</p>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/alandipert">Alan Dipert</a> has 3 hour course on <a href="http://pluralsight.com/training/Courses/TableOfContents/clojure-fundamentals-part-one">pluralsight</a> and you find <a href="http://alandipert.github.io/oscon2012-clojure">course notes</a> which are highly useful.</p>
+  </li>
+  <li>
+    <p><a href="http://clojure.org/cheatsheet">Clojure - Cheat Sheet</a></p>
+  </li>
+  <li>
+    <p>O’Reilly’s free online <a href="http://clojure-cookbook.com/">Clojure Cookbook</a></p>
+  </li>
+  <li>
+    <p><a href="http://learnxinyminutes.com/docs/clojure/">http://learnxinyminutes.com/docs/clojure/</a></p>
+  </li>
+  <li>
+    <p><a href="http://adambard.com/blog/clojure-in-15-minutes/">http://adambard.com/blog/clojure-in-15-minutes/</a></p>
+  </li>
+  <li>
+    <p><a href="http://adambard.com/blog/PHP-ruby-python-clojure-webapps-by-example/">http://adambard.com/blog/PHP-ruby-python-clojure-webapps-by-example/</a></p>
+  </li>
+  <li>
+    <p><a href="http://clojure-notes.rubylearning.org/">http://clojure-notes.rubylearning.org/</a></p>
+  </li>
+  <li>
+    <p><a href="http://shop.oreilly.com/product/0636920030409.do">Clojure Inside Out</a> and course slides are available <a href="http://nealford.com/past.html">here</a>.</p>
+  </li>
+</ul>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#Clojure">Clojure</a>
+          
+        </div>
+      
+
+      
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2014/03/08/interesting-project-nashorn.html" data-toggle="tooltip" data-placement="top" title="Interesting project: Nashorn">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2014/03/12/java-performance.html" data-toggle="tooltip" data-placement="top" title="Java Performance">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+
 
     </div>
   </div>

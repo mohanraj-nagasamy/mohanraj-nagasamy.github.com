@@ -3,7 +3,7 @@ layout: post
 title: "Browser Cache: How ETags works in Rails 3 and Rails 4"
 date: 2014-02-22 15:39:52 -0700
 comments: true
-categories: [Cache, Performance]
+tags: [Cache, Performance]
 ---
 
 Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser's cache matches the one on the origin server. 
@@ -195,7 +195,7 @@ end
 Declarative ETags doesn’t support :only, :if options yet like one we have on before_filter/before_action or after_filer/after_action to run call back only on certain actions. 
 
 #### Resouces
-* http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013
-* http://www.upgradingtorails4.com/
-* http://guides.rubyonrails.org/caching_with_rails.html
-* https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers
+* [http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013](http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013)
+* [http://www.upgradingtorails4.com/](http://www.upgradingtorails4.com/)
+* [http://guides.rubyonrails.org/caching_with_rails.html](http://guides.rubyonrails.org/caching_with_rails.html)
+* [https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers](https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers)
