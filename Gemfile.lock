@@ -76,13 +76,13 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  beautiful-jekyll-theme (= 5.0.0)
-  jekyll (~> 3.8)
-  jekyll-feed (~> 0.12)
-  minima (~> 2.5)
-  tzinfo (~> 1.2)
+  beautiful-jekyll-theme
+  jekyll
+  jekyll-feed
+  minima
+  tzinfo
   tzinfo-data
-  wdm (~> 0.1.1)
+  wdm
 
 BUNDLED WITH
-   2.2.4
+   2.2.2
