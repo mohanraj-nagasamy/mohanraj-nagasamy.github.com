@@ -12,3 +12,5 @@ RUN bundle install
 # docker build -f Dockerfile -t jekyll_dev .
 # docker run -p 4000:4000 -v /$(pwd):/app -it jekyll_dev /bin/bash
 # jekyll serve
+# Before pusing to github
+# `jekyll b -d docs`

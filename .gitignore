@@ -5,3 +5,4 @@
 vendor
 .pygments-cache
 .DS_Store
+_site

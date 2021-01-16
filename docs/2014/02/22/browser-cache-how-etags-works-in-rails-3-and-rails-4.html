@@ -15,7 +15,7 @@
   <meta name="author" content="mohanraj nagasamy">
   
 
-  <meta name="description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
+  <meta name="description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content, etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
 
   
 
@@ -73,7 +73,7 @@
   
   <meta property="og:site_name" content="mohanraj nagasamy">
   <meta property="og:title" content="Browser Cache: How ETags works in Rails 3 and Rails 4">
-  <meta property="og:description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
+  <meta property="og:description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content, etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
 
   
 
@@ -92,7 +92,7 @@
   <meta name="twitter:creator" content="@nmrmohanraj">
 
   <meta property="twitter:title" content="Browser Cache: How ETags works in Rails 3 and Rails 4">
-  <meta property="twitter:description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
+  <meta property="twitter:description" content="Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content, etc) in the browser’s cache matches the one on the origin server. Rails 3 and Rails 4 uses ETags by default and let’s look at how...">
 
   
 
@@ -170,7 +170,7 @@
       
 
       <article role="main" class="blog-post">
-        <p>Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server.</p>
+        <p>Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content, etc) in the browser’s cache matches the one on the origin server.</p>
 
 <!-- more -->
 
@@ -178,12 +178,12 @@
 
 <p><img src="/assets/images/posts/etags-rails-3-and-rails-4.png" alt="image-center" class="align-center" /></p>
 
-<p>Lets say you are going to a blog website and requesting a list of posts:</p>
+<p>Let’s say you are going to a blog website and requesting a list of posts:</p>
 
 <ul>
   <li>First Request:
     <ul>
-      <li>Browser makes the initial first request</li>
+      <li>The browser makes the initial first request</li>
     </ul>
   </li>
   <li>First Response:
@@ -195,29 +195,29 @@
   </li>
 </ul>
 
-<p>The browser caches the response now. When the browser makes subsequent request, here is the flow:</p>
+<p>The browser caches the response now. When the browser makes subsequent requests, here is the flow:</p>
 
 <ul>
   <li>Subsequent Request:
     <ul>
-      <li>Browser makes request with header ‘If-None-Matched’ with ETag value from the initial request.</li>
+      <li>The browser requests with the header ‘If-None-Matched’ with ETag value from the initial request.</li>
     </ul>
   </li>
   <li>Subsequent Response:
     <ul>
-      <li>Rails creates body and creates ETag</li>
+      <li>Rails creates the body and ETag</li>
       <li>Compares ETag value with ‘If-None-Matched’ value</li>
-      <li>If ETag match then response body is not included in response and returns with 304 Not Modified status</li>
-      <li>If ETag doesn’t match then body is included in the response and ETags are included in header</li>
+      <li>If ETag match then the response body is not included in the response and returns with 304 Not Modified status</li>
+      <li>If ETag doesn’t match then the body is included in the response and ETags are included in the header</li>
     </ul>
   </li>
 </ul>
 
 <h4 id="advantage">Advantage</h4>
-<p>So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes website faster.</p>
+<p>So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes the website faster.</p>
 
 <h5 id="enable-etag">Enable ETag</h5>
-<p>So what you have to do to enable ETag chache? Nothing. You don’t have to do anything to take advantage of ETag cache.</p>
+<p>So what you have to do to enable the ETag cache? Nothing. You don’t have to do anything to take advantage of the ETag cache.</p>
 
 <p>The below code uses Rails default ETag cache:</p>
 
@@ -247,8 +247,8 @@ The code may look like something like this in rails:</p>
 </code></pre></div></div>
 
 <h4 id="custom-etags">Custom ETags</h4>
-<p>It is not a good idea to process the entire response body everytime to generate ETag. Generating entire response body involves calling the DB to fetch all the related data and processing html templates and partial page renderings. This is a costly process. 
-How do you solve this issue? You have fresh_when and stale? rails cache helper come in handy to rescue you.</p>
+<p>It is not a good idea to process the entire response body every time to generate ETag. Generating the entire response body involves calling the DB to fetch all the related data and processing HTML templates and partial page renderings. This is a costly process. 
+How do you solve this issue? You have fresh_when and stale? rails cache helper comes in handy to rescue you.</p>
 
 <p>The code will look like this with fresh_when and stale?:</p>
 
@@ -276,10 +276,10 @@ How do you solve this issue? You have fresh_when and stale? rails cache helper c
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>headers['ETag'] = Digest::MD5.hexdigest(@post.cache_key)
 </code></pre></div></div>
 
-<p>Cache_key is combination of <code class="language-plaintext highlighter-rouge">model_name/model.id-model.updated_at</code>. It will be like this for Post model: <code class="language-plaintext highlighter-rouge">post/123-201312121212</code></p>
+<p>Cache_key is combination of <code class="language-plaintext highlighter-rouge">model_name/model.id-model.updated_at</code>. It will be like this for the Post model: <code class="language-plaintext highlighter-rouge">post/123-201312121212</code></p>
 
-<h5 id="when-do-you-use-fresh_when-and-stale-cache-helper-and-whats-difference">When do you use fresh_when and stale? cache helper and what’s difference?</h5>
-<p>If you have special response processing like the one in show method, then use stale? helper. If you don’t have any special response processing like the one in edit method and using default-rendering mechanism (i.e. you’re not using respond_to or calling render yourself) then use fresh_when.</p>
+<h5 id="when-do-you-use-fresh_when-and-stale-cache-helper-and-whats-the-difference">When do you use fresh_when and stale? cache helper and what’s the difference?</h5>
+<p>If you have special response processing like the one the <code class="language-plaintext highlighter-rouge">show</code> method, then use the <code class="language-plaintext highlighter-rouge">stale?</code> helper. If you don’t have any special response processing like the one in the <code class="language-plaintext highlighter-rouge">edit</code> method and using default-rendering mechanism (i.e. you’re not using <code class="language-plaintext highlighter-rouge">respond_to</code> or calling render yourself) then use <code class="language-plaintext highlighter-rouge">fresh_when</code>.</p>
 
 <h4 id="customize-etag-generation">Customize ETag generation</h4>
 <p>If you cache based on <code class="language-plaintext highlighter-rouge">current_user or current_customer</code>, you can pass multiple arguments to generate ETag. The arguments have to be a Hash.</p>
@@ -311,7 +311,7 @@ How do you solve this issue? You have fresh_when and stale? rails cache helper c
 </code></pre></div></div>
 
 <h4 id="rails-4">Rails 4</h4>
-<p>When look at edit and recent methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.</p>
+<p>When look at <code class="language-plaintext highlighter-rouge">edit</code> and <code class="language-plaintext highlighter-rouge">recent</code> methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.</p>
 
 <p>Rails 3 and Rails 4 uses ETags by default for browser caching. But Rails 4 has a feature called declarative ETags, which allows you to add additional controller-wide information when generating an ETag.</p>
 
@@ -362,7 +362,7 @@ How do you solve this issue? You have fresh_when and stale? rails cache helper c
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>Declarative ETags doesn’t support :only, :if options yet like one we have on before_filter/before_action or after_filer/after_action to run call back only on certain actions.</p>
+<p>Declarative ETags doesn’t support <code class="language-plaintext highlighter-rouge">:only</code>, <code class="language-plaintext highlighter-rouge">:if</code> options yet like one we have on <code class="language-plaintext highlighter-rouge">before_filter/before_action</code> or <code class="language-plaintext highlighter-rouge">after_filer/after_action</code> to run call back only on certain actions.</p>
 
 <h4 id="resouces">Resouces</h4>
 <ul>

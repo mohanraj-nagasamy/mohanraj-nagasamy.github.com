@@ -263,11 +263,11 @@
         <span class="o">}</span> <span class="o">};</span>
 </code></pre></div></div>
 
-<p>This code is completely valid and works in <strong>all the versions of java</strong>. You may wonder what is going on here.</p>
+<p>This code is completely valid and works in <strong>all versions of java</strong>. You may wonder what is going on here.</p>
 
-<p>The first brace creates <strong>anonymous inner/sub class</strong> that extends HashSet and the second one declares <strong>instance initializer</strong>. The inner class doesn’t add new instance variables, but it contains an initializer block.</p>
+<p>The first brace creates <strong>an anonymous inner/subclass</strong> that extends HashSet and the second one declares <strong>instance initializer</strong>. The inner class doesn’t add new instance variables, but it contains an initializer block.</p>
 
-<p>Let’s see how we can apply this trick while creating <em>OrderStatus</em> with default constructor, not using two params constructor.</p>
+<p>Let’s see how we can apply this trick while creating <em>OrderStatus</em> with the default constructor, not using two params constructor.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="nc">OrderStatus</span> <span class="no">INVALID_ORDER_STATUS</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OrderStatus</span><span class="o">()</span> <span class="o">{</span> <span class="o">{</span>
         <span class="n">setCode</span><span class="o">(</span><span class="s">"XX"</span><span class="o">);</span>

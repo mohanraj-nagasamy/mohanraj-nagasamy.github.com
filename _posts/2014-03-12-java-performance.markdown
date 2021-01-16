@@ -9,12 +9,12 @@ tags: [Performance]
 Notes from [Java Performance](http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554) by Charlie Hunt. Reference [book](http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528) by Charlie Hunt and Binu John.
 
 #### Lesson 1: JVM Overview
-- From Java 7u21, there is [server JRE](http://www.oracle.com/technetwork/java/javase/downloads/server-jre7-downloads-1931105.html) available for UNIX 64 bit OSes. It has got it everything jdk has, except no browser plug-in, no auto updater.
+- From Java 7u21, there is [server JRE](http://www.oracle.com/technetwork/java/javase/downloads/server-jre7-downloads-1931105.html) available for UNIX 64 bit OSes. It has got everything JDK has, except no browser plug-in, no auto-updater.
 
 - Understand the major components of a modern Java Virtual Machine
 	- HotSpot VM runtime
 	- Garbage collector/ memory manager
-		- Generational GC - it partitions the Java heap into two or more regions / generations
+		- Generational GC - it partitions the Java heap into two or more regions/generations
 			- Young vs Old
 		- Permanent Generation - Holds class data structures
 			- In Java 8 - it has been eliminated in favor of a meta-space	
@@ -53,8 +53,8 @@ Notes from [Java Performance](http://www.informit.com/store/java-performance-liv
 		- Monitor the CPU Scheduler Run Queue
 			use vmstat to monitor run queue
 		- Monitor High Voluntary Context Switching
-			- Can indicate Java application that are experiencing lock contention
-				- Makes it difficulties in scaling
+			- Can indicate Java application that is experiencing lock contention
+				- Makes it difficult in scaling
 			- Use `pidstat` to monitor (need `sysstat` package required)	
 				ex: `pidstat -w -I -t -p <pid> <interval>`
 		Monitor network
@@ -102,7 +102,7 @@ Notes from [Java Performance](http://www.informit.com/store/java-performance-liv
 	- Throughput vs Latency vs Footprint
 - Understand the step-by-step process
 - Determine memory footprint size
-- Tune for latency / responsiveness: 	Tools to help visualize gc pause times: [gchisto](https://java.net/projects/gchisto), [censum](http://www.jclarity.com/censum/) from jclarity.com
+- Tune for latency/responsiveness: 	Tools to help visualize gc pause times: [gchisto](https://java.net/projects/gchisto), [censum](http://www.jclarity.com/censum/) from jclarity.com
 - Tune for throughput: `-XX:+AggresiveOpts` to turn on aggressive gc optimizations
 
 ## More resources:

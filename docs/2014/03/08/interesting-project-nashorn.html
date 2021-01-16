@@ -15,7 +15,7 @@
   <meta name="author" content="mohanraj nagasamy">
   
 
-  <meta name="description" content="I am going to cover some of the interesting or odd projects that are being targeted to run on jvm that I came across recently in this post blog. Nashorn: Nashorn is an upcoming JavaScript engine, developed fully in Java 8 Language by Oracle. And open sourced to OpenJDK as...">
+  <meta name="description" content="I am going to cover some of the interesting or odd projects that are being targeted to run on JVM that I came across recently in this post blog. Nashorn: Nashorn is an upcoming JavaScript engine, developed fully in Java 8 Language by Oracle. And open sourced to OpenJDK as...">
 
   
 
@@ -73,7 +73,7 @@
   
   <meta property="og:site_name" content="mohanraj nagasamy">
   <meta property="og:title" content="Interesting project: Nashorn">
-  <meta property="og:description" content="I am going to cover some of the interesting or odd projects that are being targeted to run on jvm that I came across recently in this post blog. Nashorn: Nashorn is an upcoming JavaScript engine, developed fully in Java 8 Language by Oracle. And open sourced to OpenJDK as...">
+  <meta property="og:description" content="I am going to cover some of the interesting or odd projects that are being targeted to run on JVM that I came across recently in this post blog. Nashorn: Nashorn is an upcoming JavaScript engine, developed fully in Java 8 Language by Oracle. And open sourced to OpenJDK as...">
 
   
 
@@ -92,7 +92,7 @@
   <meta name="twitter:creator" content="@nmrmohanraj">
 
   <meta property="twitter:title" content="Interesting project: Nashorn">
-  <meta property="twitter:description" content="I am going to cover some of the interesting or odd projects that are being targeted to run on jvm that I came across recently in this post blog. Nashorn: Nashorn is an upcoming JavaScript engine, developed fully in Java 8 Language by Oracle. And open sourced to OpenJDK as...">
+  <meta property="twitter:description" content="I am going to cover some of the interesting or odd projects that are being targeted to run on JVM that I came across recently in this post blog. Nashorn: Nashorn is an upcoming JavaScript engine, developed fully in Java 8 Language by Oracle. And open sourced to OpenJDK as...">
 
   
 
@@ -170,7 +170,7 @@
       
 
       <article role="main" class="blog-post">
-        <p>I am going to cover some of the interesting or <a href="http://projectodd.org">odd projects</a> that are being targeted to run on jvm that I came across recently in this post blog.</p>
+        <p>I am going to cover some of the interesting or <a href="http://projectodd.org">odd projects</a> that are being targeted to run on JVM that I came across recently in this post blog.</p>
 
 <p><img src="http://upload.wikimedia.org/wikipedia/commons/e/ec/Nashorn.Aberdeen.0007wakh.jpg" alt="image-center" class="align-right" /></p>
 
@@ -179,15 +179,15 @@
 
 <!-- more -->
 
-<p>We know the existing jvm (from jdk 1.1 onwards) ships with JavaScript engine, which is called Rhino. But the recent version of <a href="https://developer.mozilla.org/en-US/docs/Rhino">Rhino</a> has only been tested with JDK 1.4 and grater. I don’t know who in the world is using jdk 1.4 anyway.</p>
+<p>We know the existing JVM (from JDK 1.1 onwards) ships with a JavaScript engine, which is called Rhino. But the recent version of <a href="https://developer.mozilla.org/en-US/docs/Rhino">Rhino</a> has only been tested with JDK 1.4 and grater. I don’t know who in the world is using JDK 1.4 anyway.</p>
 
 <h4 id="so-what-is-need-for-the-new-project">So what is need for the new project?</h4>
 
-<p>Rhino is old code base and developed by using old jdk. And Nashorn significantly outperforms Rhino, it may not beat <a href="http://wnameless.wordpress.com/2013/12/10/javascript-engine-benchmarks-nashorn-vs-v8-vs-spidermonkey">Google’s V8</a>. And Nashorn implements a new <a href="https://github.com/szegedi/dynalink">meta-object</a> protocol that simplifies calling Java APIs from JavaScript, and enables seamless interactions between JavaScript and Java.  And all the <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/jvmti">JVM TI</a> based tools such as debugging and profiling can read meta-object protocol.</p>
+<p>Rhino is an old code base and developed by using old JDK. And Nashorn significantly outperforms Rhino, it may not beat <a href="http://wnameless.wordpress.com/2013/12/10/javascript-engine-benchmarks-nashorn-vs-v8-vs-spidermonkey">Google’s V8</a>. And Nashorn implements a new <a href="https://github.com/szegedi/dynalink">meta-object</a> protocol that simplifies calling Java APIs from JavaScript and enables seamless interactions between JavaScript and Java.  And all the <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/jvmti">JVM TI</a> based tools such as debugging and profiling can read meta-object protocol.</p>
 
-<p>But the real motivation for writing a new engine to validate <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/package-summary.html">InvokeDynamic</a> feature, which formally opened the door to <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/vm/multiple-language-support.html">support non-Java</a> languages on jvm.</p>
+<p>But the real motivation for writing a new engine to validate <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/package-summary.html">InvokeDynamic</a> feature, which formally opened the door to <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/vm/multiple-language-support.html">support non-Java</a> languages on JVM.</p>
 
-<p>Nashorn engine passes ECMAScript 5.1 compliance tests. You can follow <a href="https://blogs.oracle.com/nashorn/">Oracle’s blog</a> for the updated infos. It is an interesting project to checkout.</p>
+<p>Nashorn engine passes ECMAScript 5.1 compliance tests. You can follow <a href="https://blogs.oracle.com/nashorn/">Oracle’s blog</a> for the updated info. It is an interesting project to checkout.</p>
 
 
       </article>

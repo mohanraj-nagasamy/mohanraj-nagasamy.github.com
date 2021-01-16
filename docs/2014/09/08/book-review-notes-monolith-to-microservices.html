@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Book review notes: Monolith to Microservices</title>
+
+  
+  <meta name="author" content="mohanraj nagasamy">
+  
+
+  <meta name="description" content="Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you. It covers from domain-driven design to organizational change model - vital underpinnings that will stand you in good stead even...">
+
+  
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="mohanraj nagasamy" href="/feed.xml">
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="mohanraj nagasamy">
+  <meta property="og:title" content="Book review notes: Monolith to Microservices">
+  <meta property="og:description" content="Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you. It covers from domain-driven design to organizational change model - vital underpinnings that will stand you in good stead even...">
+
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="mohanraj nagasamy">
+  <meta property="og:article:published_time" content="2014-09-08T16:29:30-05:00">
+  <meta property="og:url" content="/2014/09/08/book-review-notes-monolith-to-microservices.html">
+  <link rel="canonical" href="/2014/09/08/book-review-notes-monolith-to-microservices.html">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@nmrmohanraj">
+  <meta name="twitter:creator" content="@nmrmohanraj">
+
+  <meta property="twitter:title" content="Book review notes: Monolith to Microservices">
+  <meta property="twitter:description" content="Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you. It covers from domain-driven design to organizational change model - vital underpinnings that will stand you in good stead even...">
+
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="">mohanraj nagasamy</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Me</a>
+          </li></ul>
+  </div>
+
+  
+
+</nav>
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Book review notes: Monolith to Microservices</h1>
+          
+
+          
+            <span class="post-meta">Posted on September 8, 2014</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.</p>
+
+<p>It covers from domain-driven design to organizational change model - vital underpinnings that will stand you in good stead even if you decide not to adopt a microservice architecture.</p>
+
+<h1 id="chapter1---just-enough-microservices">CHAPTER:1 - Just Enough Microservices</h1>
+
+<ul>
+  <li>Have a common, shared understanding about what microservice architectures are.</li>
+  <li>Address some common misconceptions as well as nuances that often missed.</li>
+</ul>
+
+<h2 id="what-are-microservices">What Are Microservices?</h2>
+<ul>
+  <li><strong>Independently deployable</strong> services modeled around <strong>a business domain</strong>.</li>
+  <li>Expose business capability via well defined <strong>API interface</strong> - contract.</li>
+  <li><strong>Encapsulate inner-working</strong> of the business capability and its data storage and retrieval.</li>
+  <li>Less cross-service changes as infrequent as possible.</li>
+  <li>Service should decide what is shared and what is hidden.</li>
+  <li>End-to-end slice of a business functionality.</li>
+</ul>
+
+<h4 id="independent-deployability">Independent Deployability</h4>
+<h4 id="modeled-around-a-business-domain">Modeled Around a Business Domain</h4>
+<h4 id="own-their-own-data">Own Their Own Data</h4>
+
+<h4 id="what-advantages-can-microservices-bring">What Advantages Can Microservices Bring?</h4>
+<ul>
+  <li>Independent nature of deployment opens up new model for improving the scale and robustness of system.</li>
+</ul>
+
+<h4 id="what-problems-do-they-create">What Problems Do They Create?</h4>
+<h4 id="user-interfaces">User Interfaces</h4>
+<h4 id="technology">Technology</h4>
+<h4 id="size">Size</h4>
+<h4 id="and-ownership">And Ownership</h4>
+<ul>
+  <li>Reducing services that are shared across multiple teams is key to minimizing <strong>delivery contention</strong> - Business Oriented microservice architecture</li>
+</ul>
+
+<h2 id="the-monolith">The Monolith</h2>
+<p>Kinds:</p>
+<ul>
+  <li>The Single Process Monolith</li>
+  <li>The Distributed Monolith</li>
+  <li>Third-Party Black-Box Systems</li>
+</ul>
+
+<h4 id="challenges-of-monoliths">Challenges of Monoliths</h4>
+<ul>
+  <li>Delivery contention</li>
+  <li>Confused lines of ownership</li>
+</ul>
+
+<h4 id="advantages-of-monoliths">Advantages of Monoliths</h4>
+<ul>
+  <li>Simpler end-to-end testing</li>
+  <li>Single place to monitor and troubleshoot</li>
+  <li>Simplify code reuse</li>
+  <li>Monolith is synonymous with legacy - this is a problem.</li>
+  <li>It is valid option - like microservice</li>
+</ul>
+
+<h2 id="on-coupling-and-cohesion">On Coupling and Cohesion</h2>
+<ul>
+  <li>Understand the balancing forces between coupling and cohesion</li>
+</ul>
+
+<h4 id="cohesion">Cohesion</h4>
+<ul>
+  <li>How we group related code.</li>
+  <li>The code that changes together, stays together</li>
+</ul>
+
+<h4 id="coupling">Coupling</h4>
+<ul>
+  <li>How changing one thing requires a change in another</li>
+</ul>
+
+<blockquote>
+  <p>Information Hiding, like dieting, is somewhat more easily described than done. <br />
+-David Parnas, The Secret History Of Information Hiding</p>
+</blockquote>
+
+<h6 id="implementation-coupling">Implementation coupling</h6>
+<ul>
+  <li>A is coupled to B in teams of how B is implemented - when the implementation of B changes, A also changes.</li>
+  <li>A classic and common example of implementation coupling comes in the form of sharing database.</li>
+  <li>The act of hiding a database behind <em>well-defined service interface</em> allows the service to limit the scope what is exposed and can allow us change how this data is represented.</li>
+  <li>Outside-in thinking: to help service interface design.</li>
+</ul>
+
+<h6 id="temporal-coupling">Temporal coupling</h6>
+<ul>
+  <li>Key challenges of synchronous calls in a distributed environment.</li>
+</ul>
+
+<h6 id="deployment-coupling">Deployment coupling</h6>
+<ul>
+  <li>Everything must be deployed together</li>
+  <li>Deploying something comes with risk.</li>
+  <li>Small releases make for less risk - there is less to go wrong.</li>
+</ul>
+
+<h6 id="domain-coupling">Domain coupling</h6>
+<ul>
+  <li>Fundamentally, In a system that consists of multiple independent services, there has to be some interaction between participants.</li>
+  <li>In microservice architecture, domain coupling is the result.</li>
+  <li>We can’t avoid the domain coupling. But we still aim to reduce the level of coupling</li>
+</ul>
+
+<h2 id="just-enough-domain-driven-design">Just Enough Domain-Driven Design</h2>
+<ul>
+  <li>Programs better represent the real world.</li>
+  <li>Helps us better represent the problem domain in our programs.</li>
+</ul>
+
+<h4 id="aggregate">Aggregate</h4>
+<ul>
+  <li>Representation of a real domain concept</li>
+  <li>Typically have a life-cycle around them</li>
+  <li>Self contained unit</li>
+  <li>There are lots of ways to break system - some choices being highly subjective.
+    <ol>
+      <li>Performance reason</li>
+      <li>Easy of implementation</li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="bounded-context">Bounded Context</h4>
+<ul>
+  <li>Represent a large organizational boundary within an organization.</li>
+  <li>Hide implementation detail.</li>
+  <li>Contain one or more aggregates</li>
+</ul>
+
+<h4 id="mapping-aggregate-and-bounded-contexts-to-microservices">Mapping Aggregate and Bounded Contexts to Microservices</h4>
+<ul>
+  <li>They both give us unit of cohesion with well-defined interfaces with the wider system.</li>
+  <li>Works well as service boundary.</li>
+</ul>
+
+<h3 id="footnotes">Footnotes</h3>
+<ul>
+  <li><a href="http://bit.ly/2oeICgL">“Contempt Culture” blog post</a></li>
+  <li>For an overview of Shopify’s thinking behind the use of a modular monolith rather than microservices, Kirsten Westeinde’s <a href="http://bit.ly/2oauZ29">talk on YouTube</a> has some useful insights.</li>
+</ul>
+
+<h1 id="chapter2---planning-a-migration">CHAPTER:2 - Planning a Migration</h1>
+<h2 id="understanding-the-goal">Understanding the Goal</h2>
+<ul>
+  <li>Microservices are not the goal. You don’t “win” by having microservices.</li>
+  <li>Think of migrating to microservices architecture in order achieve something that you can’t currently achieve with your existing system architecture.</li>
+</ul>
+
+<h4 id="three-key-questions">Three Key Questions</h4>
+<ul>
+  <li>What are you hoping to achieve?</li>
+  <li>Have you considered alternatives to microservices architecture</li>
+  <li>How will you know if the transition is working?</li>
+</ul>
+
+<h2 id="why-might-you-choose-microservices">Why Might You Choose Microservices?</h2>
+
+<p class="box-note"><strong>But There are other ways you could potentially use to achieve these same outcomes using different approaches.</strong></p>
+
+<h4 id="improve-team-autonomy">Improve Team Autonomy</h4>
+<blockquote>
+  <p>Whatever industry you operate in, it is all about your people, and catching them doing things right, and providing them with the confidence, the motivations, the freedom and desire to achieve their true potential. <br />
+     -John Timpson</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• Distribution of responsibility 
+• Self-service approach - not having to wait for people to do things for you.
+</code></pre></div></div>
+
+<h4 id="reduce-time-to-market">Reduce Time to Market</h4>
+<ul>
+  <li><strong>Path-to-production</strong> modeling exercise - speed up the delivery of software.</li>
+  <li>Think of all the steps involved with shipping software.</li>
+</ul>
+
+<h4 id="scale-cost-effectively-for-load">Scale Cost-Effectively for Load</h4>
+<ul>
+  <li>Scale up only parts of the processing that are currently constraining our ability to handle load.</li>
+  <li>Look for bottlenecks</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• Look at public cloud - a quick short-term improvements, it shouldn't be dismissed outright.
+</code></pre></div></div>
+
+<h4 id="improve-robustness">Improve Robustness</h4>
+<ul>
+  <li>An impact on one area of the functionality need not bring down the whole system.</li>
+</ul>
+
+<p class="box-note"><strong>Resilience:</strong> When we want to improve a system’s ability to avoid outages, handing failures gracefully when they occur, and recover quickly when problems happen</p>
+
+<h4 id="scale-the-number-of-developers">Scale the Number of Developers</h4>
+<ul>
+  <li>We can scale the number of developers by reducing the delivery contention.</li>
+</ul>
+
+<p class="box-note">To successfully scale number of developer we bring to bear on the problem requires a good regress of <strong>autonomy</strong> between the teams themselves - just having microservices not going to be enough</p>
+
+<h4 id="embrace-new-technology">Embrace New Technology</h4>
+<ul>
+  <li>The flexibility is being able to try new technology in a safe way can give them competitive advantage - both in terms of delivering better results for customer and in helping keep developers happy as they master new skills.</li>
+</ul>
+
+<p class="box-note"><strong>Reuse?</strong> <br />
+	• Reuse is one of the most opt-stated goals for microservices migration - a poor goal in the first place. <br />
+	• May not always be the right answer. If your actual goal is faster time to market, writing our own implementation much faster and ship the feature to the customer more quickly than spend the time to adapt the existing code. <br />
+	• Spend time focusing on the actual objective.<br />
+	• If you optimize for reuse hoping you get faster time to market, you may end up doing things that slow you down.</p>
+
+<h2 id="when-might-microservices-be-a-bad-idea">When Might Microservices Be a Bad Idea?</h2>
+<h4 id="unclear-domain">Unclear Domain</h4>
+<ul>
+  <li>Having an existing codebase you want to decompose into microservices is much easier than trying to go to microservices from the beginning.</li>
+</ul>
+
+<h4 id="startups">Startups</h4>
+<ul>
+  <li>It is much easier to partition an existing “brownfield” system than to do so up front with a new, greenfield system that a startup would create.</li>
+  <li>Only split around those boundaries that are clear at the beginning and keep the rest on the more monolith side.</li>
+</ul>
+
+<h2 id="trade-offs">Trade-Offs</h2>
+<ul>
+  <li>Separate the core driver behind the shift from any secondary benefits you might also like to achieve.
+    <ul>
+      <li>Some things are more important than others.</li>
+      <li>Slider exercise - change priorities as you learn more.
+        <ul>
+          <li>Scale to handle increasing numbers of customers</li>
+          <li>Improve team autonomy</li>
+          <li>Bring in new programming language</li>
+          <li>Decrease system downtime</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="taking-people-on-the-journey">Taking People on the Journey</h2>
+<ul>
+  <li>When people disagree about an approach, its because they may have different view of what you are trying to achieve.</li>
+  <li>You need to bring other people on the journey with you - have a shared understanding about what you are trying to achieve.</li>
+  <li>If all in the organization share the same goal, they are much more likely to be onboard for making a change.</li>
+</ul>
+
+<h4 id="changing-organizations">Changing Organizations</h4>
+<ul>
+  <li>Establishing a Sense of Urgency</li>
+  <li>Creating the Guiding Coalition</li>
+  <li>Developing a Vision and Strategy</li>
+  <li>Communicating the Change Vision</li>
+  <li>Empowering Employees for Broad-Based Action</li>
+  <li>Generating Short-Term Wins</li>
+  <li>Consolidating Gains and Producing More Change</li>
+  <li>Anchoring New Approaches in the Culture</li>
+</ul>
+
+<h2 id="importance-of-incremental-migration">Importance of Incremental Migration</h2>
+
+<blockquote class="box-warning">
+  <p>If you do a big-bang rewrite, the only thing you’re guaranteed of is a big bang. <br />
+-Martin Fowler</p>
+</blockquote>
+
+<h2 id="cost-of-change">Cost of Change</h2>
+<h2 id="so-where-do-we-start">So Where Do We Start?</h2>
+<h2 id="domain-driven-design">Domain-Driven Design</h2>
+<h2 id="a-combined-model">A Combined Model</h2>
+<h2 id="reorganizing-teams">Reorganizing Teams</h2>
+<h2 id="how-will-you-know-if-the-transition-is-working">How Will You Know if the Transition Is Working?</h2>
+<h2 id="summary">Summary</h2>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#Book-Review">Book-Review</a>
+          
+            <a href="/tags#Architecture">Architecture</a>
+          
+        </div>
+      
+
+      
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html" data-toggle="tooltip" data-placement="top" title="Panamax template for couchbase 5 node cluster">&larr; Previous Post</a>
+        </li>
+        
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="https://github.com/mohanraj-nagasamy" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/nmrmohanraj" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/mohanrajnagasamy" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        mohanraj nagasamy
+        &nbsp;&bull;&nbsp;
+      
+      2021
+
+      
+
+      
+      </p>
+      <!-- Please don't remove this, keep my open source work credited :) -->
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

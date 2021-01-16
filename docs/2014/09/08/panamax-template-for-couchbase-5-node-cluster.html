@@ -15,7 +15,7 @@
   <meta name="author" content="mohanraj nagasamy">
   
 
-  <meta name="description" content="Panamax is Docker Management for Humans. You can get started with simple steps described here. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share and deploy any containerized app no matter how complex it might be. You can linking (or...">
+  <meta name="description" content="Panamax is Docker Management for Humans. You can get started with the simple steps described here. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share, and deploy any containerized app no matter how complex it might be. You can linking...">
 
   
 
@@ -73,7 +73,7 @@
   
   <meta property="og:site_name" content="mohanraj nagasamy">
   <meta property="og:title" content="Panamax template for couchbase 5 node cluster">
-  <meta property="og:description" content="Panamax is Docker Management for Humans. You can get started with simple steps described here. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share and deploy any containerized app no matter how complex it might be. You can linking (or...">
+  <meta property="og:description" content="Panamax is Docker Management for Humans. You can get started with the simple steps described here. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share, and deploy any containerized app no matter how complex it might be. You can linking...">
 
   
 
@@ -92,7 +92,7 @@
   <meta name="twitter:creator" content="@nmrmohanraj">
 
   <meta property="twitter:title" content="Panamax template for couchbase 5 node cluster">
-  <meta property="twitter:description" content="Panamax is Docker Management for Humans. You can get started with simple steps described here. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share and deploy any containerized app no matter how complex it might be. You can linking (or...">
+  <meta property="twitter:description" content="Panamax is Docker Management for Humans. You can get started with the simple steps described here. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share, and deploy any containerized app no matter how complex it might be. You can linking...">
 
   
 
@@ -170,19 +170,19 @@
       
 
       <article role="main" class="blog-post">
-        <p>Panamax is Docker Management for Humans. You can get started with simple steps described <a href="http://panamax.io/get-panamax/">here</a>. It provides a friendly interface for users of Docker, Fleet &amp; CoreOS. With Panamax, you can easily create, share and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to outside world. You can start and stop docker containers everything within panamax web ui.</p>
+        <p>Panamax is Docker Management for Humans. You can get started with the simple steps described <a href="http://panamax.io/get-panamax/">here</a>. It provides a friendly interface for users of Docker, Fleet &amp; CoreOS. With Panamax, you can easily create, share, and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to the outside world. You can start and stop docker containers everything within Panamax web UI.</p>
 
-<p>I have created “Panamax template for couchbase 5 node cluster”. Let’s see how simple it is to setup the cluster.</p>
+<p>I have created a “Panamax template for couchbase 5 node cluster”. Let’s see how simple it is to set up the cluster.</p>
 
 <!-- more -->
 
-<p>Most of the steps taken from <a href="http://blog.abhinav.ca/blog/2014/07/31/kickstart-a-couchbase-cluster-with-docker">here</a>. I just made a panamax template.</p>
+<p>Most of the steps taken from <a href="http://blog.abhinav.ca/blog/2014/07/31/kickstart-a-couchbase-cluster-with-docker">here</a>. I just made a Panamax template.</p>
 
 <h4 id="step-1--login-into-coreos">Step 1 : Login into coreOS</h4>
 
 <p><code class="language-plaintext highlighter-rouge">panamax ssh</code></p>
 
-<h4 id="step-2-run-the-blow-command-from-coreos">Step 2: Run the blow command from coreOS</h4>
+<h4 id="step-2-run-the-below-command-from-coreos">Step 2: Run the below command from coreOS</h4>
 <p><code class="language-plaintext highlighter-rouge">docker ps</code></p>
 
 <p><code class="language-plaintext highlighter-rouge">for name in dustin_couchbase_{1..4}; do docker inspect -f '.NetworkSettings.IPAddress' $name; done</code></p>
@@ -199,13 +199,13 @@
   <span class="mf">172.17</span><span class="p">.</span><span class="mf">36.141</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
-<h4 id="step-3-open-new-terminal-and-run-all-these-commands-in-host-os-where-your-virtual-box-running">Step 3: Open new terminal and run all these commands in host OS (where your Virtual box running)</h4>
+<h4 id="step-3-open-a-new-terminal-and-run-all-these-commands-in-the-host-os-where-your-virtual-box-running">Step 3: Open a new terminal and run all these commands in the host OS (where your Virtual box running)</h4>
 
 <p><code class="language-plaintext highlighter-rouge">VboxManage controlvm panamax-vm natpf1 rule1,tcp,,8091,,8091</code>
   <code class="language-plaintext highlighter-rouge">VboxManage controlvm panamax-vm natpf1 rule2,tcp,,8092,,8092</code>
   <code class="language-plaintext highlighter-rouge">VboxManage controlvm panamax-vm natpf1 rule3,tcp,,11210,,11210</code></p>
 
-<p>Note: If you are not clear why you have to do this, here is <a href="https://github.com/CenturyLinkLabs/panamax-ui/wiki/How-To%3A-Port-Forwarding-on-VirtualBox">panamax wiki</a> that explains in detail.</p>
+<p>Note: If you are not clear why you have to do this, here is the <a href="https://github.com/CenturyLinkLabs/panamax-ui/wiki/How-To%3A-Port-Forwarding-on-VirtualBox">Panamax wiki</a> that explains in detail.</p>
 
 <h4 id="step-4-go-to-couchbase-admin-web-console">Step 4: Go to (couchbase admin web console)</h4>
 <p><a href="http://localhost:8091/">http://localhost:8091/</a></p>
@@ -252,6 +252,10 @@
           <a class="page-link" href="/2014/03/18/utah-code-camp-2014-notes.html" data-toggle="tooltip" data-placement="top" title="Utah Code Camp 2014: Notes">&larr; Previous Post</a>
         </li>
         
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2014/09/08/book-review-notes-monolith-to-microservices.html" data-toggle="tooltip" data-placement="top" title="Book review notes: Monolith to Microservices">Next Post &rarr;</a>
+        </li>
         
       </ul>
       

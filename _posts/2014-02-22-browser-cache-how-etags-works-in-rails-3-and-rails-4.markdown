@@ -6,7 +6,7 @@ comments: true
 tags: [Cache, Performance]
 ---
 
-Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser's cache matches the one on the origin server. 
+Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content, etc) in the browser's cache matches the one on the origin server. 
 
 <!-- more -->
 
@@ -16,30 +16,30 @@ Rails 3 and Rails 4 uses ETags by default and let’s look at how they work firs
 ![image-center](/assets/images/posts/etags-rails-3-and-rails-4.png){: .align-center}
 
 
-Lets say you are going to a blog website and requesting a list of posts:
+Let's say you are going to a blog website and requesting a list of posts:
 
 * First Request:
-	- Browser makes the initial first request
+	- The browser makes the initial first request
 * First Response:
 	- Rails creates response body 
 	- Rails creates ETag 
 	- Rails responds with ETag header, status code 200 
 
-The browser caches the response now. When the browser makes subsequent request, here is the flow:
+The browser caches the response now. When the browser makes subsequent requests, here is the flow:
 
 * Subsequent Request:
-	- Browser makes request with header ‘If-None-Matched’ with ETag value from the initial request. 
+	- The browser requests with the header ‘If-None-Matched’ with ETag value from the initial request. 
 * Subsequent Response:
-	- Rails creates body and creates ETag
+	- Rails creates the body and ETag
 	- Compares ETag value with ‘If-None-Matched’ value
-	- If ETag match then response body is not included in response and returns with 304 Not Modified status
-	- If ETag doesn’t match then body is included in the response and ETags are included in header
+	- If ETag match then the response body is not included in the response and returns with 304 Not Modified status
+	- If ETag doesn’t match then the body is included in the response and ETags are included in the header
 
 #### Advantage
-So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes website faster.
+So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes the website faster.
 
 ##### Enable ETag
-So what you have to do to enable ETag chache? Nothing. You don’t have to do anything to take advantage of ETag cache.
+So what you have to do to enable the ETag cache? Nothing. You don’t have to do anything to take advantage of the ETag cache.
 
 The below code uses Rails default ETag cache:
 
@@ -71,8 +71,8 @@ headers['ETag'] = Digest::MD5.hexdigest(body)
 ```
 
 #### Custom ETags
-It is not a good idea to process the entire response body everytime to generate ETag. Generating entire response body involves calling the DB to fetch all the related data and processing html templates and partial page renderings. This is a costly process. 
-How do you solve this issue? You have fresh_when and stale? rails cache helper come in handy to rescue you.
+It is not a good idea to process the entire response body every time to generate ETag. Generating the entire response body involves calling the DB to fetch all the related data and processing HTML templates and partial page renderings. This is a costly process. 
+How do you solve this issue? You have fresh_when and stale? rails cache helper comes in handy to rescue you.
 
 The code will look like this with fresh_when and stale?:
 
@@ -102,10 +102,10 @@ So how do rails generate ETags now? The code may look like something like this i
 headers['ETag'] = Digest::MD5.hexdigest(@post.cache_key)
 ```
 
-Cache_key is combination of ```model_name/model.id-model.updated_at```. It will be like this for Post model: ```post/123-201312121212```
+Cache_key is combination of ```model_name/model.id-model.updated_at```. It will be like this for the Post model: ```post/123-201312121212```
 
-##### When do you use fresh_when and stale? cache helper and what’s difference?
-If you have special response processing like the one in show method, then use stale? helper. If you don’t have any special response processing like the one in edit method and using default-rendering mechanism (i.e. you’re not using respond_to or calling render yourself) then use fresh_when.
+##### When do you use fresh_when and stale? cache helper and what’s the difference?
+If you have special response processing like the one the `show` method, then use the `stale?` helper. If you don’t have any special response processing like the one in the `edit` method and using default-rendering mechanism (i.e. you’re not using `respond_to` or calling render yourself) then use `fresh_when`.
 
 #### Customize ETag generation
 If you cache based on ```current_user or current_customer```, you can pass multiple arguments to generate ETag. The arguments have to be a Hash.
@@ -138,7 +138,7 @@ end
 ```
 
 #### Rails 4
-When look at edit and recent methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.
+When look at `edit` and `recent` methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.
 
 Rails 3 and Rails 4 uses ETags by default for browser caching. But Rails 4 has a feature called declarative ETags, which allows you to add additional controller-wide information when generating an ETag.
 
@@ -192,7 +192,7 @@ class PostsController < ApplicationController
 end
 ```
 
-Declarative ETags doesn’t support :only, :if options yet like one we have on before_filter/before_action or after_filer/after_action to run call back only on certain actions. 
+Declarative ETags doesn’t support `:only`, `:if` options yet like one we have on `before_filter/before_action` or `after_filer/after_action` to run call back only on certain actions. 
 
 #### Resouces
 * [http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013](http://blog.remarkablelabs.com/2012/12/generate-controller-wide-etags-rails-4-countdown-to-2013)

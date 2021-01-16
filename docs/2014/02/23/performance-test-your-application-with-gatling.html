@@ -15,7 +15,7 @@
   <meta name="author" content="mohanraj nagasamy">
   
 
-  <meta name="description" content="When you think about performance testing your application, you may think about the below picture and a tool to test. One open source tool that comes to mind is JMeter. For very simple tests, I tend use apache benchmarking. But there are other tools like Grinder, LoadRunner, NeoLoad, Tsung, and...">
+  <meta name="description" content="When you think about performance testing your application, you may think about the below picture and a tool to test. One open-source tool that comes to mind is JMeter. For very simple tests, I tend to use apache benchmarking. But there are other tools like Grinder, LoadRunner, NeoLoad, Tsung, and...">
 
   
 
@@ -73,7 +73,7 @@
   
   <meta property="og:site_name" content="mohanraj nagasamy">
   <meta property="og:title" content="Performance test your application with Gatling">
-  <meta property="og:description" content="When you think about performance testing your application, you may think about the below picture and a tool to test. One open source tool that comes to mind is JMeter. For very simple tests, I tend use apache benchmarking. But there are other tools like Grinder, LoadRunner, NeoLoad, Tsung, and...">
+  <meta property="og:description" content="When you think about performance testing your application, you may think about the below picture and a tool to test. One open-source tool that comes to mind is JMeter. For very simple tests, I tend to use apache benchmarking. But there are other tools like Grinder, LoadRunner, NeoLoad, Tsung, and...">
 
   
 
@@ -92,7 +92,7 @@
   <meta name="twitter:creator" content="@nmrmohanraj">
 
   <meta property="twitter:title" content="Performance test your application with Gatling">
-  <meta property="twitter:description" content="When you think about performance testing your application, you may think about the below picture and a tool to test. One open source tool that comes to mind is JMeter. For very simple tests, I tend use apache benchmarking. But there are other tools like Grinder, LoadRunner, NeoLoad, Tsung, and...">
+  <meta property="twitter:description" content="When you think about performance testing your application, you may think about the below picture and a tool to test. One open-source tool that comes to mind is JMeter. For very simple tests, I tend to use apache benchmarking. But there are other tools like Grinder, LoadRunner, NeoLoad, Tsung, and...">
 
   
 
@@ -174,7 +174,7 @@
 
 <p><img src="/assets//images/posts/truck-load.png" alt="image-center" class="align-center" /></p>
 
-<p>One open source tool that comes to mind is <a href="http://jmeter.apache.org/">JMeter</a>. For very simple tests, I tend use <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">apache benchmarking</a>. But there are other tools like <a href="http://grinder.sourceforge.net/">Grinder</a>, <a href="http://www8.hp.com/us/en/software-solutions/software.html?compURI=1175451">LoadRunner</a>, <a href="http://www.neotys.com/product/overview-neoload.html">NeoLoad</a>, <a href="http://tsung.erlang-projects.org/">Tsung</a>, and <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a> for web services testing. Then there is <a href="https://code.google.com/p/caliper/">Caliper</a> and <a href="http://openjdk.java.net/projects/code-tools/jmh">jmh</a> for micro benchmarking, which target use cases.</p>
+<p>One open-source tool that comes to mind is <a href="http://jmeter.apache.org/">JMeter</a>. For very simple tests, I tend to use <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">apache benchmarking</a>. But there are other tools like <a href="http://grinder.sourceforge.net/">Grinder</a>, <a href="http://www8.hp.com/us/en/software-solutions/software.html?compURI=1175451">LoadRunner</a>, <a href="http://www.neotys.com/product/overview-neoload.html">NeoLoad</a>, <a href="http://tsung.erlang-projects.org/">Tsung</a>, and <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a> for web services testing. Then there is <a href="https://code.google.com/p/caliper/">Caliper</a> and <a href="http://openjdk.java.net/projects/code-tools/jmh">jmh</a> for micro benchmarking, which target use cases.</p>
 
 <!-- more -->
 
@@ -192,7 +192,7 @@
 
 <p>Using the GUI to do performance tests is difficult and unintuitive.</p>
 
-<p>Gatling provides an elegant <a href="http://gatling-tool.org/cheat-sheet/">DSL</a> written in <a href="http://www.scala-lang.org/">Scala</a> to describe your test scenarios of your app. DSL scripts are intuitive and simple to create. Using the recorder (like <a href="http://jmeter.apache.org/">JMeter</a>) it can generate scripts that will look similar to a hand written one. Your can then tweak the generated scripts anyway you want.</p>
+<p>Gatling provides an elegant <a href="http://gatling-tool.org/cheat-sheet/">DSL</a> written in <a href="http://www.scala-lang.org/">Scala</a> to describe the test scenarios of your app. DSL scripts are intuitive and simple to create. Using the recorder (like <a href="http://jmeter.apache.org/">JMeter</a>) can generate scripts that will look similar to a hand wrote one. You can then tweak the generated scripts in any way you want.</p>
 
 <p>You don’t have to know Scala to write scripts. You can get an introduction <a href="http://twitter.github.io/scala_school/">here</a> or just think of them as Javascript code (at least for usage purpose). Scals’s variable declarations are either by var (mutable variable) or by val (immutable variable).</p>
 
@@ -220,14 +220,14 @@
 
 </code></pre></div></div>
 
-<p>I created the above script, which load tests the twitter.com site. You can checkout the full source code <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo">here</a>, which is a cloned maven project from <a href="https://github.com/excilys/gatling/tree/master/gatling-maven-plugin">gatling-maven-plugin</a>. Take a look at the <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo/blob/master/src/test/scala/twitter/TwitterSimulation.scala">TwitterSimulation.scala</a> file that I added to the project.</p>
+<p>I created the above script, which load tests the twitter.com site. You can check out the full source code <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo">here</a>, which is a cloned maven project from <a href="https://github.com/excilys/gatling/tree/master/gatling-maven-plugin">gatling-maven-plugin</a>. Take a look at the <a href="https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo/blob/master/src/test/scala/twitter/TwitterSimulation.scala">TwitterSimulation.scala</a> file that I added to the project.</p>
 
 <p>Once downloaded, execute with the following maven command with your tweeter username and password:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn gatling:execute -Dgatling.simulationClass=twitter.TwitterSimulation -Dusers=&lt;no-of-concurrent-users&gt; -Dtweets=&lt;no-of-your-tweets&gt; -Dusername=&lt;twitter-user-name&gt; -Dpassword=&lt;twitter-password&gt;
 </code></pre></div></div>
 
-<p><em>Note</em>: Keep the concurrent user count between 2 and 5. If you add more load twitter they will display the CAPTCHA login page instead. This is to avoid a <a href="http://en.wikipedia.org/wiki/Denial-of-service_attack">DoS</a> attack. In other words the login test may fail intermittently based on how many times you run the test.</p>
+<p><em>Note</em>: Keep the concurrent user count between 2 and 5. If you add more load on Twitter they will display the CAPTCHA login page instead. This is to avoid a <a href="http://en.wikipedia.org/wiki/Denial-of-service_attack">DoS</a> attack. In other words, the login test may fail intermittently based on how many times you run the test.</p>
 
 <p>This script gets you to twitter.com and posts with username, password and authenticity token that is get generated when you request twitter.com.</p>
 
@@ -238,24 +238,24 @@
 
 <p>With the response from the HTTP post, it verifies the http status code and the content of the body using bodyString()and regex() utility methods. It also logs-out from the site.</p>
 
-<p>Real users usually reads the pages and clicks through the links. To get this real user simulation, there is a <a href="https://github.com/excilys/gatling/wiki/Structure-Elements#wiki-pause">pause()</a> method that can be used for this purpose. There are other <a href="https://github.com/excilys/gatling/wiki/Structure-Elements">structural elements</a> available.</p>
+<p>Real users usually read the pages and clicks through the links. To get this real user simulation, there is a <a href="https://github.com/excilys/gatling/wiki/Structure-Elements#wiki-pause">pause()</a> method that can be used for this purpose. There are other <a href="https://github.com/excilys/gatling/wiki/Structure-Elements">structural elements</a> available.</p>
 
-<p>The project has two more tests – basic and advanced simulation. Take a look at and run them in the same way as twitter one.</p>
+<p>The project has two more tests – basic and advanced simulation. Take a look at and run them in the same way as Twitter one.</p>
 
-<p>Gatling automatically handles http headers and cookies. It also auto redirects based on headers, which makes testing sessions and OAuth based applications easier.</p>
+<p>Gatling automatically handles HTTP headers and cookies. It also auto redirects based on headers, which makes testing sessions and OAuth based applications easier.</p>
 
-<p>Testing a RESTful service layer is mush easier with a script than using the GUI.
-Here is nice blog post on how Gatling is used to test the <a href="http://maxdemarzi.com/2013/02/14/neo4j-and-gatling-sitting-in-a-tree-performance-t-e-s-t-ing/">Neo4j REST</a> interface.</p>
+<p>Testing a RESTful service layer is much easier with a script than using the GUI.
+Here is a nice blog post on how Gatling is used to test the <a href="http://maxdemarzi.com/2013/02/14/neo4j-and-gatling-sitting-in-a-tree-performance-t-e-s-t-ing/">Neo4j REST</a> interface.</p>
 
-<p>To test the SOAP interface, I may use <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a>, which handles most of the SOAP plumbing. You can use Gatling to load test SOAP as well, however you will have to write the SOAP headers and xml body yourself.</p>
+<p>To test the SOAP interface, I may use <a href="http://www.soapui.org/Getting-Started/load-testing.html">SoapUI</a>, which handles most of the SOAP plumbing. You can use Gatling to load test SOAP as well, however, you will have to write the SOAP headers and XML body yourself.</p>
 
 <p><em>Note</em>: Gatling 2.x undertook major <a href="https://github.com/excilys/gatling/wiki/Gatling-2">API</a> refactoring and is not compatible with Gatling 1.x. You may want to watch out for this. I am using version 2.0.0-M3 in all my examples.</p>
 
-<p>There are other tools that support scripting like Beanshell, Python, Clojure and Erlang. But they are not simple to use and learn like Gatling.</p>
+<p>Other tools support scriptings like Beanshell, Python, Clojure, and Erlang. But they are not simple to use and learn like Gatling.</p>
 
 <h4 id="maintainability">Maintainability</h4>
 
-<p>A script is always easier to modify as a project evolves than maintaining a GUI based load test file. A script also fits very well into your daily workflow as it integrates very well with developer tools like maven, jenkins and your favorite <a href="https://github.com/excilys/gatling/wiki/Ide-integration">IDE</a>.</p>
+<p>A script is always easier to modify as a project evolves than maintaining a GUI based load test file. A script also fits very well into your daily workflow as it integrates very well with developer tools like maven, Jenkins, and your favorite <a href="https://github.com/excilys/gatling/wiki/Ide-integration">IDE</a>.</p>
 
 <h4 id="reporting">Reporting</h4>
 <p>Gatling generates nice and easy to understand <a href="https://github.com/excilys/gatling/wiki/Reports">static reports</a> with metrics, which easily can be shared with anyone on your team. The reports are static and can be run with the daily build or when you release your application. You can then compare the results between each release to monitor how the app is performing.

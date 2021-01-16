@@ -1,16 +1,293 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-07T21:01:42-06:00</updated><id>/feed.xml</id><title type="html">mohanraj nagasamy</title><subtitle></subtitle><author><name>mohanraj nagasamy</name></author><entry><title type="html">Panamax template for couchbase 5 node cluster</title><link href="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html" rel="alternate" type="text/html" title="Panamax template for couchbase 5 node cluster" /><published>2014-09-08T16:29:30-05:00</published><updated>2014-09-08T16:29:30-05:00</updated><id>/2014/09/08/panamax-template-for-couchbase-5-node-cluster</id><content type="html" xml:base="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html">&lt;p&gt;Panamax is Docker Management for Humans. You can get started with simple steps described &lt;a href=&quot;http://panamax.io/get-panamax/&quot;&gt;here&lt;/a&gt;. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to outside world. You can start and stop docker containers everything within panamax web ui.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-16T13:12:34-06:00</updated><id>/feed.xml</id><title type="html">mohanraj nagasamy</title><subtitle></subtitle><author><name>mohanraj nagasamy</name></author><entry><title type="html">Book review notes: Monolith to Microservices</title><link href="/2014/09/08/book-review-notes-monolith-to-microservices.html" rel="alternate" type="text/html" title="Book review notes: Monolith to Microservices" /><published>2014-09-08T16:29:30-05:00</published><updated>2014-09-08T16:29:30-05:00</updated><id>/2014/09/08/book-review-notes-monolith-to-microservices</id><content type="html" xml:base="/2014/09/08/book-review-notes-monolith-to-microservices.html">&lt;p&gt;Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.&lt;/p&gt;
 
-&lt;p&gt;I have created “Panamax template for couchbase 5 node cluster”. Let’s see how simple it is to setup the cluster.&lt;/p&gt;
+&lt;p&gt;It covers from domain-driven design to organizational change model - vital underpinnings that will stand you in good stead even if you decide not to adopt a microservice architecture.&lt;/p&gt;
+
+&lt;h1 id=&quot;chapter1---just-enough-microservices&quot;&gt;CHAPTER:1 - Just Enough Microservices&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Have a common, shared understanding about what microservice architectures are.&lt;/li&gt;
+  &lt;li&gt;Address some common misconceptions as well as nuances that often missed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-are-microservices&quot;&gt;What Are Microservices?&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Independently deployable&lt;/strong&gt; services modeled around &lt;strong&gt;a business domain&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Expose business capability via well defined &lt;strong&gt;API interface&lt;/strong&gt; - contract.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Encapsulate inner-working&lt;/strong&gt; of the business capability and its data storage and retrieval.&lt;/li&gt;
+  &lt;li&gt;Less cross-service changes as infrequent as possible.&lt;/li&gt;
+  &lt;li&gt;Service should decide what is shared and what is hidden.&lt;/li&gt;
+  &lt;li&gt;End-to-end slice of a business functionality.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;independent-deployability&quot;&gt;Independent Deployability&lt;/h4&gt;
+&lt;h4 id=&quot;modeled-around-a-business-domain&quot;&gt;Modeled Around a Business Domain&lt;/h4&gt;
+&lt;h4 id=&quot;own-their-own-data&quot;&gt;Own Their Own Data&lt;/h4&gt;
+
+&lt;h4 id=&quot;what-advantages-can-microservices-bring&quot;&gt;What Advantages Can Microservices Bring?&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Independent nature of deployment opens up new model for improving the scale and robustness of system.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;what-problems-do-they-create&quot;&gt;What Problems Do They Create?&lt;/h4&gt;
+&lt;h4 id=&quot;user-interfaces&quot;&gt;User Interfaces&lt;/h4&gt;
+&lt;h4 id=&quot;technology&quot;&gt;Technology&lt;/h4&gt;
+&lt;h4 id=&quot;size&quot;&gt;Size&lt;/h4&gt;
+&lt;h4 id=&quot;and-ownership&quot;&gt;And Ownership&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Reducing services that are shared across multiple teams is key to minimizing &lt;strong&gt;delivery contention&lt;/strong&gt; - Business Oriented microservice architecture&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-monolith&quot;&gt;The Monolith&lt;/h2&gt;
+&lt;p&gt;Kinds:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The Single Process Monolith&lt;/li&gt;
+  &lt;li&gt;The Distributed Monolith&lt;/li&gt;
+  &lt;li&gt;Third-Party Black-Box Systems&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;challenges-of-monoliths&quot;&gt;Challenges of Monoliths&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Delivery contention&lt;/li&gt;
+  &lt;li&gt;Confused lines of ownership&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;advantages-of-monoliths&quot;&gt;Advantages of Monoliths&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Simpler end-to-end testing&lt;/li&gt;
+  &lt;li&gt;Single place to monitor and troubleshoot&lt;/li&gt;
+  &lt;li&gt;Simplify code reuse&lt;/li&gt;
+  &lt;li&gt;Monolith is synonymous with legacy - this is a problem.&lt;/li&gt;
+  &lt;li&gt;It is valid option - like microservice&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;on-coupling-and-cohesion&quot;&gt;On Coupling and Cohesion&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Understand the balancing forces between coupling and cohesion&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;cohesion&quot;&gt;Cohesion&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;How we group related code.&lt;/li&gt;
+  &lt;li&gt;The code that changes together, stays together&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;coupling&quot;&gt;Coupling&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;How changing one thing requires a change in another&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Information Hiding, like dieting, is somewhat more easily described than done. &lt;br /&gt;
+-David Parnas, The Secret History Of Information Hiding&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h6 id=&quot;implementation-coupling&quot;&gt;Implementation coupling&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;A is coupled to B in teams of how B is implemented - when the implementation of B changes, A also changes.&lt;/li&gt;
+  &lt;li&gt;A classic and common example of implementation coupling comes in the form of sharing database.&lt;/li&gt;
+  &lt;li&gt;The act of hiding a database behind &lt;em&gt;well-defined service interface&lt;/em&gt; allows the service to limit the scope what is exposed and can allow us change how this data is represented.&lt;/li&gt;
+  &lt;li&gt;Outside-in thinking: to help service interface design.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;temporal-coupling&quot;&gt;Temporal coupling&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;Key challenges of synchronous calls in a distributed environment.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;deployment-coupling&quot;&gt;Deployment coupling&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;Everything must be deployed together&lt;/li&gt;
+  &lt;li&gt;Deploying something comes with risk.&lt;/li&gt;
+  &lt;li&gt;Small releases make for less risk - there is less to go wrong.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;domain-coupling&quot;&gt;Domain coupling&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;Fundamentally, In a system that consists of multiple independent services, there has to be some interaction between participants.&lt;/li&gt;
+  &lt;li&gt;In microservice architecture, domain coupling is the result.&lt;/li&gt;
+  &lt;li&gt;We can’t avoid the domain coupling. But we still aim to reduce the level of coupling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;just-enough-domain-driven-design&quot;&gt;Just Enough Domain-Driven Design&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Programs better represent the real world.&lt;/li&gt;
+  &lt;li&gt;Helps us better represent the problem domain in our programs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;aggregate&quot;&gt;Aggregate&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Representation of a real domain concept&lt;/li&gt;
+  &lt;li&gt;Typically have a life-cycle around them&lt;/li&gt;
+  &lt;li&gt;Self contained unit&lt;/li&gt;
+  &lt;li&gt;There are lots of ways to break system - some choices being highly subjective.
+    &lt;ol&gt;
+      &lt;li&gt;Performance reason&lt;/li&gt;
+      &lt;li&gt;Easy of implementation&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;bounded-context&quot;&gt;Bounded Context&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Represent a large organizational boundary within an organization.&lt;/li&gt;
+  &lt;li&gt;Hide implementation detail.&lt;/li&gt;
+  &lt;li&gt;Contain one or more aggregates&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;mapping-aggregate-and-bounded-contexts-to-microservices&quot;&gt;Mapping Aggregate and Bounded Contexts to Microservices&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;They both give us unit of cohesion with well-defined interfaces with the wider system.&lt;/li&gt;
+  &lt;li&gt;Works well as service boundary.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://bit.ly/2oeICgL&quot;&gt;“Contempt Culture” blog post&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;For an overview of Shopify’s thinking behind the use of a modular monolith rather than microservices, Kirsten Westeinde’s &lt;a href=&quot;http://bit.ly/2oauZ29&quot;&gt;talk on YouTube&lt;/a&gt; has some useful insights.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;chapter2---planning-a-migration&quot;&gt;CHAPTER:2 - Planning a Migration&lt;/h1&gt;
+&lt;h2 id=&quot;understanding-the-goal&quot;&gt;Understanding the Goal&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Microservices are not the goal. You don’t “win” by having microservices.&lt;/li&gt;
+  &lt;li&gt;Think of migrating to microservices architecture in order achieve something that you can’t currently achieve with your existing system architecture.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;three-key-questions&quot;&gt;Three Key Questions&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;What are you hoping to achieve?&lt;/li&gt;
+  &lt;li&gt;Have you considered alternatives to microservices architecture&lt;/li&gt;
+  &lt;li&gt;How will you know if the transition is working?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;why-might-you-choose-microservices&quot;&gt;Why Might You Choose Microservices?&lt;/h2&gt;
+
+&lt;p class=&quot;box-note&quot;&gt;&lt;strong&gt;But There are other ways you could potentially use to achieve these same outcomes using different approaches.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;improve-team-autonomy&quot;&gt;Improve Team Autonomy&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Whatever industry you operate in, it is all about your people, and catching them doing things right, and providing them with the confidence, the motivations, the freedom and desire to achieve their true potential. &lt;br /&gt;
+     -John Timpson&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;• Distribution of responsibility 
+• Self-service approach - not having to wait for people to do things for you.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;reduce-time-to-market&quot;&gt;Reduce Time to Market&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Path-to-production&lt;/strong&gt; modeling exercise - speed up the delivery of software.&lt;/li&gt;
+  &lt;li&gt;Think of all the steps involved with shipping software.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;scale-cost-effectively-for-load&quot;&gt;Scale Cost-Effectively for Load&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Scale up only parts of the processing that are currently constraining our ability to handle load.&lt;/li&gt;
+  &lt;li&gt;Look for bottlenecks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;• Look at public cloud - a quick short-term improvements, it shouldn't be dismissed outright.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;improve-robustness&quot;&gt;Improve Robustness&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;An impact on one area of the functionality need not bring down the whole system.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;box-note&quot;&gt;&lt;strong&gt;Resilience:&lt;/strong&gt; When we want to improve a system’s ability to avoid outages, handing failures gracefully when they occur, and recover quickly when problems happen&lt;/p&gt;
+
+&lt;h4 id=&quot;scale-the-number-of-developers&quot;&gt;Scale the Number of Developers&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;We can scale the number of developers by reducing the delivery contention.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;box-note&quot;&gt;To successfully scale number of developer we bring to bear on the problem requires a good regress of &lt;strong&gt;autonomy&lt;/strong&gt; between the teams themselves - just having microservices not going to be enough&lt;/p&gt;
+
+&lt;h4 id=&quot;embrace-new-technology&quot;&gt;Embrace New Technology&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;The flexibility is being able to try new technology in a safe way can give them competitive advantage - both in terms of delivering better results for customer and in helping keep developers happy as they master new skills.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;box-note&quot;&gt;&lt;strong&gt;Reuse?&lt;/strong&gt; &lt;br /&gt;
+	• Reuse is one of the most opt-stated goals for microservices migration - a poor goal in the first place. &lt;br /&gt;
+	• May not always be the right answer. If your actual goal is faster time to market, writing our own implementation much faster and ship the feature to the customer more quickly than spend the time to adapt the existing code. &lt;br /&gt;
+	• Spend time focusing on the actual objective.&lt;br /&gt;
+	• If you optimize for reuse hoping you get faster time to market, you may end up doing things that slow you down.&lt;/p&gt;
+
+&lt;h2 id=&quot;when-might-microservices-be-a-bad-idea&quot;&gt;When Might Microservices Be a Bad Idea?&lt;/h2&gt;
+&lt;h4 id=&quot;unclear-domain&quot;&gt;Unclear Domain&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Having an existing codebase you want to decompose into microservices is much easier than trying to go to microservices from the beginning.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;startups&quot;&gt;Startups&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;It is much easier to partition an existing “brownfield” system than to do so up front with a new, greenfield system that a startup would create.&lt;/li&gt;
+  &lt;li&gt;Only split around those boundaries that are clear at the beginning and keep the rest on the more monolith side.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;trade-offs&quot;&gt;Trade-Offs&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Separate the core driver behind the shift from any secondary benefits you might also like to achieve.
+    &lt;ul&gt;
+      &lt;li&gt;Some things are more important than others.&lt;/li&gt;
+      &lt;li&gt;Slider exercise - change priorities as you learn more.
+        &lt;ul&gt;
+          &lt;li&gt;Scale to handle increasing numbers of customers&lt;/li&gt;
+          &lt;li&gt;Improve team autonomy&lt;/li&gt;
+          &lt;li&gt;Bring in new programming language&lt;/li&gt;
+          &lt;li&gt;Decrease system downtime&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;taking-people-on-the-journey&quot;&gt;Taking People on the Journey&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;When people disagree about an approach, its because they may have different view of what you are trying to achieve.&lt;/li&gt;
+  &lt;li&gt;You need to bring other people on the journey with you - have a shared understanding about what you are trying to achieve.&lt;/li&gt;
+  &lt;li&gt;If all in the organization share the same goal, they are much more likely to be onboard for making a change.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;changing-organizations&quot;&gt;Changing Organizations&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Establishing a Sense of Urgency&lt;/li&gt;
+  &lt;li&gt;Creating the Guiding Coalition&lt;/li&gt;
+  &lt;li&gt;Developing a Vision and Strategy&lt;/li&gt;
+  &lt;li&gt;Communicating the Change Vision&lt;/li&gt;
+  &lt;li&gt;Empowering Employees for Broad-Based Action&lt;/li&gt;
+  &lt;li&gt;Generating Short-Term Wins&lt;/li&gt;
+  &lt;li&gt;Consolidating Gains and Producing More Change&lt;/li&gt;
+  &lt;li&gt;Anchoring New Approaches in the Culture&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;importance-of-incremental-migration&quot;&gt;Importance of Incremental Migration&lt;/h2&gt;
+
+&lt;blockquote class=&quot;box-warning&quot;&gt;
+  &lt;p&gt;If you do a big-bang rewrite, the only thing you’re guaranteed of is a big bang. &lt;br /&gt;
+-Martin Fowler&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;cost-of-change&quot;&gt;Cost of Change&lt;/h2&gt;
+&lt;h2 id=&quot;so-where-do-we-start&quot;&gt;So Where Do We Start?&lt;/h2&gt;
+&lt;h2 id=&quot;domain-driven-design&quot;&gt;Domain-Driven Design&lt;/h2&gt;
+&lt;h2 id=&quot;a-combined-model&quot;&gt;A Combined Model&lt;/h2&gt;
+&lt;h2 id=&quot;reorganizing-teams&quot;&gt;Reorganizing Teams&lt;/h2&gt;
+&lt;h2 id=&quot;how-will-you-know-if-the-transition-is-working&quot;&gt;How Will You Know if the Transition Is Working?&lt;/h2&gt;
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Book-Review" /><category term="Architecture" /><summary type="html">Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.</summary></entry><entry><title type="html">Panamax template for couchbase 5 node cluster</title><link href="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html" rel="alternate" type="text/html" title="Panamax template for couchbase 5 node cluster" /><published>2014-09-08T16:29:30-05:00</published><updated>2014-09-08T16:29:30-05:00</updated><id>/2014/09/08/panamax-template-for-couchbase-5-node-cluster</id><content type="html" xml:base="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html">&lt;p&gt;Panamax is Docker Management for Humans. You can get started with the simple steps described &lt;a href=&quot;http://panamax.io/get-panamax/&quot;&gt;here&lt;/a&gt;. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share, and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to the outside world. You can start and stop docker containers everything within Panamax web UI.&lt;/p&gt;
+
+&lt;p&gt;I have created a “Panamax template for couchbase 5 node cluster”. Let’s see how simple it is to set up the cluster.&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
-&lt;p&gt;Most of the steps taken from &lt;a href=&quot;http://blog.abhinav.ca/blog/2014/07/31/kickstart-a-couchbase-cluster-with-docker&quot;&gt;here&lt;/a&gt;. I just made a panamax template.&lt;/p&gt;
+&lt;p&gt;Most of the steps taken from &lt;a href=&quot;http://blog.abhinav.ca/blog/2014/07/31/kickstart-a-couchbase-cluster-with-docker&quot;&gt;here&lt;/a&gt;. I just made a Panamax template.&lt;/p&gt;
 
 &lt;h4 id=&quot;step-1--login-into-coreos&quot;&gt;Step 1 : Login into coreOS&lt;/h4&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;panamax ssh&lt;/code&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;step-2-run-the-blow-command-from-coreos&quot;&gt;Step 2: Run the blow command from coreOS&lt;/h4&gt;
+&lt;h4 id=&quot;step-2-run-the-below-command-from-coreos&quot;&gt;Step 2: Run the below command from coreOS&lt;/h4&gt;
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker ps&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;for name in dustin_couchbase_{1..4}; do docker inspect -f '.NetworkSettings.IPAddress' $name; done&lt;/code&gt;&lt;/p&gt;
@@ -27,13 +304,13 @@
   &lt;span class=&quot;mf&quot;&gt;172.17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;36.141&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h4 id=&quot;step-3-open-new-terminal-and-run-all-these-commands-in-host-os-where-your-virtual-box-running&quot;&gt;Step 3: Open new terminal and run all these commands in host OS (where your Virtual box running)&lt;/h4&gt;
+&lt;h4 id=&quot;step-3-open-a-new-terminal-and-run-all-these-commands-in-the-host-os-where-your-virtual-box-running&quot;&gt;Step 3: Open a new terminal and run all these commands in the host OS (where your Virtual box running)&lt;/h4&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VboxManage controlvm panamax-vm natpf1 rule1,tcp,,8091,,8091&lt;/code&gt;
   &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VboxManage controlvm panamax-vm natpf1 rule2,tcp,,8092,,8092&lt;/code&gt;
   &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VboxManage controlvm panamax-vm natpf1 rule3,tcp,,11210,,11210&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;Note: If you are not clear why you have to do this, here is &lt;a href=&quot;https://github.com/CenturyLinkLabs/panamax-ui/wiki/How-To%3A-Port-Forwarding-on-VirtualBox&quot;&gt;panamax wiki&lt;/a&gt; that explains in detail.&lt;/p&gt;
+&lt;p&gt;Note: If you are not clear why you have to do this, here is the &lt;a href=&quot;https://github.com/CenturyLinkLabs/panamax-ui/wiki/How-To%3A-Port-Forwarding-on-VirtualBox&quot;&gt;Panamax wiki&lt;/a&gt; that explains in detail.&lt;/p&gt;
 
 &lt;h4 id=&quot;step-4-go-to-couchbase-admin-web-console&quot;&gt;Step 4: Go to (couchbase admin web console)&lt;/h4&gt;
 &lt;p&gt;&lt;a href=&quot;http://localhost:8091/&quot;&gt;http://localhost:8091/&lt;/a&gt;&lt;/p&gt;
@@ -54,12 +331,12 @@
   &lt;li&gt;&lt;a href=&quot;https://github.com/CenturyLinkLabs/panamax-ui/wiki&quot;&gt;panamax wiki&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=15IKkYCfymk&quot;&gt;Installing Panamax videos&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/cardmagic&quot;&gt;https://twitter.com/cardmagic&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.slideshare.net/cardmagic/introduction-to-panamax-from-century-link&quot;&gt;Introduction to Panamax from CenturyLink&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Panamax" /><category term="Docker" /><summary type="html">Panamax is Docker Management for Humans. You can get started with simple steps described here. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to outside world. You can start and stop docker containers everything within panamax web ui.</summary></entry><entry><title type="html">Utah Code Camp 2014: Notes</title><link href="/2014/03/18/utah-code-camp-2014-notes.html" rel="alternate" type="text/html" title="Utah Code Camp 2014: Notes" /><published>2014-03-18T16:54:41-05:00</published><updated>2014-03-18T16:54:41-05:00</updated><id>/2014/03/18/utah-code-camp-2014-notes</id><content type="html" xml:base="/2014/03/18/utah-code-camp-2014-notes.html">&lt;p&gt;I went to &lt;a href=&quot;http://utahcodecamp.com/&quot;&gt;Utah Code Camp 2014&lt;/a&gt;. It has happened at University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with &lt;a href=&quot;/assets/posts/UTCCschedule2014.pdf&quot;&gt;great schedule &lt;/a&gt; this time.&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Panamax" /><category term="Docker" /><summary type="html">Panamax is Docker Management for Humans. You can get started with the simple steps described here. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share, and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to the outside world. You can start and stop docker containers everything within Panamax web UI.</summary></entry><entry><title type="html">Utah Code Camp 2014: Notes</title><link href="/2014/03/18/utah-code-camp-2014-notes.html" rel="alternate" type="text/html" title="Utah Code Camp 2014: Notes" /><published>2014-03-18T16:54:41-05:00</published><updated>2014-03-18T16:54:41-05:00</updated><id>/2014/03/18/utah-code-camp-2014-notes</id><content type="html" xml:base="/2014/03/18/utah-code-camp-2014-notes.html">&lt;p&gt;I went to &lt;a href=&quot;http://utahcodecamp.com/&quot;&gt;Utah Code Camp 2014&lt;/a&gt;. It has happened at the University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with &lt;a href=&quot;/assets/posts/UTCCschedule2014.pdf&quot;&gt;a great schedule &lt;/a&gt; this time.&lt;/p&gt;
 
 &lt;p&gt;I want to capture some notes from the sessions I went to.&lt;/p&gt;
 
 &lt;h4 id=&quot;conceptual-data-modeling-by-tyler-young&quot;&gt;Conceptual Data Modeling by &lt;em&gt;Tyler Young&lt;/em&gt;&lt;/h4&gt;
-&lt;p&gt;Tyler talked about ORM tool - this not the &lt;a href=&quot;http://en.wikipedia.org/wiki/Object-relational_mapping&quot;&gt;tool&lt;/a&gt; you are thinking. It is about &lt;a href=&quot;http://www.ormfoundation.org/&quot;&gt;object-role modeling &lt;/a&gt; and how you can use this tool to do modeling and generate ER diagrams and SQLs for different DBs.&lt;/p&gt;
+&lt;p&gt;Tyler talked about the ORM tool - this not the &lt;a href=&quot;http://en.wikipedia.org/wiki/Object-relational_mapping&quot;&gt;tool&lt;/a&gt; you are thinking of. It is about &lt;a href=&quot;http://www.ormfoundation.org/&quot;&gt;object-role modeling &lt;/a&gt; and how you can use this tool to do modeling and generate ER diagrams and SQLs for different DBs.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.ormfoundation.org/files/10/default.aspx&quot;&gt;Norma&lt;/a&gt; - plugin for visual studio&lt;/li&gt;
@@ -67,19 +344,19 @@
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;introduction-to-hbase-by-giri-vislawath&quot;&gt;Introduction to HBase by &lt;em&gt;Giri Vislawath&lt;/em&gt;&lt;/h4&gt;
-&lt;p&gt;Giri talked about HBase overview. &lt;a href=&quot;/assets/posts/introduction_to_hbase.pptx&quot;&gt;Slides&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Giri talked about the HBase overview. &lt;a href=&quot;/assets/posts/introduction_to_hbase.pptx&quot;&gt;Slides&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;building-web-apps-with-nodejs-by-scott-hillman&quot;&gt;Building web apps with node.js by &lt;em&gt;Scott Hillman&lt;/em&gt;&lt;/h4&gt;
-&lt;p&gt;Scott went over Node.js’s event loop model. And explained why it is not good for CPU bound intensive tasks but it is great for IO bound tasks.
-Talked about npm. And why there is only one package manager (because they are awesome and no one wants yet an another one).&lt;/p&gt;
+&lt;p&gt;Scott went over Node.js’s event loop model. And explained why it is not good for CPU-bound intensive tasks but it is great for IO-bound tasks.
+Talked about npm. And why there is only one package manager (because they are awesome and no one wants yet another one).&lt;/p&gt;
 
-&lt;p&gt;Talked about node developer work flow with tools like &lt;a href=&quot;http://nodemon.io/&quot;&gt;nodemon&lt;/a&gt; and &lt;a href=&quot;https://github.com/isaacs/node-supervisor&quot;&gt;node-supervisor&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Talked about node developer workflow with tools like &lt;a href=&quot;http://nodemon.io/&quot;&gt;nodemon&lt;/a&gt; and &lt;a href=&quot;https://github.com/isaacs/node-supervisor&quot;&gt;node-supervisor&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;machine-learning-the-easy-way-with-weka-by-alton-alexander&quot;&gt;Machine Learning the easy way with Weka by &lt;em&gt;Alton Alexander&lt;/em&gt;&lt;/h4&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.cs.waikato.ac.nz/ml/weka/&quot;&gt;Weka&lt;/a&gt; is a tool that will give you easy and fast ML results. Programmed with all of the common ML algorithms, you can start to impress fast!. He went over the Weka tool GUI and some of the ML algorithms.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Wake has been used by pentaho for their &lt;a href=&quot;http://community.pentaho.com/projects/data-mining/&quot;&gt;data mining&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Wake has been used by Pentaho for their &lt;a href=&quot;http://community.pentaho.com/projects/data-mining/&quot;&gt;data mining&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://wiki.pentaho.com/display/DATAMINING/Handling+Large+Data+Sets+with+Weka&quot;&gt;Handling Large Data Sets with Weka&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://wiki.pentaho.com/display/DATAMINING/Data+Mining+Algorithms+and+Tools+in+Weka&quot;&gt;Data Mining Algorithms and Tools in Weka&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -92,7 +369,7 @@ Talked about npm. And why there is only one package manager (because they are aw
   &lt;li&gt;And &lt;a href=&quot;http://underscorejs.org/#throttle&quot;&gt;throttle&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;There is jQuery &lt;a href=&quot;http://benalman.com/code/projects/jquery-throttle-debounce/examples/debounce/&quot;&gt;plugin&lt;/a&gt; as well.&lt;/p&gt;
+&lt;p&gt;There is a jQuery &lt;a href=&quot;http://benalman.com/code/projects/jquery-throttle-debounce/examples/debounce/&quot;&gt;plugin&lt;/a&gt; as well.&lt;/p&gt;
 
 &lt;h4 id=&quot;and-useful-links&quot;&gt;And useful links&lt;/h4&gt;
 
@@ -100,19 +377,19 @@ Talked about npm. And why there is only one package manager (because they are aw
   &lt;li&gt;&lt;a href=&quot;/assets/posts/LocalUserGroupsFlyer.pdf&quot;&gt;List of local user groups&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.freelancersshow.com/&quot;&gt;devchat&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;And met some Indian friends from tomax&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Notes" /><summary type="html">I went to Utah Code Camp 2014. It has happened at University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with great schedule this time.</summary></entry><entry><title type="html">Java Performance</title><link href="/2014/03/12/java-performance.html" rel="alternate" type="text/html" title="Java Performance" /><published>2014-03-12T22:20:11-05:00</published><updated>2014-03-12T22:20:11-05:00</updated><id>/2014/03/12/java-performance</id><content type="html" xml:base="/2014/03/12/java-performance.html">&lt;p&gt;Notes from &lt;a href=&quot;http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554&quot;&gt;Java Performance&lt;/a&gt; by Charlie Hunt. Reference &lt;a href=&quot;http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528&quot;&gt;book&lt;/a&gt; by Charlie Hunt and Binu John.&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Notes" /><summary type="html">I went to Utah Code Camp 2014. It has happened at the University of Utah with more than 850 attendees. The organizers were awesome as always. They planned 13 concurrent tracks with a great schedule this time.</summary></entry><entry><title type="html">Java Performance</title><link href="/2014/03/12/java-performance.html" rel="alternate" type="text/html" title="Java Performance" /><published>2014-03-12T22:20:11-05:00</published><updated>2014-03-12T22:20:11-05:00</updated><id>/2014/03/12/java-performance</id><content type="html" xml:base="/2014/03/12/java-performance.html">&lt;p&gt;Notes from &lt;a href=&quot;http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554&quot;&gt;Java Performance&lt;/a&gt; by Charlie Hunt. Reference &lt;a href=&quot;http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528&quot;&gt;book&lt;/a&gt; by Charlie Hunt and Binu John.&lt;/p&gt;
 
 &lt;h4 id=&quot;lesson-1-jvm-overview&quot;&gt;Lesson 1: JVM Overview&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;From Java 7u21, there is &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/server-jre7-downloads-1931105.html&quot;&gt;server JRE&lt;/a&gt; available for UNIX 64 bit OSes. It has got it everything jdk has, except no browser plug-in, no auto updater.&lt;/p&gt;
+    &lt;p&gt;From Java 7u21, there is &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/server-jre7-downloads-1931105.html&quot;&gt;server JRE&lt;/a&gt; available for UNIX 64 bit OSes. It has got everything JDK has, except no browser plug-in, no auto-updater.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;Understand the major components of a modern Java Virtual Machine
     &lt;ul&gt;
       &lt;li&gt;HotSpot VM runtime&lt;/li&gt;
       &lt;li&gt;Garbage collector/ memory manager
         &lt;ul&gt;
-          &lt;li&gt;Generational GC - it partitions the Java heap into two or more regions / generations
+          &lt;li&gt;Generational GC - it partitions the Java heap into two or more regions/generations
             &lt;ul&gt;
               &lt;li&gt;Young vs Old&lt;/li&gt;
             &lt;/ul&gt;
@@ -185,9 +462,9 @@ Talked about npm. And why there is only one package manager (because they are aw
               &lt;li&gt;Monitor High Voluntary Context Switching&lt;/li&gt;
             &lt;/ul&gt;
             &lt;ul&gt;
-              &lt;li&gt;Can indicate Java application that are experiencing lock contention
+              &lt;li&gt;Can indicate Java application that is experiencing lock contention
                 &lt;ul&gt;
-                  &lt;li&gt;Makes it difficulties in scaling&lt;/li&gt;
+                  &lt;li&gt;Makes it difficult in scaling&lt;/li&gt;
                 &lt;/ul&gt;
               &lt;/li&gt;
               &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pidstat&lt;/code&gt; to monitor (need &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sysstat&lt;/code&gt; package required)	
@@ -280,7 +557,7 @@ Talked about npm. And why there is only one package manager (because they are aw
   &lt;/li&gt;
   &lt;li&gt;Understand the step-by-step process&lt;/li&gt;
   &lt;li&gt;Determine memory footprint size&lt;/li&gt;
-  &lt;li&gt;Tune for latency / responsiveness: 	Tools to help visualize gc pause times: &lt;a href=&quot;https://java.net/projects/gchisto&quot;&gt;gchisto&lt;/a&gt;, &lt;a href=&quot;http://www.jclarity.com/censum/&quot;&gt;censum&lt;/a&gt; from jclarity.com&lt;/li&gt;
+  &lt;li&gt;Tune for latency/responsiveness: 	Tools to help visualize gc pause times: &lt;a href=&quot;https://java.net/projects/gchisto&quot;&gt;gchisto&lt;/a&gt;, &lt;a href=&quot;http://www.jclarity.com/censum/&quot;&gt;censum&lt;/a&gt; from jclarity.com&lt;/li&gt;
   &lt;li&gt;Tune for throughput: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-XX:+AggresiveOpts&lt;/code&gt; to turn on aggressive gc optimizations&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -304,16 +581,16 @@ Talked about npm. And why there is only one package manager (because they are aw
   &lt;li&gt;&lt;a href=&quot;http://people.apache.org/~billa/oscon2012/OSCON2012TroubleShootJava.pdf&quot;&gt;OSCON2012 TroubleShoot Java&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;I would highly encourage to read the &lt;a href=&quot;http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528&quot;&gt;book&lt;/a&gt; or take the &lt;a href=&quot;http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554&quot;&gt;LiveLessons&lt;/a&gt;. Charlie Hunt is awesome!&lt;/p&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Performance" /><summary type="html">Notes from Java Performance by Charlie Hunt. Reference book by Charlie Hunt and Binu John.</summary></entry><entry><title type="html">Clojure Fundamentals</title><link href="/2014/03/09/clojure-fundamentals.html" rel="alternate" type="text/html" title="Clojure Fundamentals" /><published>2014-03-09T13:14:14-05:00</published><updated>2014-03-09T13:14:14-05:00</updated><id>/2014/03/09/clojure-fundamentals</id><content type="html" xml:base="/2014/03/09/clojure-fundamentals.html">&lt;p&gt;I haven’t this excited when I am learning programing languages. Clojure is very simple and powerful Lisp dialect on JVM.&lt;/p&gt;
+&lt;p&gt;I would highly encourage to read the &lt;a href=&quot;http://www.amazon.com/Java-Performance-Charlie-Hunt/dp/0137142528&quot;&gt;book&lt;/a&gt; or take the &lt;a href=&quot;http://www.informit.com/store/java-performance-livelessons-video-training-downloadable-9780133443554&quot;&gt;LiveLessons&lt;/a&gt;. Charlie Hunt is awesome!&lt;/p&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Performance" /><summary type="html">Notes from Java Performance by Charlie Hunt. Reference book by Charlie Hunt and Binu John.</summary></entry><entry><title type="html">Clojure Fundamentals</title><link href="/2014/03/09/clojure-fundamentals.html" rel="alternate" type="text/html" title="Clojure Fundamentals" /><published>2014-03-09T13:14:14-05:00</published><updated>2014-03-09T13:14:14-05:00</updated><id>/2014/03/09/clojure-fundamentals</id><content type="html" xml:base="/2014/03/09/clojure-fundamentals.html">&lt;p&gt;I haven’t this excited when I am learning programming languages. Clojure is a very simple and powerful Lisp dialect on JVM.&lt;/p&gt;
 
-&lt;p&gt;You code as data in Clojure. So my personal feeling is that Lisp dialects should have been the go to programming language to develop multi-tenant applications like &lt;a href=&quot;http://blogs.workday.com/why_workday_is_different_by_design.html&quot;&gt;Workday&lt;/a&gt;, &lt;a href=&quot;http://www.developerforce.com/media/ForcedotcomBookLibrary/Force.com_Multitenancy_WP_101508.pdf&quot;&gt;Salesforce&lt;/a&gt;. And to create rule engines. There has been some attempts made by &lt;a href=&quot;https://github.com/rbrush/clara-rules&quot;&gt;clara-rules&lt;/a&gt; and &lt;a href=&quot;https://github.com/hraberg/mimir&quot;&gt;mimir&lt;/a&gt; projects to create rule engines.
+&lt;p&gt;You code as data in Clojure. So my personal feeling is that Lisp dialects should have been the go-to programming language to develop multi-tenant applications like &lt;a href=&quot;http://blogs.workday.com/why_workday_is_different_by_design.html&quot;&gt;Workday&lt;/a&gt;, &lt;a href=&quot;http://www.developerforce.com/media/ForcedotcomBookLibrary/Force.com_Multitenancy_WP_101508.pdf&quot;&gt;Salesforce&lt;/a&gt;. And to create rule engines. There have been some attempts made by &lt;a href=&quot;https://github.com/rbrush/clara-rules&quot;&gt;clara-rules&lt;/a&gt; and &lt;a href=&quot;https://github.com/hraberg/mimir&quot;&gt;mimir&lt;/a&gt; projects to create rule engines.
 We can store the Clojure code as data in any storage (ex: DB) and read into JVM memory as the semantics and the structures remain the same. It makes Clojure so powerful and elegant to work with.&lt;/p&gt;
 
-&lt;p&gt;I would like list some of the resources that I used to learn Clojure.&lt;/p&gt;
+&lt;p&gt;I would like to list some of the resources that I used to learn Clojure.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://github.com/alandipert&quot;&gt;Alan Dipert&lt;/a&gt; has 3 hour course on &lt;a href=&quot;http://pluralsight.com/training/Courses/TableOfContents/clojure-fundamentals-part-one&quot;&gt;pluralsight&lt;/a&gt; and you find &lt;a href=&quot;http://alandipert.github.io/oscon2012-clojure&quot;&gt;course notes&lt;/a&gt; which are highly useful.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/alandipert&quot;&gt;Alan Dipert&lt;/a&gt; has 3-hour course on &lt;a href=&quot;http://pluralsight.com/training/Courses/TableOfContents/clojure-fundamentals-part-one&quot;&gt;pluralsight&lt;/a&gt; and you find &lt;a href=&quot;http://alandipert.github.io/oscon2012-clojure&quot;&gt;course notes&lt;/a&gt; which are highly useful.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://clojure.org/cheatsheet&quot;&gt;Clojure - Cheat Sheet&lt;/a&gt;&lt;/p&gt;
@@ -336,7 +613,7 @@ We can store the Clojure code as data in any storage (ex: DB) and read into JVM 
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://shop.oreilly.com/product/0636920030409.do&quot;&gt;Clojure Inside Out&lt;/a&gt; and course slides are available &lt;a href=&quot;http://nealford.com/past.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Clojure" /><summary type="html">I haven’t this excited when I am learning programing languages. Clojure is very simple and powerful Lisp dialect on JVM.</summary></entry><entry><title type="html">Interesting project: Nashorn</title><link href="/2014/03/08/interesting-project-nashorn.html" rel="alternate" type="text/html" title="Interesting project: Nashorn" /><published>2014-03-08T21:57:22-06:00</published><updated>2014-03-08T21:57:22-06:00</updated><id>/2014/03/08/interesting-project-nashorn</id><content type="html" xml:base="/2014/03/08/interesting-project-nashorn.html">&lt;p&gt;I am going to cover some of the interesting or &lt;a href=&quot;http://projectodd.org&quot;&gt;odd projects&lt;/a&gt; that are being targeted to run on jvm that I came across recently in this post blog.&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Clojure" /><summary type="html">I haven’t this excited when I am learning programming languages. Clojure is a very simple and powerful Lisp dialect on JVM.</summary></entry><entry><title type="html">Interesting project: Nashorn</title><link href="/2014/03/08/interesting-project-nashorn.html" rel="alternate" type="text/html" title="Interesting project: Nashorn" /><published>2014-03-08T21:57:22-06:00</published><updated>2014-03-08T21:57:22-06:00</updated><id>/2014/03/08/interesting-project-nashorn</id><content type="html" xml:base="/2014/03/08/interesting-project-nashorn.html">&lt;p&gt;I am going to cover some of the interesting or &lt;a href=&quot;http://projectodd.org&quot;&gt;odd projects&lt;/a&gt; that are being targeted to run on JVM that I came across recently in this post blog.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://upload.wikimedia.org/wikipedia/commons/e/ec/Nashorn.Aberdeen.0007wakh.jpg&quot; alt=&quot;image-center&quot; class=&quot;align-right&quot; /&gt;&lt;/p&gt;
 
@@ -345,19 +622,19 @@ We can store the Clojure code as data in any storage (ex: DB) and read into JVM 
 
 &lt;!-- more --&gt;
 
-&lt;p&gt;We know the existing jvm (from jdk 1.1 onwards) ships with JavaScript engine, which is called Rhino. But the recent version of &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Rhino&quot;&gt;Rhino&lt;/a&gt; has only been tested with JDK 1.4 and grater. I don’t know who in the world is using jdk 1.4 anyway.&lt;/p&gt;
+&lt;p&gt;We know the existing JVM (from JDK 1.1 onwards) ships with a JavaScript engine, which is called Rhino. But the recent version of &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Rhino&quot;&gt;Rhino&lt;/a&gt; has only been tested with JDK 1.4 and grater. I don’t know who in the world is using JDK 1.4 anyway.&lt;/p&gt;
 
 &lt;h4 id=&quot;so-what-is-need-for-the-new-project&quot;&gt;So what is need for the new project?&lt;/h4&gt;
 
-&lt;p&gt;Rhino is old code base and developed by using old jdk. And Nashorn significantly outperforms Rhino, it may not beat &lt;a href=&quot;http://wnameless.wordpress.com/2013/12/10/javascript-engine-benchmarks-nashorn-vs-v8-vs-spidermonkey&quot;&gt;Google’s V8&lt;/a&gt;. And Nashorn implements a new &lt;a href=&quot;https://github.com/szegedi/dynalink&quot;&gt;meta-object&lt;/a&gt; protocol that simplifies calling Java APIs from JavaScript, and enables seamless interactions between JavaScript and Java.  And all the &lt;a href=&quot;http://docs.oracle.com/javase/6/docs/technotes/guides/jvmti&quot;&gt;JVM TI&lt;/a&gt; based tools such as debugging and profiling can read meta-object protocol.&lt;/p&gt;
+&lt;p&gt;Rhino is an old code base and developed by using old JDK. And Nashorn significantly outperforms Rhino, it may not beat &lt;a href=&quot;http://wnameless.wordpress.com/2013/12/10/javascript-engine-benchmarks-nashorn-vs-v8-vs-spidermonkey&quot;&gt;Google’s V8&lt;/a&gt;. And Nashorn implements a new &lt;a href=&quot;https://github.com/szegedi/dynalink&quot;&gt;meta-object&lt;/a&gt; protocol that simplifies calling Java APIs from JavaScript and enables seamless interactions between JavaScript and Java.  And all the &lt;a href=&quot;http://docs.oracle.com/javase/6/docs/technotes/guides/jvmti&quot;&gt;JVM TI&lt;/a&gt; based tools such as debugging and profiling can read meta-object protocol.&lt;/p&gt;
 
-&lt;p&gt;But the real motivation for writing a new engine to validate &lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/package-summary.html&quot;&gt;InvokeDynamic&lt;/a&gt; feature, which formally opened the door to &lt;a href=&quot;http://docs.oracle.com/javase/7/docs/technotes/guides/vm/multiple-language-support.html&quot;&gt;support non-Java&lt;/a&gt; languages on jvm.&lt;/p&gt;
+&lt;p&gt;But the real motivation for writing a new engine to validate &lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/package-summary.html&quot;&gt;InvokeDynamic&lt;/a&gt; feature, which formally opened the door to &lt;a href=&quot;http://docs.oracle.com/javase/7/docs/technotes/guides/vm/multiple-language-support.html&quot;&gt;support non-Java&lt;/a&gt; languages on JVM.&lt;/p&gt;
 
-&lt;p&gt;Nashorn engine passes ECMAScript 5.1 compliance tests. You can follow &lt;a href=&quot;https://blogs.oracle.com/nashorn/&quot;&gt;Oracle’s blog&lt;/a&gt; for the updated infos. It is an interesting project to checkout.&lt;/p&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Nashorn" /><summary type="html">I am going to cover some of the interesting or odd projects that are being targeted to run on jvm that I came across recently in this post blog.</summary></entry><entry><title type="html">Performance test your application with Gatling</title><link href="/2014/02/23/performance-test-your-application-with-gatling.html" rel="alternate" type="text/html" title="Performance test your application with Gatling" /><published>2014-02-23T20:18:00-06:00</published><updated>2014-02-23T20:18:00-06:00</updated><id>/2014/02/23/performance-test-your-application-with-gatling</id><content type="html" xml:base="/2014/02/23/performance-test-your-application-with-gatling.html">&lt;p&gt;When you think about performance testing your application, you may think about the below picture and a tool to test.&lt;/p&gt;
+&lt;p&gt;Nashorn engine passes ECMAScript 5.1 compliance tests. You can follow &lt;a href=&quot;https://blogs.oracle.com/nashorn/&quot;&gt;Oracle’s blog&lt;/a&gt; for the updated info. It is an interesting project to checkout.&lt;/p&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Nashorn" /><summary type="html">I am going to cover some of the interesting or odd projects that are being targeted to run on JVM that I came across recently in this post blog.</summary></entry><entry><title type="html">Performance test your application with Gatling</title><link href="/2014/02/23/performance-test-your-application-with-gatling.html" rel="alternate" type="text/html" title="Performance test your application with Gatling" /><published>2014-02-23T20:18:00-06:00</published><updated>2014-02-23T20:18:00-06:00</updated><id>/2014/02/23/performance-test-your-application-with-gatling</id><content type="html" xml:base="/2014/02/23/performance-test-your-application-with-gatling.html">&lt;p&gt;When you think about performance testing your application, you may think about the below picture and a tool to test.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets//images/posts/truck-load.png&quot; alt=&quot;image-center&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;One open source tool that comes to mind is &lt;a href=&quot;http://jmeter.apache.org/&quot;&gt;JMeter&lt;/a&gt;. For very simple tests, I tend use &lt;a href=&quot;http://httpd.apache.org/docs/2.2/programs/ab.html&quot;&gt;apache benchmarking&lt;/a&gt;. But there are other tools like &lt;a href=&quot;http://grinder.sourceforge.net/&quot;&gt;Grinder&lt;/a&gt;, &lt;a href=&quot;http://www8.hp.com/us/en/software-solutions/software.html?compURI=1175451&quot;&gt;LoadRunner&lt;/a&gt;, &lt;a href=&quot;http://www.neotys.com/product/overview-neoload.html&quot;&gt;NeoLoad&lt;/a&gt;, &lt;a href=&quot;http://tsung.erlang-projects.org/&quot;&gt;Tsung&lt;/a&gt;, and &lt;a href=&quot;http://www.soapui.org/Getting-Started/load-testing.html&quot;&gt;SoapUI&lt;/a&gt; for web services testing. Then there is &lt;a href=&quot;https://code.google.com/p/caliper/&quot;&gt;Caliper&lt;/a&gt; and &lt;a href=&quot;http://openjdk.java.net/projects/code-tools/jmh&quot;&gt;jmh&lt;/a&gt; for micro benchmarking, which target use cases.&lt;/p&gt;
+&lt;p&gt;One open-source tool that comes to mind is &lt;a href=&quot;http://jmeter.apache.org/&quot;&gt;JMeter&lt;/a&gt;. For very simple tests, I tend to use &lt;a href=&quot;http://httpd.apache.org/docs/2.2/programs/ab.html&quot;&gt;apache benchmarking&lt;/a&gt;. But there are other tools like &lt;a href=&quot;http://grinder.sourceforge.net/&quot;&gt;Grinder&lt;/a&gt;, &lt;a href=&quot;http://www8.hp.com/us/en/software-solutions/software.html?compURI=1175451&quot;&gt;LoadRunner&lt;/a&gt;, &lt;a href=&quot;http://www.neotys.com/product/overview-neoload.html&quot;&gt;NeoLoad&lt;/a&gt;, &lt;a href=&quot;http://tsung.erlang-projects.org/&quot;&gt;Tsung&lt;/a&gt;, and &lt;a href=&quot;http://www.soapui.org/Getting-Started/load-testing.html&quot;&gt;SoapUI&lt;/a&gt; for web services testing. Then there is &lt;a href=&quot;https://code.google.com/p/caliper/&quot;&gt;Caliper&lt;/a&gt; and &lt;a href=&quot;http://openjdk.java.net/projects/code-tools/jmh&quot;&gt;jmh&lt;/a&gt; for micro benchmarking, which target use cases.&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -375,7 +652,7 @@ We can store the Clojure code as data in any storage (ex: DB) and read into JVM 
 
 &lt;p&gt;Using the GUI to do performance tests is difficult and unintuitive.&lt;/p&gt;
 
-&lt;p&gt;Gatling provides an elegant &lt;a href=&quot;http://gatling-tool.org/cheat-sheet/&quot;&gt;DSL&lt;/a&gt; written in &lt;a href=&quot;http://www.scala-lang.org/&quot;&gt;Scala&lt;/a&gt; to describe your test scenarios of your app. DSL scripts are intuitive and simple to create. Using the recorder (like &lt;a href=&quot;http://jmeter.apache.org/&quot;&gt;JMeter&lt;/a&gt;) it can generate scripts that will look similar to a hand written one. Your can then tweak the generated scripts anyway you want.&lt;/p&gt;
+&lt;p&gt;Gatling provides an elegant &lt;a href=&quot;http://gatling-tool.org/cheat-sheet/&quot;&gt;DSL&lt;/a&gt; written in &lt;a href=&quot;http://www.scala-lang.org/&quot;&gt;Scala&lt;/a&gt; to describe the test scenarios of your app. DSL scripts are intuitive and simple to create. Using the recorder (like &lt;a href=&quot;http://jmeter.apache.org/&quot;&gt;JMeter&lt;/a&gt;) can generate scripts that will look similar to a hand wrote one. You can then tweak the generated scripts in any way you want.&lt;/p&gt;
 
 &lt;p&gt;You don’t have to know Scala to write scripts. You can get an introduction &lt;a href=&quot;http://twitter.github.io/scala_school/&quot;&gt;here&lt;/a&gt; or just think of them as Javascript code (at least for usage purpose). Scals’s variable declarations are either by var (mutable variable) or by val (immutable variable).&lt;/p&gt;
 
@@ -403,14 +680,14 @@ We can store the Clojure code as data in any storage (ex: DB) and read into JVM 
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;I created the above script, which load tests the twitter.com site. You can checkout the full source code &lt;a href=&quot;https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo&quot;&gt;here&lt;/a&gt;, which is a cloned maven project from &lt;a href=&quot;https://github.com/excilys/gatling/tree/master/gatling-maven-plugin&quot;&gt;gatling-maven-plugin&lt;/a&gt;. Take a look at the &lt;a href=&quot;https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo/blob/master/src/test/scala/twitter/TwitterSimulation.scala&quot;&gt;TwitterSimulation.scala&lt;/a&gt; file that I added to the project.&lt;/p&gt;
+&lt;p&gt;I created the above script, which load tests the twitter.com site. You can check out the full source code &lt;a href=&quot;https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo&quot;&gt;here&lt;/a&gt;, which is a cloned maven project from &lt;a href=&quot;https://github.com/excilys/gatling/tree/master/gatling-maven-plugin&quot;&gt;gatling-maven-plugin&lt;/a&gt;. Take a look at the &lt;a href=&quot;https://github.com/mohanraj-nagasamy/gatling-maven-plugin-demo/blob/master/src/test/scala/twitter/TwitterSimulation.scala&quot;&gt;TwitterSimulation.scala&lt;/a&gt; file that I added to the project.&lt;/p&gt;
 
 &lt;p&gt;Once downloaded, execute with the following maven command with your tweeter username and password:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mvn gatling:execute -Dgatling.simulationClass=twitter.TwitterSimulation -Dusers=&amp;lt;no-of-concurrent-users&amp;gt; -Dtweets=&amp;lt;no-of-your-tweets&amp;gt; -Dusername=&amp;lt;twitter-user-name&amp;gt; -Dpassword=&amp;lt;twitter-password&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: Keep the concurrent user count between 2 and 5. If you add more load twitter they will display the CAPTCHA login page instead. This is to avoid a &lt;a href=&quot;http://en.wikipedia.org/wiki/Denial-of-service_attack&quot;&gt;DoS&lt;/a&gt; attack. In other words the login test may fail intermittently based on how many times you run the test.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: Keep the concurrent user count between 2 and 5. If you add more load on Twitter they will display the CAPTCHA login page instead. This is to avoid a &lt;a href=&quot;http://en.wikipedia.org/wiki/Denial-of-service_attack&quot;&gt;DoS&lt;/a&gt; attack. In other words, the login test may fail intermittently based on how many times you run the test.&lt;/p&gt;
 
 &lt;p&gt;This script gets you to twitter.com and posts with username, password and authenticity token that is get generated when you request twitter.com.&lt;/p&gt;
 
@@ -421,24 +698,24 @@ We can store the Clojure code as data in any storage (ex: DB) and read into JVM 
 
 &lt;p&gt;With the response from the HTTP post, it verifies the http status code and the content of the body using bodyString()and regex() utility methods. It also logs-out from the site.&lt;/p&gt;
 
-&lt;p&gt;Real users usually reads the pages and clicks through the links. To get this real user simulation, there is a &lt;a href=&quot;https://github.com/excilys/gatling/wiki/Structure-Elements#wiki-pause&quot;&gt;pause()&lt;/a&gt; method that can be used for this purpose. There are other &lt;a href=&quot;https://github.com/excilys/gatling/wiki/Structure-Elements&quot;&gt;structural elements&lt;/a&gt; available.&lt;/p&gt;
+&lt;p&gt;Real users usually read the pages and clicks through the links. To get this real user simulation, there is a &lt;a href=&quot;https://github.com/excilys/gatling/wiki/Structure-Elements#wiki-pause&quot;&gt;pause()&lt;/a&gt; method that can be used for this purpose. There are other &lt;a href=&quot;https://github.com/excilys/gatling/wiki/Structure-Elements&quot;&gt;structural elements&lt;/a&gt; available.&lt;/p&gt;
 
-&lt;p&gt;The project has two more tests – basic and advanced simulation. Take a look at and run them in the same way as twitter one.&lt;/p&gt;
+&lt;p&gt;The project has two more tests – basic and advanced simulation. Take a look at and run them in the same way as Twitter one.&lt;/p&gt;
 
-&lt;p&gt;Gatling automatically handles http headers and cookies. It also auto redirects based on headers, which makes testing sessions and OAuth based applications easier.&lt;/p&gt;
+&lt;p&gt;Gatling automatically handles HTTP headers and cookies. It also auto redirects based on headers, which makes testing sessions and OAuth based applications easier.&lt;/p&gt;
 
-&lt;p&gt;Testing a RESTful service layer is mush easier with a script than using the GUI.
-Here is nice blog post on how Gatling is used to test the &lt;a href=&quot;http://maxdemarzi.com/2013/02/14/neo4j-and-gatling-sitting-in-a-tree-performance-t-e-s-t-ing/&quot;&gt;Neo4j REST&lt;/a&gt; interface.&lt;/p&gt;
+&lt;p&gt;Testing a RESTful service layer is much easier with a script than using the GUI.
+Here is a nice blog post on how Gatling is used to test the &lt;a href=&quot;http://maxdemarzi.com/2013/02/14/neo4j-and-gatling-sitting-in-a-tree-performance-t-e-s-t-ing/&quot;&gt;Neo4j REST&lt;/a&gt; interface.&lt;/p&gt;
 
-&lt;p&gt;To test the SOAP interface, I may use &lt;a href=&quot;http://www.soapui.org/Getting-Started/load-testing.html&quot;&gt;SoapUI&lt;/a&gt;, which handles most of the SOAP plumbing. You can use Gatling to load test SOAP as well, however you will have to write the SOAP headers and xml body yourself.&lt;/p&gt;
+&lt;p&gt;To test the SOAP interface, I may use &lt;a href=&quot;http://www.soapui.org/Getting-Started/load-testing.html&quot;&gt;SoapUI&lt;/a&gt;, which handles most of the SOAP plumbing. You can use Gatling to load test SOAP as well, however, you will have to write the SOAP headers and XML body yourself.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: Gatling 2.x undertook major &lt;a href=&quot;https://github.com/excilys/gatling/wiki/Gatling-2&quot;&gt;API&lt;/a&gt; refactoring and is not compatible with Gatling 1.x. You may want to watch out for this. I am using version 2.0.0-M3 in all my examples.&lt;/p&gt;
 
-&lt;p&gt;There are other tools that support scripting like Beanshell, Python, Clojure and Erlang. But they are not simple to use and learn like Gatling.&lt;/p&gt;
+&lt;p&gt;Other tools support scriptings like Beanshell, Python, Clojure, and Erlang. But they are not simple to use and learn like Gatling.&lt;/p&gt;
 
 &lt;h4 id=&quot;maintainability&quot;&gt;Maintainability&lt;/h4&gt;
 
-&lt;p&gt;A script is always easier to modify as a project evolves than maintaining a GUI based load test file. A script also fits very well into your daily workflow as it integrates very well with developer tools like maven, jenkins and your favorite &lt;a href=&quot;https://github.com/excilys/gatling/wiki/Ide-integration&quot;&gt;IDE&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;A script is always easier to modify as a project evolves than maintaining a GUI based load test file. A script also fits very well into your daily workflow as it integrates very well with developer tools like maven, Jenkins, and your favorite &lt;a href=&quot;https://github.com/excilys/gatling/wiki/Ide-integration&quot;&gt;IDE&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;reporting&quot;&gt;Reporting&lt;/h4&gt;
 &lt;p&gt;Gatling generates nice and easy to understand &lt;a href=&quot;https://github.com/excilys/gatling/wiki/Reports&quot;&gt;static reports&lt;/a&gt; with metrics, which easily can be shared with anyone on your team. The reports are static and can be run with the daily build or when you release your application. You can then compare the results between each release to monitor how the app is performing.
@@ -548,11 +825,11 @@ You can also send the simulation data to &lt;a href=&quot;https://github.com/exc
         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This code is completely valid and works in &lt;strong&gt;all the versions of java&lt;/strong&gt;. You may wonder what is going on here.&lt;/p&gt;
+&lt;p&gt;This code is completely valid and works in &lt;strong&gt;all versions of java&lt;/strong&gt;. You may wonder what is going on here.&lt;/p&gt;
 
-&lt;p&gt;The first brace creates &lt;strong&gt;anonymous inner/sub class&lt;/strong&gt; that extends HashSet and the second one declares &lt;strong&gt;instance initializer&lt;/strong&gt;. The inner class doesn’t add new instance variables, but it contains an initializer block.&lt;/p&gt;
+&lt;p&gt;The first brace creates &lt;strong&gt;an anonymous inner/subclass&lt;/strong&gt; that extends HashSet and the second one declares &lt;strong&gt;instance initializer&lt;/strong&gt;. The inner class doesn’t add new instance variables, but it contains an initializer block.&lt;/p&gt;
 
-&lt;p&gt;Let’s see how we can apply this trick while creating &lt;em&gt;OrderStatus&lt;/em&gt; with default constructor, not using two params constructor.&lt;/p&gt;
+&lt;p&gt;Let’s see how we can apply this trick while creating &lt;em&gt;OrderStatus&lt;/em&gt; with the default constructor, not using two params constructor.&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderStatus&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INVALID_ORDER_STATUS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;setCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;XX&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
@@ -607,7 +884,7 @@ You can also send the simulation data to &lt;a href=&quot;https://github.com/exc
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;It just makes your code more concise. Try to use wherever it makes sense. All the code is in &lt;a href=&quot;https://github.com/mohanraj-nagasamy/DoubleBrace/&quot;&gt;github&lt;/a&gt;.&lt;/p&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Java" /><summary type="html">We all love blocks in Ruby. Wouldn’t it be great if Java Lang had support for blocks? Well, Java Lang will support blocks/lambdas in jdk8, but in a limited way.</summary></entry><entry><title type="html">Browser Cache: How ETags works in Rails 3 and Rails 4</title><link href="/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4.html" rel="alternate" type="text/html" title="Browser Cache: How ETags works in Rails 3 and Rails 4" /><published>2014-02-22T16:39:52-06:00</published><updated>2014-02-22T16:39:52-06:00</updated><id>/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4</id><content type="html" xml:base="/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4.html">&lt;p&gt;Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server.&lt;/p&gt;
+&lt;p&gt;It just makes your code more concise. Try to use wherever it makes sense. All the code is in &lt;a href=&quot;https://github.com/mohanraj-nagasamy/DoubleBrace/&quot;&gt;github&lt;/a&gt;.&lt;/p&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Java" /><summary type="html">We all love blocks in Ruby. Wouldn’t it be great if Java Lang had support for blocks? Well, Java Lang will support blocks/lambdas in jdk8, but in a limited way.</summary></entry><entry><title type="html">Browser Cache: How ETags works in Rails 3 and Rails 4</title><link href="/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4.html" rel="alternate" type="text/html" title="Browser Cache: How ETags works in Rails 3 and Rails 4" /><published>2014-02-22T16:39:52-06:00</published><updated>2014-02-22T16:39:52-06:00</updated><id>/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4</id><content type="html" xml:base="/2014/02/22/browser-cache-how-etags-works-in-rails-3-and-rails-4.html">&lt;p&gt;Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content, etc) in the browser’s cache matches the one on the origin server.&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -615,12 +892,12 @@ You can also send the simulation data to &lt;a href=&quot;https://github.com/exc
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/posts/etags-rails-3-and-rails-4.png&quot; alt=&quot;image-center&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Lets say you are going to a blog website and requesting a list of posts:&lt;/p&gt;
+&lt;p&gt;Let’s say you are going to a blog website and requesting a list of posts:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;First Request:
     &lt;ul&gt;
-      &lt;li&gt;Browser makes the initial first request&lt;/li&gt;
+      &lt;li&gt;The browser makes the initial first request&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;First Response:
@@ -632,29 +909,29 @@ You can also send the simulation data to &lt;a href=&quot;https://github.com/exc
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The browser caches the response now. When the browser makes subsequent request, here is the flow:&lt;/p&gt;
+&lt;p&gt;The browser caches the response now. When the browser makes subsequent requests, here is the flow:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Subsequent Request:
     &lt;ul&gt;
-      &lt;li&gt;Browser makes request with header ‘If-None-Matched’ with ETag value from the initial request.&lt;/li&gt;
+      &lt;li&gt;The browser requests with the header ‘If-None-Matched’ with ETag value from the initial request.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Subsequent Response:
     &lt;ul&gt;
-      &lt;li&gt;Rails creates body and creates ETag&lt;/li&gt;
+      &lt;li&gt;Rails creates the body and ETag&lt;/li&gt;
       &lt;li&gt;Compares ETag value with ‘If-None-Matched’ value&lt;/li&gt;
-      &lt;li&gt;If ETag match then response body is not included in response and returns with 304 Not Modified status&lt;/li&gt;
-      &lt;li&gt;If ETag doesn’t match then body is included in the response and ETags are included in header&lt;/li&gt;
+      &lt;li&gt;If ETag match then the response body is not included in the response and returns with 304 Not Modified status&lt;/li&gt;
+      &lt;li&gt;If ETag doesn’t match then the body is included in the response and ETags are included in the header&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;advantage&quot;&gt;Advantage&lt;/h4&gt;
-&lt;p&gt;So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes website faster.&lt;/p&gt;
+&lt;p&gt;So what’s the advantage when ETag matches with the one on the server? The Rails doesn’t send the body content as part of the response. So the response is small and fast to travel on the network. The browser loads the contents from the browser cache instead which makes the website faster.&lt;/p&gt;
 
 &lt;h5 id=&quot;enable-etag&quot;&gt;Enable ETag&lt;/h5&gt;
-&lt;p&gt;So what you have to do to enable ETag chache? Nothing. You don’t have to do anything to take advantage of ETag cache.&lt;/p&gt;
+&lt;p&gt;So what you have to do to enable the ETag cache? Nothing. You don’t have to do anything to take advantage of the ETag cache.&lt;/p&gt;
 
 &lt;p&gt;The below code uses Rails default ETag cache:&lt;/p&gt;
 
@@ -684,8 +961,8 @@ The code may look like something like this in rails:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;custom-etags&quot;&gt;Custom ETags&lt;/h4&gt;
-&lt;p&gt;It is not a good idea to process the entire response body everytime to generate ETag. Generating entire response body involves calling the DB to fetch all the related data and processing html templates and partial page renderings. This is a costly process. 
-How do you solve this issue? You have fresh_when and stale? rails cache helper come in handy to rescue you.&lt;/p&gt;
+&lt;p&gt;It is not a good idea to process the entire response body every time to generate ETag. Generating the entire response body involves calling the DB to fetch all the related data and processing HTML templates and partial page renderings. This is a costly process. 
+How do you solve this issue? You have fresh_when and stale? rails cache helper comes in handy to rescue you.&lt;/p&gt;
 
 &lt;p&gt;The code will look like this with fresh_when and stale?:&lt;/p&gt;
 
@@ -713,10 +990,10 @@ How do you solve this issue? You have fresh_when and stale? rails cache helper c
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;headers['ETag'] = Digest::MD5.hexdigest(@post.cache_key)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Cache_key is combination of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;model_name/model.id-model.updated_at&lt;/code&gt;. It will be like this for Post model: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;post/123-201312121212&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Cache_key is combination of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;model_name/model.id-model.updated_at&lt;/code&gt;. It will be like this for the Post model: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;post/123-201312121212&lt;/code&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;when-do-you-use-fresh_when-and-stale-cache-helper-and-whats-difference&quot;&gt;When do you use fresh_when and stale? cache helper and what’s difference?&lt;/h5&gt;
-&lt;p&gt;If you have special response processing like the one in show method, then use stale? helper. If you don’t have any special response processing like the one in edit method and using default-rendering mechanism (i.e. you’re not using respond_to or calling render yourself) then use fresh_when.&lt;/p&gt;
+&lt;h5 id=&quot;when-do-you-use-fresh_when-and-stale-cache-helper-and-whats-the-difference&quot;&gt;When do you use fresh_when and stale? cache helper and what’s the difference?&lt;/h5&gt;
+&lt;p&gt;If you have special response processing like the one the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;show&lt;/code&gt; method, then use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stale?&lt;/code&gt; helper. If you don’t have any special response processing like the one in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edit&lt;/code&gt; method and using default-rendering mechanism (i.e. you’re not using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;respond_to&lt;/code&gt; or calling render yourself) then use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fresh_when&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;customize-etag-generation&quot;&gt;Customize ETag generation&lt;/h4&gt;
 &lt;p&gt;If you cache based on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;current_user or current_customer&lt;/code&gt;, you can pass multiple arguments to generate ETag. The arguments have to be a Hash.&lt;/p&gt;
@@ -748,7 +1025,7 @@ How do you solve this issue? You have fresh_when and stale? rails cache helper c
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;rails-4&quot;&gt;Rails 4&lt;/h4&gt;
-&lt;p&gt;When look at edit and recent methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.&lt;/p&gt;
+&lt;p&gt;When look at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edit&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recent&lt;/code&gt; methods, there are some repetitions. How do we DRY it up? That’s when Rails 4 declarative ETags comes into play.&lt;/p&gt;
 
 &lt;p&gt;Rails 3 and Rails 4 uses ETags by default for browser caching. But Rails 4 has a feature called declarative ETags, which allows you to add additional controller-wide information when generating an ETag.&lt;/p&gt;
 
@@ -799,7 +1076,7 @@ How do you solve this issue? You have fresh_when and stale? rails cache helper c
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Declarative ETags doesn’t support :only, :if options yet like one we have on before_filter/before_action or after_filer/after_action to run call back only on certain actions.&lt;/p&gt;
+&lt;p&gt;Declarative ETags doesn’t support &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:only&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:if&lt;/code&gt; options yet like one we have on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;before_filter/before_action&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;after_filer/after_action&lt;/code&gt; to run call back only on certain actions.&lt;/p&gt;
 
 &lt;h4 id=&quot;resouces&quot;&gt;Resouces&lt;/h4&gt;
 &lt;ul&gt;
@@ -807,4 +1084,4 @@ How do you solve this issue? You have fresh_when and stale? rails cache helper c
   &lt;li&gt;&lt;a href=&quot;http://www.upgradingtorails4.com/&quot;&gt;http://www.upgradingtorails4.com/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://guides.rubyonrails.org/caching_with_rails.html&quot;&gt;http://guides.rubyonrails.org/caching_with_rails.html&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers&quot;&gt;https://devcenter.heroku.com/articles/http-caching-ruby-rails#conditional-cache-headers&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Cache" /><category term="Performance" /><summary type="html">Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content etc) in the browser’s cache matches the one on the origin server.</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Cache" /><category term="Performance" /><summary type="html">Entity tags (ETags) are a mechanism that web/application servers and browsers use to determine whether the entity or component (images, scripts, stylesheets, page content, etc) in the browser’s cache matches the one on the origin server.</summary></entry></feed>

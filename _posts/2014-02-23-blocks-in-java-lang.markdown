@@ -103,12 +103,12 @@ final static Set<OrderStatus> VALID_ORDER_STATUSES_WITH_DOUBLE_BRACE = new HashS
         } };
 ```
 
-This code is completely valid and works in **all the versions of java**. You may wonder what is going on here.
+This code is completely valid and works in **all versions of java**. You may wonder what is going on here.
 
 
-The first brace creates **anonymous inner/sub class** that extends HashSet and the second one declares **instance initializer**. The inner class doesn’t add new instance variables, but it contains an initializer block.
+The first brace creates **an anonymous inner/subclass** that extends HashSet and the second one declares **instance initializer**. The inner class doesn’t add new instance variables, but it contains an initializer block.
 
-Let’s see how we can apply this trick while creating *OrderStatus* with default constructor, not using two params constructor.
+Let’s see how we can apply this trick while creating *OrderStatus* with the default constructor, not using two params constructor.
 
 ``` java
 private static OrderStatus INVALID_ORDER_STATUS = new OrderStatus() { {
