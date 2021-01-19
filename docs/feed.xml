@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-16T13:12:34-06:00</updated><id>/feed.xml</id><title type="html">mohanraj nagasamy</title><subtitle></subtitle><author><name>mohanraj nagasamy</name></author><entry><title type="html">Book review notes: Monolith to Microservices</title><link href="/2014/09/08/book-review-notes-monolith-to-microservices.html" rel="alternate" type="text/html" title="Book review notes: Monolith to Microservices" /><published>2014-09-08T16:29:30-05:00</published><updated>2014-09-08T16:29:30-05:00</updated><id>/2014/09/08/book-review-notes-monolith-to-microservices</id><content type="html" xml:base="/2014/09/08/book-review-notes-monolith-to-microservices.html">&lt;p&gt;Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-19T10:18:29-06:00</updated><id>/feed.xml</id><title type="html">mohanraj nagasamy</title><subtitle></subtitle><author><name>mohanraj nagasamy</name></author><entry><title type="html">Book review notes: Monolith to Microservices</title><link href="/2014/09/08/book-review-notes-monolith-to-microservices.html" rel="alternate" type="text/html" title="Book review notes: Monolith to Microservices" /><published>2014-09-08T16:29:30-05:00</published><updated>2014-09-08T16:29:30-05:00</updated><id>/2014/09/08/book-review-notes-monolith-to-microservices</id><content type="html" xml:base="/2014/09/08/book-review-notes-monolith-to-microservices.html">&lt;p&gt;Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.&lt;/p&gt;
 
 &lt;p&gt;It covers from domain-driven design to organizational change model - vital underpinnings that will stand you in good stead even if you decide not to adopt a microservice architecture.&lt;/p&gt;
 
@@ -269,13 +269,477 @@
 -Martin Fowler&lt;/p&gt;
 &lt;/blockquote&gt;
 
+&lt;ul&gt;
+  &lt;li&gt;Break the big journey into small stages - each one can be analyzed and learned from.&lt;/li&gt;
+  &lt;li&gt;Fan of iterative software delivery since even before the advent of agile - accepting that will make mistakes, and therefore need a way to reduce the size of those mistakes.&lt;/li&gt;
+  &lt;li&gt;Break the big journey into lots of little steps. Each step can be carried out and learned from.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;its-production-that-counts&quot;&gt;It’s Production That Counts&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;microservices decomposition can cause issues with troubleshooting, tracing flows, latency, referential integrity, cascading failures, and a host of other things.&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;cost-of-change&quot;&gt;Cost of Change&lt;/h2&gt;
+
+&lt;p class=&quot;box-warning&quot;&gt;If you are not making decisions, the progress will grind to a halt.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Reversible and Irreversible Decisions
+    &lt;ul&gt;
+      &lt;li&gt;Type 1 decision: Irreversible one-way door&lt;/li&gt;
+      &lt;li&gt;Type 2 decision: Reversible two-way door&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Easier Places to Experiment
+    &lt;ul&gt;
+      &lt;li&gt;Make mistakes where the impact will be lowest.&lt;/li&gt;
+      &lt;li&gt;Do much of thinking in place where the cost of change and the cost of mistakes is as low as it can be: &lt;strong&gt;the white-board&lt;/strong&gt;.&lt;/li&gt;
+      &lt;li&gt;Sketch out the proposed design.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;so-where-do-we-start&quot;&gt;So Where Do We Start?&lt;/h2&gt;
-&lt;h2 id=&quot;domain-driven-design&quot;&gt;Domain-Driven Design&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;When it comes to decomposing an exiting monolithic system, we need to have some form of logical decomposition to work with, and this is where &lt;strong&gt;domain-driven design&lt;/strong&gt; can come in handy.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Domain-Driven Design&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;How Far Do You Have to Go?
+        &lt;ul&gt;
+          &lt;li&gt;Coming up with a detailed domain model of the entire system may be daunting.&lt;/li&gt;
+          &lt;li&gt;&lt;em&gt;Just enough&lt;/em&gt; information to make a reasonable decision about where to start our decomposition.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Event Storming
+        &lt;ul&gt;
+          &lt;li&gt;the output of this exercise isn’t just the model itself - it is the &lt;em&gt;shared understanding&lt;/em&gt; of the model.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Using a Domain Model for Prioritization&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;a-combined-model&quot;&gt;A Combined Model&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Increasing ease of decomposition.&lt;/li&gt;
+  &lt;li&gt;Increasing benefit of decomposition.&lt;/li&gt;
+  &lt;li&gt;Come up with simple two-axis model - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x-axis&lt;/code&gt; represents the value of the decomposition and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y-axis&lt;/code&gt; represents their difficulty.&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;reorganizing-teams&quot;&gt;Reorganizing Teams&lt;/h2&gt;
+
+&lt;h4 id=&quot;shifting-structures&quot;&gt;Shifting Structures&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Shifting structures: Business Analyst =&amp;gt; Development =&amp;gt; Test team.&lt;/li&gt;
+  &lt;li&gt;Dedicated test teams are now a thing of the past of many orgs. Instead, test specialists are becoming an integrated part of delivery teams, enabling developers and testers to work more closely together.&lt;/li&gt;
+  &lt;li&gt;Specialist’s responsibility has shifted from doing to enabling - creating self-service tooling, provide training or a whole host of other activities.&lt;/li&gt;
+  &lt;li&gt;Independent, autonomous teams able to be responsible for more of the end-to-end delivery cycle than ever before.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;its-not-one-size-fits-all&quot;&gt;It’s Not One Size Fits All&lt;/h4&gt;
+
+&lt;p class=&quot;box-warning&quot;&gt;Copying other people’s organizational design can be dangerous.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Change needs to be based on your context, your working culture, and your people.&lt;/li&gt;
+  &lt;li&gt;Bring changes in an incremental fashion.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;making-a-change&quot;&gt;Making a Change&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Model your path to production - you could overlay those ownership boundaries on an exiting view.&lt;/li&gt;
+  &lt;li&gt;Have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;as-is&lt;/code&gt; state and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;six months from now&lt;/code&gt; state.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;changing-skills&quot;&gt;Changing Skills&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Self-asses&lt;/li&gt;
+  &lt;li&gt;Build up a visual representation&lt;/li&gt;
+  &lt;li&gt;Keep the self-assessments private is very important&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;how-will-you-know-if-the-transition-is-working&quot;&gt;How Will You Know if the Transition Is Working?&lt;/h2&gt;
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Book-Review" /><category term="Architecture" /><summary type="html">Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.</summary></entry><entry><title type="html">Panamax template for couchbase 5 node cluster</title><link href="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html" rel="alternate" type="text/html" title="Panamax template for couchbase 5 node cluster" /><published>2014-09-08T16:29:30-05:00</published><updated>2014-09-08T16:29:30-05:00</updated><id>/2014/09/08/panamax-template-for-couchbase-5-node-cluster</id><content type="html" xml:base="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html">&lt;p&gt;Panamax is Docker Management for Humans. You can get started with the simple steps described &lt;a href=&quot;http://panamax.io/get-panamax/&quot;&gt;here&lt;/a&gt;. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share, and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to the outside world. You can start and stop docker containers everything within Panamax web UI.&lt;/p&gt;
+
+&lt;h4 id=&quot;having-regular-checkpoints&quot;&gt;Having Regular Checkpoints&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pause and reflect:
+    &lt;ul&gt;
+      &lt;li&gt;Restate what you are expecting&lt;/li&gt;
+      &lt;li&gt;Review any quantitative measures&lt;/li&gt;
+      &lt;li&gt;Ask for qualitative feedback&lt;/li&gt;
+      &lt;li&gt;Decide if anything going to change&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;quantitative-measures&quot;&gt;Quantitative Measures&lt;/h4&gt;
+
+&lt;p class=&quot;box-warning&quot;&gt;It’s worth noting that metrics can be dangerous because if the old adage “You get what you  measure”. Metrics can be gamed - inadvertently or on purpose.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;If it is time to market&lt;/strong&gt;: measuring cycle time, number of deployments and failure rates make sense.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;If it is scale&lt;/strong&gt;: reporting on the latest performance test would be sensible.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;qualitative-measures&quot;&gt;Qualitative Measures&lt;/h4&gt;
+
+&lt;p class=&quot;box-warning&quot;&gt;Ignoring what people are telling you in favor of relying entirely on quantitative metrics is a great way to yourself into a lot of trouble.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;…Software is made of feelings. &lt;br /&gt;
+  -Astrid Atkinson (@shinynew_oz)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Whatever our data shows us, it’s people who build the software and it’s important that their feedback is included in measuring success.
+    &lt;ul&gt;
+      &lt;li&gt;Are they enjoying the process?&lt;/li&gt;
+      &lt;li&gt;Do they feel empowered?&lt;/li&gt;
+      &lt;li&gt;Or do they feel overwhelmed?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Do sense check of what is coming from team.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;avoiding-the-sunk-cost-fallacy&quot;&gt;Avoiding the Sunk Cost Fallacy&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Make each step a small one, it becomes easier to avoid the pitfalls of &lt;em&gt;the sunk cost fallacy&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;being-open-to-new-approaches&quot;&gt;Being Open to New Approaches&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Try new things, or sometimes just letting things settle for a moment to let you see what impact it is having.&lt;/li&gt;
+  &lt;li&gt;Embrace a culture of &lt;strong&gt;constant improvement&lt;/strong&gt;, to always have something new you are trying, then it becomes much more natural to change direction when needed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;footnotes-1&quot;&gt;Footnotes&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;The term “burning platform” is typically used to denote a technology that is considered end-of-life. It may be too hard or expensive to get support for the technology, too difficult to hire people with the relevant experience. A common example of a technology most organizations consider a burning platform is a COBOL mainframe application.&lt;/li&gt;
+  &lt;li&gt;Kotter’s change model is laid out in detail in his book Leading Change (Harvard Business Review Press, 1996).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;chapter3---splitting-the-monolith&quot;&gt;CHAPTER:3 - Splitting the Monolith&lt;/h1&gt;
+
+&lt;p class=&quot;box-warning&quot;&gt;Remember that we want to make our migration incremental. We want to migrate over to a microservices architectures in small steps, allowing us to learn from the process and change our mind if needed.&lt;/p&gt;
+
+&lt;h2 id=&quot;to-change-the-monolith-or-not&quot;&gt;To Change the Monolith, or Not?&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Cut, Copy, or Reimplement?&lt;/li&gt;
+  &lt;li&gt;Refactoring the Monolith
+    &lt;ul&gt;
+      &lt;li&gt;Find &lt;strong&gt;seam&lt;/strong&gt; - a place where you can change the behavior of a program without having to edit the exiting behavior.&lt;/li&gt;
+      &lt;li&gt;A modular monolith?&lt;/li&gt;
+      &lt;li&gt;Incremental rewrites
+        &lt;ul&gt;
+          &lt;li&gt;Always to attempt to &lt;em&gt;salvage&lt;/em&gt; the existing codebase first, before resorting to just reimplementing functionality.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;migration-patterns&quot;&gt;Migration Patterns&lt;/h2&gt;
+
+&lt;p class=&quot;box-warning&quot;&gt;Make sure you understand the pros and cons of each of these patterns. They are not universally the “right” way to do things.&lt;/p&gt;
+
+&lt;p class=&quot;box-error center&quot;&gt;&lt;strong&gt;Separating the concepts of &lt;em&gt;deployment&lt;/em&gt; from &lt;em&gt;release&lt;/em&gt; is important.&lt;/strong&gt; &lt;br /&gt;
+	• Just because software is deployed into a given environment doesn’t mean it’s actually being used customers. &lt;br /&gt;
+	• By treating the two things separate concepts, you enable the ability to validate your software in the final production environment before it is being used, allowing you to de-risk the rollout of the new software. &lt;br /&gt;
+	• Patterns like &lt;strong&gt;the strangle fig, parallel run, and canary release&lt;/strong&gt; are among those patterns that make use of the fact that &lt;em&gt;deployment&lt;/em&gt; and &lt;em&gt;release&lt;/em&gt; are separate activities. &lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;pattern-strangler-fig-application&quot;&gt;Pattern: Strangler Fig Application&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;A technique that has seen frequent use when doing system rewrites is called the &lt;a href=&quot;http://bit.ly/2p5xMKo&quot;&gt;strangler fig application&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;How it works:
+    &lt;ol&gt;
+      &lt;li&gt;Copy the code from the monolith (if possible) Or else reimplementing the functionality in question.&lt;/li&gt;
+      &lt;li&gt;Reroute calls from the monolith over to the shiny new microservices&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Changing Protocols:
+    &lt;blockquote&gt;
+      &lt;p&gt;“Keep the pipes dumb, the endpoints smart”&lt;/p&gt;
+    &lt;/blockquote&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Service meshes?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;changing-behavior-while-migrating-functionality&quot;&gt;Changing Behavior While Migrating Functionality&lt;/h2&gt;
+
+&lt;p class=&quot;box-warning&quot;&gt;When migrating functionality, try to eliminate any changes in the behavior being moved - delay new features or bug fixes until the migration is complete if you can. Otherwise, you may reduce your ability to roll back changes to your system.&lt;/p&gt;
+
+&lt;h2 id=&quot;pattern-ui-composition&quot;&gt;Pattern: UI Composition&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Example: Page Composition&lt;/li&gt;
+  &lt;li&gt;Example: Widget Composition&lt;/li&gt;
+  &lt;li&gt;Example: Micro Frontends&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pattern-branch-by-abstraction&quot;&gt;Pattern: Branch by Abstraction&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Helps to reduce the disruption to a minimum&lt;/li&gt;
+  &lt;li&gt;Allows the implementations to safely coexist alongside each other, in the same version of code, without causing too much disruption.&lt;/li&gt;
+  &lt;li&gt;How it works:
+    &lt;ol&gt;
+      &lt;li&gt;Create abstraction&lt;/li&gt;
+      &lt;li&gt;Use abstraction&lt;/li&gt;
+      &lt;li&gt;Create new implementation&lt;/li&gt;
+      &lt;li&gt;Switch implementation
+        &lt;ul&gt;
+          &lt;li&gt;Use feature-toggles&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Clean up&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;As a Fallback Mechanism
+    &lt;ul&gt;
+      &lt;li&gt;Steve Smith details a variation of the branch by abstraction pattern called &lt;a href=&quot;http://bit.ly/2mLVevz&quot;&gt;verify branch by abstraction&lt;/a&gt; that also implements a live verification step&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Where to Use It
+    &lt;ul&gt;
+      &lt;li&gt;A fairly general-purpose pattern - useful in any situation where changes to the existing codebase are likely going to take time to carry out, but where you want to avoid disrupting&lt;/li&gt;
+      &lt;li&gt;It is a better option than the use of long-lived code branches in nearly all circumstances.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pattern-parallel-run&quot;&gt;Pattern: Parallel Run&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;When using a &lt;strong&gt;parallel run&lt;/strong&gt;, rather than calling either the old or the new implementation, instead we call both, allowing us to compare the results to ensure they are equivalent.&lt;/li&gt;
+  &lt;li&gt;Despite calling both implementations, only one is considered the source of truth at any given time.&lt;/li&gt;
+  &lt;li&gt;The old implementation is considered the source of truth until the ongoing verification reveals that we can trust our new implementation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;verification-techniques&quot;&gt;Verification Techniques&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Using Spies
+    &lt;ul&gt;
+      &lt;li&gt;A &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spy&lt;/code&gt; can stand in for a piece of functionality, and allows us to verify after that fact that certain things were done.&lt;/li&gt;
+      &lt;li&gt;It is useful where for example, we wouldn’t want to send an email to our customer twice.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;GitHub Scientist&lt;/li&gt;
+  &lt;li&gt;Dark Launching and Canary Releasing
+    &lt;ul&gt;
+      &lt;li&gt;Canary release involves directing some subset of users to the new functionality&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Parallel run&lt;/strong&gt; is a way of implementing dark launching&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;All these techniques fall under the banner of what is called &lt;strong&gt;progressive delivery&lt;/strong&gt; - an umbrella term coined by &lt;a href=&quot;http://bit.ly/2lZjrxK&quot;&gt;James Governor&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;where-to-use-it&quot;&gt;Where to Use It:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Use it for those cases where the functionality being changed is considered to be high risk.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pattern-decorating-collaborator&quot;&gt;Pattern: Decorating Collaborator&lt;/h2&gt;
+
+&lt;h2 id=&quot;pattern-change-data-capture&quot;&gt;Pattern: Change Data Capture&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;React to changes made in a datastore.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;implementing-change-data-capture&quot;&gt;Implementing Change Data Capture&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;We could use various techniques to implement change data capture, all of which have different trade-offs in terms of complexity, reliability, and timeliness.&lt;/li&gt;
+  &lt;li&gt;Database triggers
+    &lt;blockquote&gt;
+      &lt;p&gt;“Having one or two database triggers isn’t terrible. Building a while system off them is a terrible idea.” &lt;br /&gt; - Randy Shoup&lt;/p&gt;
+    &lt;/blockquote&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Like stored procedures, database triggers can be a &lt;em&gt;slippery slope.&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Transaction log pollers
+    &lt;ul&gt;
+      &lt;li&gt;Only committed transactions will show up in the transaction log (which is sort of the point).&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://debezium.io/&quot;&gt;&lt;em&gt;Debezium&lt;/em&gt;&lt;/a&gt; is an open source distributed platform for change data capture.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Batch delta copier
+    &lt;ul&gt;
+      &lt;li&gt;The most simplistic approach is to write a program that on a regular scheduler scans the database in question for what data has changed.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;where-to-use-it-1&quot;&gt;Where to Use It:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Unable to intercept either at the perimeter of the system using a strangler or decorator, and cannot change the underlying codebase.&lt;/li&gt;
+  &lt;li&gt;CDC reading from transaction logs can add significant complexity to your solution.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;chapter4---decomposing-the-database&quot;&gt;CHAPTER:4 - Decomposing the Database&lt;/h1&gt;
+
+&lt;p class=&quot;box-error center&quot;&gt;Microservices work best when we practice information hiding, which in turn typically leads us to toward microservices totally encapsulating their own data storage and retrieval mechanisms.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Splitting a database apart is far from a simple endeavor.
+    &lt;ul&gt;
+      &lt;li&gt;Data synchronization&lt;/li&gt;
+      &lt;li&gt;Logical vs Physical schema decomposition&lt;/li&gt;
+      &lt;li&gt;Transational integrity&lt;/li&gt;
+      &lt;li&gt;Joins&lt;/li&gt;
+      &lt;li&gt;Latency&lt;/li&gt;
+      &lt;li&gt;And more&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pattern-the-shared-database&quot;&gt;Pattern: The Shared Database&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;A number of issues related to sharing a single database among multiple services
+    &lt;ul&gt;
+      &lt;li&gt;No idea what is shared and what is hidden - which flies in the face our drive toward information hiding.&lt;/li&gt;
+      &lt;li&gt;Unclear as to who “controls” the data.&lt;/li&gt;
+      &lt;li&gt;Where the business logic that manipulates the data&lt;/li&gt;
+      &lt;li&gt;Is it spread across services?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;where-to-use-it-2&quot;&gt;Where to Use It.&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Read-only static reference data and data structure is &lt;strong&gt;highly stable.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;but-it-cant-be-done&quot;&gt;But It Can’t Be Done!&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;So, ideally, we want our new services to have their own independent schemas. But that’s not where we start with an existing monolithic system.&lt;/li&gt;
+  &lt;li&gt;Though, remain convinced that in most situations that is the appropriate thing to do, but it isn’t always feasible initially.
+    &lt;ul&gt;
+      &lt;li&gt;Ex: Sensitive part of the system&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pattern-database-view&quot;&gt;Pattern: Database View&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;With a view, a service can be presented with a schema that is a limited projection from an underlying schema.&lt;/li&gt;
+  &lt;li&gt;This projection can limit the data that is visible to the service, hiding information it shouldn’t have access to.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;possible-options&quot;&gt;Possible Options&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;The Database as a Public Contract&lt;/li&gt;
+  &lt;li&gt;Views to Present
+    &lt;ul&gt;
+      &lt;li&gt;Using views to allow the underlying schema to change.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;limitations&quot;&gt;Limitations&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Not all NoSQL databases don’t support views&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;ownership&quot;&gt;Ownership&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Careful consideration should be given to who “owns” the view.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;where-to-use-it-3&quot;&gt;Where to Use It.&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;When it is impractical to decompose the existing monolith schema.&lt;/li&gt;
+  &lt;li&gt;If you feel that the effort of full decomposition is too great, then this can be a step in the right direction.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pattern-database-wrapping-service&quot;&gt;Pattern: Database Wrapping Service&lt;/h2&gt;
+
+&lt;p class=&quot;box-warning center&quot;&gt;Sometimes, when something is too hard to deal with, hiding the mess can make sense. With the &lt;em&gt;database wrapping service patter,&lt;/em&gt; we do exactly that: hide the database behind a service that acts as a thin wrapper, moving database dependencies to become service dependencies.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;It could be argued we’re just putting a bandage over the problem, rather than addressing the underling issues.&lt;/li&gt;
+  &lt;li&gt;It clearly delineates what is “yours” versus what is “someone else’s”&lt;/li&gt;
+  &lt;li&gt;The service API needs to be properly embraced as a managed interface with appropriate oversight over how this API layer changes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;where-to-use-it-4&quot;&gt;Where to Use It.&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;When the underlying schema is just too hard to consider pulling apart.&lt;/li&gt;
+  &lt;li&gt;Use &lt;em&gt;the database wrapping service pattern&lt;/em&gt; to reduce dependence on a central database.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pattern-database-as-a-service-interface&quot;&gt;Pattern: Database-as-a-Service Interface&lt;/h2&gt;
+
+&lt;h4 id=&quot;when-to-use-it&quot;&gt;When to Use It.&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sometimes, clients just need a database to query. It could be because they need to query or fetch large amounts of data, or external parties are already using tool (like Tableau) changes that require a SQL endpoint to work against.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;box-warning center&quot;&gt;&lt;strong&gt;Reporting Database Pattern?&lt;/strong&gt; &lt;br /&gt;
+	• Martin Fowler has already documented this under the &lt;a href=&quot;http://bit.ly/2kWW9Ir&quot;&gt;reporting database pattern&lt;/a&gt;, so why different name here? &lt;br /&gt;
+	• The ability to allow clients so define ad hoc queries has broader scope than traditional batch-oriented workflows.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;One approach work well is to create a dedicated database designed to be exposed as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;read-only&lt;/code&gt; endpoint, and have this database populated when the data in the underlying database changes.&lt;/li&gt;
+  &lt;li&gt;The same that a service could expose a stream of events as one endpoint, and a synonymous API as endpoint, it could also expose a database to external consumers.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;implementing-a-mapping-engine&quot;&gt;Implementing a Mapping Engine&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;The mapping engine acts as an abstraction layer between the internal and external databases.&lt;/li&gt;
+  &lt;li&gt;When our internal database changes structure, the mapping engine will need to change to ensure that the public-facing database remains consistent.&lt;/li&gt;
+  &lt;li&gt;Options:
+    &lt;ul&gt;
+      &lt;li&gt;Change data capture system could be an excellent choice.
+        &lt;ul&gt;
+          &lt;li&gt;debezium?&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Have a batch process just copy the data over - this can be problematic as it is likely to lead to a longer lag between internal and external databases.&lt;/li&gt;
+      &lt;li&gt;Listen to events fired from the service in question, and use that to update the external database.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;where-to-use-it-5&quot;&gt;Where to Use It.&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;This is useful only for clients who need read-only access.&lt;/li&gt;
+  &lt;li&gt;It fits reporting use cases very well - situations where your clients may need to join across large amounts of data that a given service holds.&lt;/li&gt;
+  &lt;li&gt;Could be extended to then import this database’s data into larger data warehouse, allowing multiple services to be queried.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;box-error center&quot;&gt;• Don’t underestimate the work required to ensure that this external database projection is kept properly up-to-data. &lt;br /&gt;
+• Depending on how your current service is Implemented, this might be a complex undertaking.&lt;/p&gt;
+
+&lt;h2 id=&quot;transferring-ownership&quot;&gt;Transferring Ownership&lt;/h2&gt;
+&lt;h2 id=&quot;data-synchronization&quot;&gt;Data Synchronization&lt;/h2&gt;
+&lt;h2 id=&quot;pattern-synchronize-data-in-application&quot;&gt;Pattern: Synchronize Data in Application&lt;/h2&gt;
+&lt;h2 id=&quot;pattern-tracer-write&quot;&gt;Pattern: Tracer Write&lt;/h2&gt;
+&lt;h2 id=&quot;splitting-apart-the-database&quot;&gt;Splitting Apart the Database&lt;/h2&gt;
+&lt;h2 id=&quot;splitting-the-database-first-or-the-code&quot;&gt;Splitting the Database First, or the Code?&lt;/h2&gt;
+&lt;h2 id=&quot;schema-separation-examples&quot;&gt;Schema Separation Examples&lt;/h2&gt;
+&lt;h2 id=&quot;pattern-split-table&quot;&gt;Pattern: Split Table&lt;/h2&gt;
+&lt;h2 id=&quot;pattern-move-foreign-key-relationship-to-code&quot;&gt;Pattern: Move Foreign-Key Relationship to Code&lt;/h2&gt;
+&lt;h2 id=&quot;transactions&quot;&gt;Transactions&lt;/h2&gt;
+&lt;h2 id=&quot;sagas&quot;&gt;Sagas&lt;/h2&gt;
+
+&lt;h1 id=&quot;chapter5---growing-pains&quot;&gt;CHAPTER:5 - Growing Pains&lt;/h1&gt;
+&lt;h2 id=&quot;more-services-more-pain&quot;&gt;More Services, More Pain&lt;/h2&gt;
+&lt;h2 id=&quot;ownership-at-scale&quot;&gt;Ownership at Scale&lt;/h2&gt;
+&lt;h2 id=&quot;breaking-changes&quot;&gt;Breaking Changes&lt;/h2&gt;
+&lt;h2 id=&quot;reporting&quot;&gt;Reporting&lt;/h2&gt;
+&lt;h2 id=&quot;monitoring-and-troubleshooting&quot;&gt;Monitoring and Troubleshooting&lt;/h2&gt;
+&lt;h2 id=&quot;local-developer-experience&quot;&gt;Local Developer Experience&lt;/h2&gt;
+&lt;h2 id=&quot;running-too-many-things&quot;&gt;Running Too Many Things&lt;/h2&gt;
+&lt;h2 id=&quot;end-to-end-testing&quot;&gt;End-to-End Testing&lt;/h2&gt;
+&lt;h2 id=&quot;global-versus-local-optimization&quot;&gt;Global Versus Local Optimization&lt;/h2&gt;
+&lt;h2 id=&quot;robustness-and-resiliency&quot;&gt;Robustness and Resiliency&lt;/h2&gt;
+&lt;h2 id=&quot;orphaned-services&quot;&gt;Orphaned Services&lt;/h2&gt;
+
+&lt;h1 id=&quot;chapter6---closing-words&quot;&gt;CHAPTER:6 - Closing Words&lt;/h1&gt;
+
+&lt;h1 id=&quot;in-summary&quot;&gt;In Summary&lt;/h1&gt;</content><author><name>mohanraj nagasamy</name></author><category term="Book-Review" /><category term="Architecture" /><summary type="html">Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.</summary></entry><entry><title type="html">Panamax template for couchbase 5 node cluster</title><link href="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html" rel="alternate" type="text/html" title="Panamax template for couchbase 5 node cluster" /><published>2014-09-08T16:29:30-05:00</published><updated>2014-09-08T16:29:30-05:00</updated><id>/2014/09/08/panamax-template-for-couchbase-5-node-cluster</id><content type="html" xml:base="/2014/09/08/panamax-template-for-couchbase-5-node-cluster.html">&lt;p&gt;Panamax is Docker Management for Humans. You can get started with the simple steps described &lt;a href=&quot;http://panamax.io/get-panamax/&quot;&gt;here&lt;/a&gt;. It provides a friendly interface for users of Docker, Fleet &amp;amp; CoreOS. With Panamax, you can easily create, share, and deploy any containerized app no matter how complex it might be. You can linking (or stitching them) different docker images together and exposing them to the outside world. You can start and stop docker containers everything within Panamax web UI.&lt;/p&gt;
 
 &lt;p&gt;I have created a “Panamax template for couchbase 5 node cluster”. Let’s see how simple it is to set up the cluster.&lt;/p&gt;
 
