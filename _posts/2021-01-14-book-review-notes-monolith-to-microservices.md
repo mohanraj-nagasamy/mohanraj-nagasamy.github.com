@@ -505,16 +505,130 @@ Sometimes, when something is too hard to deal with, hiding the mess can make sen
 • Don't underestimate the work required to ensure that this external database projection is kept properly up-to-data. <br/>
 • Depending on how your current service is Implemented, this might be a complex undertaking.
 
-
 ## Transferring Ownership
+* As you split services out from the monolith, some of the data should come with you - and some of it should stay where it is.
+* If the new microservices needs to interact with an aggregate that is still owned by the monolith, we need to expose this capability via a well-defined interface. 
+* Options: 
+	* Pattern: Aggregate Exposing Monolith
+	* Pattern: Change Data Ownership
+
+## Pattern: Aggregate Exposing Monolith
+* Expose information from the monolith via a proper service interface, allowing our new microservice to access it.
+
+#### Where to Use It.
+* In the long term is a much better idea, having the new service call back to the monolith to access the data it needs is likely little more work than directly accessing the database of the monolith.
+
+## Pattern: Change Data Ownership
+* What happens when we consider data that is currently in the monolith that should be under the control of newly extracted service?
+* New service where **the life cycle** of the data should be managed.
+
+#### Challenges:
+* The data should be moved from where it is, over into the new service. 
+* **Of course, the process of moving data out of an existing database is far from a simple process.**
+
 ## Data Synchronization
+* Possible options:
+	* Read directly from the monolith for a short space of time.
+		* You should consider this only as a very short-term measure.
+		* Leaving a shared database in place for too long can lead to significant long-term pain.
+	* Avoid big-bang switch over 
+		- Hard to fall back to using the functionality in the existing monolithic system.
+		- Could end-up losing data.
+	* Sync two databases via code.
+
 ## Pattern: Synchronize Data in Application
+* Step 1: Bulk Synchronize Data
+* Step 2: Synchronize on Write, Read from Old Schema
+	* The App keeps both database in sync, but uses one only for reads
+* Step 3: Synchronize on Write, Read from New Schema
+	* The new database is now the source of the truth, but the old database is still kept in synchronization.
+
+#### Where to Use It.
+* If you want to split the schema *before* splitting out the application code.
+
 ## Pattern: Tracer Write
+* We move the source of the truth for data in an incremental fashion, toleration there being tow sources of truth during the migration.
+* Allows for a phased switchover, reducing impact of each release, in exchange for being more tolerant of having more than one source of truth.
+
+#### Data Synchronization
+* The data be inconsistent for a window of time
+* Eventual consistency
+* You may need reconciliation process to ensure that the synchronization is working as intended.
+* Synchronize using background worker
+* Synchronize using an event-driven message
+* Implementation of the synchronization is likely to be where most of the work lies.
+
 ## Splitting Apart the Database
+* Find *seams* in databases too so we can split them out cleanly. Database, however, are tricky beasts.
+* Physical Versus Logical Database Separation
+	* Logical decomposition allows for simpler independent change, information hiding.
+	* Physical decomposition potentially improves system robustness, could help remove resource contention.
+
 ## Splitting the Database First, or the Code?
+
+{: .box-success .center}
+**Tools** <br/>
+	• FlywayDB <br/>
+	• SchemaSpy <br/>
+
+#### Splitting the Database First
+* We end up breaking transactional integrity
+* Splitting schema first may allow you to spot issues with performance an transactional integrity.
+* The flip side is that this approach is unlikely to yield much short-term benefit. We still have a monolithic code deployment.
+* Pattern: **Repository per bounded context**
+	* Break down repositories along the lines of bounded contexts.
+* Pattern: **Database per bounded context**
+	* Once you have clearly isolated data access from the application point of view, it makes sense to continue this approach into schema.
+	* Before we get to separating out the application code, we can start this decomposition by clearly separating our database around the lines of our identified bounded contexts.
+
+
+
+#### Splitting the Code First
+* Splitting the application tire first leaves us with a single shared schema.
+* By splitting out application tier, it becomes much easier to understand what data is needed by the new service.
+* **Concern:** Teams may get this far and then stop.
+* **Concern:** You are storing up trouble for the future.
+* **Concern:** You are delaying finding out nasty surprises caused by pushing join operations up into the application tier.
+* Pattern: Monolith as data access layer (via exposing an API)
+* Pattern: Multischema storage
+
+#### So, Which Should I Split First?
+* Split the schema first: when potential impact to performance or data consistency.
+* Otherwise, Split the code first
+
+#### Split Database and Code Together
+* Much bigger step to take, and it will be longer before you can assess the impact of your decision as a result.
+
 ## Schema Separation Examples
-## Pattern: Split Table
-## Pattern: Move Foreign-Key Relationship to Code
+#### Pattern: Split Table
+* Single table that bridges two bounded contexts
+
+#### Pattern: Move Foreign-Key Relationship to Code
+* No longer database join work
+* Maybe data inconsistentency
+
+#### Moving the Join
+* Move the join operation to the service, rather than in the database.
+
+{: .box-success .center}
+**Tracing** <br/>
+	• [Jaeger: open source, end-to-end distributed tracing](https://www.jaegertracing.io/) <br/>
+	• Monitor and troubleshoot transactions in complex distributed systems.
+
+#### Data Consistency
+* Check before deletion
+* Handle deletion gracefully
+* Don't allow deletion
+* So how should we handle deletion?
+
+#### Where to Use It
+
+#### Example: Shared Static Data
+* Pattern: Duplicate static reference data
+* Pattern: Dedicated reference data schema
+* Pattern: Static reference data library
+* Pattern: Static reference data service
+
 ## Transactions
 ## Sagas
 

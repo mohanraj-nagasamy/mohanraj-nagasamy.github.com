@@ -885,14 +885,192 @@
 • Depending on how your current service is Implemented, this might be a complex undertaking.</p>
 
 <h2 id="transferring-ownership">Transferring Ownership</h2>
+<ul>
+  <li>As you split services out from the monolith, some of the data should come with you - and some of it should stay where it is.</li>
+  <li>If the new microservices needs to interact with an aggregate that is still owned by the monolith, we need to expose this capability via a well-defined interface.</li>
+  <li>Options:
+    <ul>
+      <li>Pattern: Aggregate Exposing Monolith</li>
+      <li>Pattern: Change Data Ownership</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="pattern-aggregate-exposing-monolith">Pattern: Aggregate Exposing Monolith</h2>
+<ul>
+  <li>Expose information from the monolith via a proper service interface, allowing our new microservice to access it.</li>
+</ul>
+
+<h4 id="where-to-use-it-6">Where to Use It.</h4>
+<ul>
+  <li>In the long term is a much better idea, having the new service call back to the monolith to access the data it needs is likely little more work than directly accessing the database of the monolith.</li>
+</ul>
+
+<h2 id="pattern-change-data-ownership">Pattern: Change Data Ownership</h2>
+<ul>
+  <li>What happens when we consider data that is currently in the monolith that should be under the control of newly extracted service?</li>
+  <li>New service where <strong>the life cycle</strong> of the data should be managed.</li>
+</ul>
+
+<h4 id="challenges">Challenges:</h4>
+<ul>
+  <li>The data should be moved from where it is, over into the new service.</li>
+  <li><strong>Of course, the process of moving data out of an existing database is far from a simple process.</strong></li>
+</ul>
+
 <h2 id="data-synchronization">Data Synchronization</h2>
+<ul>
+  <li>Possible options:
+    <ul>
+      <li>Read directly from the monolith for a short space of time.
+        <ul>
+          <li>You should consider this only as a very short-term measure.</li>
+          <li>Leaving a shared database in place for too long can lead to significant long-term pain.</li>
+        </ul>
+      </li>
+      <li>Avoid big-bang switch over
+        <ul>
+          <li>Hard to fall back to using the functionality in the existing monolithic system.</li>
+          <li>Could end-up losing data.</li>
+        </ul>
+      </li>
+      <li>Sync two databases via code.</li>
+    </ul>
+  </li>
+</ul>
+
 <h2 id="pattern-synchronize-data-in-application">Pattern: Synchronize Data in Application</h2>
+<ul>
+  <li>Step 1: Bulk Synchronize Data</li>
+  <li>Step 2: Synchronize on Write, Read from Old Schema
+    <ul>
+      <li>The App keeps both database in sync, but uses one only for reads</li>
+    </ul>
+  </li>
+  <li>Step 3: Synchronize on Write, Read from New Schema
+    <ul>
+      <li>The new database is now the source of the truth, but the old database is still kept in synchronization.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="where-to-use-it-7">Where to Use It.</h4>
+<ul>
+  <li>If you want to split the schema <em>before</em> splitting out the application code.</li>
+</ul>
+
 <h2 id="pattern-tracer-write">Pattern: Tracer Write</h2>
+<ul>
+  <li>We move the source of the truth for data in an incremental fashion, toleration there being tow sources of truth during the migration.</li>
+  <li>Allows for a phased switchover, reducing impact of each release, in exchange for being more tolerant of having more than one source of truth.</li>
+</ul>
+
+<h4 id="data-synchronization-1">Data Synchronization</h4>
+<ul>
+  <li>The data be inconsistent for a window of time</li>
+  <li>Eventual consistency</li>
+  <li>You may need reconciliation process to ensure that the synchronization is working as intended.</li>
+  <li>Synchronize using background worker</li>
+  <li>Synchronize using an event-driven message</li>
+  <li>Implementation of the synchronization is likely to be where most of the work lies.</li>
+</ul>
+
 <h2 id="splitting-apart-the-database">Splitting Apart the Database</h2>
+<ul>
+  <li>Find <em>seams</em> in databases too so we can split them out cleanly. Database, however, are tricky beasts.</li>
+  <li>Physical Versus Logical Database Separation
+    <ul>
+      <li>Logical decomposition allows for simpler independent change, information hiding.</li>
+      <li>Physical decomposition potentially improves system robustness, could help remove resource contention.</li>
+    </ul>
+  </li>
+</ul>
+
 <h2 id="splitting-the-database-first-or-the-code">Splitting the Database First, or the Code?</h2>
+
+<p class="box-success center"><strong>Tools</strong> <br />
+	• FlywayDB <br />
+	• SchemaSpy <br /></p>
+
+<h4 id="splitting-the-database-first">Splitting the Database First</h4>
+<ul>
+  <li>We end up breaking transactional integrity</li>
+  <li>Splitting schema first may allow you to spot issues with performance an transactional integrity.</li>
+  <li>The flip side is that this approach is unlikely to yield much short-term benefit. We still have a monolithic code deployment.</li>
+  <li>Pattern: <strong>Repository per bounded context</strong>
+    <ul>
+      <li>Break down repositories along the lines of bounded contexts.</li>
+    </ul>
+  </li>
+  <li>Pattern: <strong>Database per bounded context</strong>
+    <ul>
+      <li>Once you have clearly isolated data access from the application point of view, it makes sense to continue this approach into schema.</li>
+      <li>Before we get to separating out the application code, we can start this decomposition by clearly separating our database around the lines of our identified bounded contexts.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="splitting-the-code-first">Splitting the Code First</h4>
+<ul>
+  <li>Splitting the application tire first leaves us with a single shared schema.</li>
+  <li>By splitting out application tier, it becomes much easier to understand what data is needed by the new service.</li>
+  <li><strong>Concern:</strong> Teams may get this far and then stop.</li>
+  <li><strong>Concern:</strong> You are storing up trouble for the future.</li>
+  <li><strong>Concern:</strong> You are delaying finding out nasty surprises caused by pushing join operations up into the application tier.</li>
+  <li>Pattern: Monolith as data access layer (via exposing an API)</li>
+  <li>Pattern: Multischema storage</li>
+</ul>
+
+<h4 id="so-which-should-i-split-first">So, Which Should I Split First?</h4>
+<ul>
+  <li>Split the schema first: when potential impact to performance or data consistency.</li>
+  <li>Otherwise, Split the code first</li>
+</ul>
+
+<h4 id="split-database-and-code-together">Split Database and Code Together</h4>
+<ul>
+  <li>Much bigger step to take, and it will be longer before you can assess the impact of your decision as a result.</li>
+</ul>
+
 <h2 id="schema-separation-examples">Schema Separation Examples</h2>
-<h2 id="pattern-split-table">Pattern: Split Table</h2>
-<h2 id="pattern-move-foreign-key-relationship-to-code">Pattern: Move Foreign-Key Relationship to Code</h2>
+<h4 id="pattern-split-table">Pattern: Split Table</h4>
+<ul>
+  <li>Single table that bridges two bounded contexts</li>
+</ul>
+
+<h4 id="pattern-move-foreign-key-relationship-to-code">Pattern: Move Foreign-Key Relationship to Code</h4>
+<ul>
+  <li>No longer database join work</li>
+  <li>Maybe data inconsistentency</li>
+</ul>
+
+<h4 id="moving-the-join">Moving the Join</h4>
+<ul>
+  <li>Move the join operation to the service, rather than in the database.</li>
+</ul>
+
+<p class="box-success center"><strong>Tracing</strong> <br />
+	• <a href="https://www.jaegertracing.io/">Jaeger: open source, end-to-end distributed tracing</a> <br />
+	• Monitor and troubleshoot transactions in complex distributed systems.</p>
+
+<h4 id="data-consistency">Data Consistency</h4>
+<ul>
+  <li>Check before deletion</li>
+  <li>Handle deletion gracefully</li>
+  <li>Don’t allow deletion</li>
+  <li>So how should we handle deletion?</li>
+</ul>
+
+<h4 id="where-to-use-it-8">Where to Use It</h4>
+
+<h4 id="example-shared-static-data">Example: Shared Static Data</h4>
+<ul>
+  <li>Pattern: Duplicate static reference data</li>
+  <li>Pattern: Dedicated reference data schema</li>
+  <li>Pattern: Static reference data library</li>
+  <li>Pattern: Static reference data service</li>
+</ul>
+
 <h2 id="transactions">Transactions</h2>
 <h2 id="sagas">Sagas</h2>
 
