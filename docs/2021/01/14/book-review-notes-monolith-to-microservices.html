@@ -80,9 +80,9 @@
   
   <meta property="og:type" content="article">
   <meta property="og:article:author" content="mohanraj nagasamy">
-  <meta property="og:article:published_time" content="2014-09-08T16:29:30-05:00">
-  <meta property="og:url" content="/2014/09/08/book-review-notes-monolith-to-microservices.html">
-  <link rel="canonical" href="/2014/09/08/book-review-notes-monolith-to-microservices.html">
+  <meta property="og:article:published_time" content="2021-01-14T00:00:00-06:00">
+  <meta property="og:url" content="/2021/01/14/book-review-notes-monolith-to-microservices.html">
+  <link rel="canonical" href="/2021/01/14/book-review-notes-monolith-to-microservices.html">
   
 
   
@@ -146,7 +146,7 @@
           
 
           
-            <span class="post-meta">Posted on September 8, 2014</span>
+            <span class="post-meta">Posted on January 14, 2021</span>
             
             
           
@@ -1055,13 +1055,35 @@
 
 <h4 id="data-consistency">Data Consistency</h4>
 <ul>
-  <li>Check before deletion</li>
-  <li>Handle deletion gracefully</li>
-  <li>Don’t allow deletion</li>
-  <li>So how should we handle deletion?</li>
+  <li>Check before deletion
+    <ul>
+      <li>Strongly urge not to consider option, because of the difficult in ensuring that this operation is implemented correctly as well as the high degree of service coupling</li>
+    </ul>
+  </li>
+  <li>Handle deletion gracefully
+    <ul>
+      <li>Show “Not Available” instead of “Not Found”</li>
+      <li>Consider <code class="language-plaintext highlighter-rouge">410 GONE</code> instead of <code class="language-plaintext highlighter-rouge">404 Not Found</code></li>
+    </ul>
+  </li>
+  <li>Don’t allow deletion
+    <ul>
+      <li>Implement a soft delete capability.</li>
+      <li>“graveyard” table or event sourcing</li>
+    </ul>
+  </li>
+  <li>So how should we handle deletion?
+    <ul>
+      <li>The record we are looking for no longer exists - service may be recovered to an earlier state or a bug.</li>
+      <li>Always look to build in resiliency, and consider what happens if a call fails; hand the failure gracefully.</li>
+    </ul>
+  </li>
 </ul>
 
 <h4 id="where-to-use-it-8">Where to Use It</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Are we breaking apart things that we shouldn't?
+* Data integrity issues to consider.
+</code></pre></div></div>
 
 <h4 id="example-shared-static-data">Example: Shared Static Data</h4>
 <ul>
@@ -1071,8 +1093,94 @@
   <li>Pattern: Static reference data service</li>
 </ul>
 
+<p class="box-note">Book reference: <br />
+ <strong>Refactoring Databases</strong> by Scott J. Ambler and Pramod J. <br />
+ <strong>Designing Data-Intensive Applications</strong> by Martin Kleppmann.</p>
+
 <h2 id="transactions">Transactions</h2>
+<h4 id="challenges-when-breaking-apart-databases">Challenges when breaking apart databases:</h4>
+<ul>
+  <li>Maintaining referential integrity</li>
+  <li>Latency can increase</li>
+  <li>Activities like reporting more complex</li>
+</ul>
+
+<h4 id="acid-transactions">ACID Transactions</h4>
+<ul>
+  <li>Atomicity - Changes happens as whole or nothing</li>
+  <li>Consistency - Changes left in a valid, consistent state</li>
+  <li>Isolation - Changes doesn’t interfering each other</li>
+  <li>Durability - Changes won’t get lost in the event of some system failure</li>
+</ul>
+
+<h4 id="still-acid-but-lacking-atomicity">Still ACID, but Lacking Atomicity?</h4>
+<ul>
+  <li>We can still use ACID-style transactions when we split databases apart, but <strong><em>the scope of these transactions is reduced, as is their usefulness</em></strong>.</li>
+  <li>When the change involves two different services, means there are two transactions to consider, each of which could work or fail independently of the other - <strong>we have lost guaranteed atomicity of the operation as a whole.</strong></li>
+</ul>
+
+<h4 id="two-phase-commits">Two-Phase Commits</h4>
+<ul>
+  <li>Two phases - <em>a voting phase</em> and <em>a commit phase</em></li>
+  <li>A central coordinator contacts all the workers who are going to be part of the transaction - to lock and commit - <em>coordinating distributed locks</em></li>
+  <li>We lost <strong>ACID’s isolation</strong> - the more latency there is between the coordinator and workers to process the response - inconsistency might be wider.</li>
+  <li>Quick way to inject huge amounts of latency into the system - if the scope of locking is large, or the duration of the transaction is large.</li>
+</ul>
+
+<h4 id="distributed-transactions---just-say-no">Distributed Transactions - Just Say No</h4>
+<ul>
+  <li>Options:
+    <ul>
+      <li>Just not split the data apart in the first place - come back to this later.</li>
+      <li>If you really do need to break the data apart - consider an alternative approach: <strong>sagas</strong></li>
+    </ul>
+  </li>
+</ul>
+
 <h2 id="sagas">Sagas</h2>
+
+<p class="box-note">Reference: <br />
+	• See Hector Garcia-Molina and Kenneth Salem, <strong>“Sagas,”</strong> in ACM Sigmod Record 16, no. 3 (1987): 249–259</p>
+
+<ul>
+  <li>Avoids the need for locking resources for long periods of time - we do this by <strong>modeling the steps involved as discrete activities</strong> that can be executed independently</li>
+  <li>Added benefit: forcing us to explicitly model our business process. Mo: Choreographed?</li>
+  <li>Long lived transactions (LLT) - break the LLTs into a sequence of transactions each of which can be handled independently.</li>
+  <li>These “sub” transactions will be short lived - the scope and duration of locks is greatly reduced.</li>
+  <li>Break a single business process into a set of calls that will be made to collaborating services as part of a single saga.</li>
+</ul>
+
+<ul class="box-warning">
+  <li><strong>Saga</strong> does not give us atomicity in ACID at the level of saga itself.</li>
+  <li>We have atomicity for each subtransaction inside the LLT.</li>
+  <li>What a saga gives us enough information to reason about which state it’s in; its up to us handle the implementation of this.</li>
+</ul>
+
+<h4 id="saga-failure-modes">Saga Failure Modes</h4>
+<ul>
+  <li>Two types of recovery:
+    <ul>
+      <li>backward recovery</li>
+      <li>forward recovery</li>
+    </ul>
+  </li>
+  <li>Backward recovery:
+    <ul>
+      <li>Involves reverting the failure and cleaning up afterwards - <strong>a rollback.</strong></li>
+      <li>Need to define compensating actions to undo previously committed transactions</li>
+    </ul>
+  </li>
+  <li>Forward recovery:
+    <ul>
+      <li>Allows us to pick up from the failure occurred, and keep processing - for this to work, we need to able to retry transactions which implies that the system is persisting enough information to allow this retry take place</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext box-note highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Depending on the nature of the business process being modeled, we may consider that any failure mode triggers a backward recovery, a forward recovery, or a mix of both.
+</code></pre></div></div>
+
+<h5 id="saga-rollbacks">Saga rollbacks</h5>
 
 <h1 id="chapter5---growing-pains">CHAPTER:5 - Growing Pains</h1>
 <h2 id="more-services-more-pain">More Services, More Pain</h2>

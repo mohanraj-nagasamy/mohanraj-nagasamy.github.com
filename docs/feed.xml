@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-20T20:14:52-06:00</updated><id>/feed.xml</id><title type="html">mohanraj nagasamy</title><subtitle></subtitle><author><name>mohanraj nagasamy</name></author><entry><title type="html">Book review notes: Monolith to Microservices</title><link href="/2014/09/08/book-review-notes-monolith-to-microservices.html" rel="alternate" type="text/html" title="Book review notes: Monolith to Microservices" /><published>2014-09-08T16:29:30-05:00</published><updated>2014-09-08T16:29:30-05:00</updated><id>/2014/09/08/book-review-notes-monolith-to-microservices</id><content type="html" xml:base="/2014/09/08/book-review-notes-monolith-to-microservices.html">&lt;p&gt;Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-02-08T19:35:26-06:00</updated><id>/feed.xml</id><title type="html">mohanraj nagasamy</title><subtitle></subtitle><author><name>mohanraj nagasamy</name></author><entry><title type="html">Book review notes: Monolith to Microservices</title><link href="/2021/01/14/book-review-notes-monolith-to-microservices.html" rel="alternate" type="text/html" title="Book review notes: Monolith to Microservices" /><published>2021-01-14T00:00:00-06:00</published><updated>2021-01-14T00:00:00-06:00</updated><id>/2021/01/14/book-review-notes-monolith-to-microservices</id><content type="html" xml:base="/2021/01/14/book-review-notes-monolith-to-microservices.html">&lt;p&gt;Evolutionary Patterns to Transform your Monolith - an honest appraisal of the challenges associated with microservice architecture, and help you understand whether starting this journey is even right for you.&lt;/p&gt;
 
 &lt;p&gt;It covers from domain-driven design to organizational change model - vital underpinnings that will stand you in good stead even if you decide not to adopt a microservice architecture.&lt;/p&gt;
 
@@ -883,13 +883,35 @@
 
 &lt;h4 id=&quot;data-consistency&quot;&gt;Data Consistency&lt;/h4&gt;
 &lt;ul&gt;
-  &lt;li&gt;Check before deletion&lt;/li&gt;
-  &lt;li&gt;Handle deletion gracefully&lt;/li&gt;
-  &lt;li&gt;Don’t allow deletion&lt;/li&gt;
-  &lt;li&gt;So how should we handle deletion?&lt;/li&gt;
+  &lt;li&gt;Check before deletion
+    &lt;ul&gt;
+      &lt;li&gt;Strongly urge not to consider option, because of the difficult in ensuring that this operation is implemented correctly as well as the high degree of service coupling&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Handle deletion gracefully
+    &lt;ul&gt;
+      &lt;li&gt;Show “Not Available” instead of “Not Found”&lt;/li&gt;
+      &lt;li&gt;Consider &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;410 GONE&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;404 Not Found&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Don’t allow deletion
+    &lt;ul&gt;
+      &lt;li&gt;Implement a soft delete capability.&lt;/li&gt;
+      &lt;li&gt;“graveyard” table or event sourcing&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;So how should we handle deletion?
+    &lt;ul&gt;
+      &lt;li&gt;The record we are looking for no longer exists - service may be recovered to an earlier state or a bug.&lt;/li&gt;
+      &lt;li&gt;Always look to build in resiliency, and consider what happens if a call fails; hand the failure gracefully.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;where-to-use-it-8&quot;&gt;Where to Use It&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Are we breaking apart things that we shouldn't?
+* Data integrity issues to consider.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;example-shared-static-data&quot;&gt;Example: Shared Static Data&lt;/h4&gt;
 &lt;ul&gt;
@@ -899,8 +921,94 @@
   &lt;li&gt;Pattern: Static reference data service&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p class=&quot;box-note&quot;&gt;Book reference: &lt;br /&gt;
+ &lt;strong&gt;Refactoring Databases&lt;/strong&gt; by Scott J. Ambler and Pramod J. &lt;br /&gt;
+ &lt;strong&gt;Designing Data-Intensive Applications&lt;/strong&gt; by Martin Kleppmann.&lt;/p&gt;
+
 &lt;h2 id=&quot;transactions&quot;&gt;Transactions&lt;/h2&gt;
+&lt;h4 id=&quot;challenges-when-breaking-apart-databases&quot;&gt;Challenges when breaking apart databases:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Maintaining referential integrity&lt;/li&gt;
+  &lt;li&gt;Latency can increase&lt;/li&gt;
+  &lt;li&gt;Activities like reporting more complex&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;acid-transactions&quot;&gt;ACID Transactions&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Atomicity - Changes happens as whole or nothing&lt;/li&gt;
+  &lt;li&gt;Consistency - Changes left in a valid, consistent state&lt;/li&gt;
+  &lt;li&gt;Isolation - Changes doesn’t interfering each other&lt;/li&gt;
+  &lt;li&gt;Durability - Changes won’t get lost in the event of some system failure&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;still-acid-but-lacking-atomicity&quot;&gt;Still ACID, but Lacking Atomicity?&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;We can still use ACID-style transactions when we split databases apart, but &lt;strong&gt;&lt;em&gt;the scope of these transactions is reduced, as is their usefulness&lt;/em&gt;&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;When the change involves two different services, means there are two transactions to consider, each of which could work or fail independently of the other - &lt;strong&gt;we have lost guaranteed atomicity of the operation as a whole.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;two-phase-commits&quot;&gt;Two-Phase Commits&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Two phases - &lt;em&gt;a voting phase&lt;/em&gt; and &lt;em&gt;a commit phase&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;A central coordinator contacts all the workers who are going to be part of the transaction - to lock and commit - &lt;em&gt;coordinating distributed locks&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;We lost &lt;strong&gt;ACID’s isolation&lt;/strong&gt; - the more latency there is between the coordinator and workers to process the response - inconsistency might be wider.&lt;/li&gt;
+  &lt;li&gt;Quick way to inject huge amounts of latency into the system - if the scope of locking is large, or the duration of the transaction is large.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;distributed-transactions---just-say-no&quot;&gt;Distributed Transactions - Just Say No&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Options:
+    &lt;ul&gt;
+      &lt;li&gt;Just not split the data apart in the first place - come back to this later.&lt;/li&gt;
+      &lt;li&gt;If you really do need to break the data apart - consider an alternative approach: &lt;strong&gt;sagas&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;sagas&quot;&gt;Sagas&lt;/h2&gt;
+
+&lt;p class=&quot;box-note&quot;&gt;Reference: &lt;br /&gt;
+	• See Hector Garcia-Molina and Kenneth Salem, &lt;strong&gt;“Sagas,”&lt;/strong&gt; in ACM Sigmod Record 16, no. 3 (1987): 249–259&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Avoids the need for locking resources for long periods of time - we do this by &lt;strong&gt;modeling the steps involved as discrete activities&lt;/strong&gt; that can be executed independently&lt;/li&gt;
+  &lt;li&gt;Added benefit: forcing us to explicitly model our business process. Mo: Choreographed?&lt;/li&gt;
+  &lt;li&gt;Long lived transactions (LLT) - break the LLTs into a sequence of transactions each of which can be handled independently.&lt;/li&gt;
+  &lt;li&gt;These “sub” transactions will be short lived - the scope and duration of locks is greatly reduced.&lt;/li&gt;
+  &lt;li&gt;Break a single business process into a set of calls that will be made to collaborating services as part of a single saga.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul class=&quot;box-warning&quot;&gt;
+  &lt;li&gt;&lt;strong&gt;Saga&lt;/strong&gt; does not give us atomicity in ACID at the level of saga itself.&lt;/li&gt;
+  &lt;li&gt;We have atomicity for each subtransaction inside the LLT.&lt;/li&gt;
+  &lt;li&gt;What a saga gives us enough information to reason about which state it’s in; its up to us handle the implementation of this.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;saga-failure-modes&quot;&gt;Saga Failure Modes&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Two types of recovery:
+    &lt;ul&gt;
+      &lt;li&gt;backward recovery&lt;/li&gt;
+      &lt;li&gt;forward recovery&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Backward recovery:
+    &lt;ul&gt;
+      &lt;li&gt;Involves reverting the failure and cleaning up afterwards - &lt;strong&gt;a rollback.&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;Need to define compensating actions to undo previously committed transactions&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Forward recovery:
+    &lt;ul&gt;
+      &lt;li&gt;Allows us to pick up from the failure occurred, and keep processing - for this to work, we need to able to retry transactions which implies that the system is persisting enough information to allow this retry take place&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext box-note highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Depending on the nature of the business process being modeled, we may consider that any failure mode triggers a backward recovery, a forward recovery, or a mix of both.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;saga-rollbacks&quot;&gt;Saga rollbacks&lt;/h5&gt;
 
 &lt;h1 id=&quot;chapter5---growing-pains&quot;&gt;CHAPTER:5 - Growing Pains&lt;/h1&gt;
 &lt;h2 id=&quot;more-services-more-pain&quot;&gt;More Services, More Pain&lt;/h2&gt;

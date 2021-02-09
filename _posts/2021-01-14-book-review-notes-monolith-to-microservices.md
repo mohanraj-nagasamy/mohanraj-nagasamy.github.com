@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Book review notes: Monolith to Microservices"
-date: 2014-09-08 15:29:30 -0600
+date: 2021-01-14
 comments: true
 tags: [Book-Review, Architecture]
 ---
@@ -617,11 +617,20 @@ Sometimes, when something is too hard to deal with, hiding the mess can make sen
 
 #### Data Consistency
 * Check before deletion
+	* Strongly urge not to consider option, because of the difficult in ensuring that this operation is implemented correctly as well as the high degree of service coupling
 * Handle deletion gracefully
+	* Show "Not Available" instead of "Not Found"
+	* Consider `410 GONE` instead of `404 Not Found`
 * Don't allow deletion
+	* Implement a soft delete capability.
+	* "graveyard" table or event sourcing
 * So how should we handle deletion?
+	* The record we are looking for no longer exists - service may be recovered to an earlier state or a bug.
+	* Always look to build in resiliency, and consider what happens if a call fails; hand the failure gracefully.
 
 #### Where to Use It
+	* Are we breaking apart things that we shouldn't?
+	* Data integrity issues to consider.
 
 #### Example: Shared Static Data
 * Pattern: Duplicate static reference data
@@ -629,8 +638,72 @@ Sometimes, when something is too hard to deal with, hiding the mess can make sen
 * Pattern: Static reference data library
 * Pattern: Static reference data service
 
+{: .box-note} 
+Book reference: <br/>
+ **Refactoring Databases** by Scott J. Ambler and Pramod J. <br/>
+ **Designing Data-Intensive Applications** by Martin Kleppmann.
+
+
 ## Transactions
+#### Challenges when breaking apart databases:
+* Maintaining referential integrity
+* Latency can increase
+* Activities like reporting more complex
+
+#### ACID Transactions
+* Atomicity - Changes happens as whole or nothing
+* Consistency - Changes left in a valid, consistent state
+* Isolation - Changes doesn't interfering each other
+* Durability - Changes won't get lost in the event of some system failure
+
+#### Still ACID, but Lacking Atomicity?
+* We can still use ACID-style transactions when we split databases apart, but ***the scope of these transactions is reduced, as is their usefulness***.
+* When the change involves two different services, means there are two transactions to consider, each of which could work or fail independently of the other - **we have lost guaranteed atomicity of the operation as a whole.**
+
+#### Two-Phase Commits
+* Two phases - *a voting phase* and *a commit phase*
+* A central coordinator contacts all the workers who are going to be part of the transaction - to lock and commit - *coordinating distributed locks*
+* We lost **ACID's isolation** - the more latency there is between the coordinator and workers to process the response - inconsistency might be wider.
+* Quick way to inject huge amounts of latency into the system - if the scope of locking is large, or the duration of the transaction is large.
+
+#### Distributed Transactions - Just Say No
+* Options:
+	* Just not split the data apart in the first place - come back to this later.
+	* If you really do need to break the data apart - consider an alternative approach: **sagas**
+
 ## Sagas
+
+{: .box-note} 
+Reference: <br/>
+	• See Hector Garcia-Molina and Kenneth Salem, **“Sagas,”** in ACM Sigmod Record 16, no. 3 (1987): 249–259 
+
+
+* Avoids the need for locking resources for long periods of time - we do this by **modeling the steps involved as discrete activities** that can be executed independently
+* Added benefit: forcing us to explicitly model our business process. Mo: Choreographed?
+* Long lived transactions (LLT) - break the LLTs into a sequence of transactions each of which can be handled independently.
+* These "sub" transactions will be short lived - the scope and duration of locks is greatly reduced.
+* Break a single business process into a set of calls that will be made to collaborating services as part of a single saga.
+
+{: .box-warning} 
+* **Saga** does not give us atomicity in ACID at the level of saga itself.
+* We have atomicity for each subtransaction inside the LLT.
+* What a saga gives us enough information to reason about which state it's in; its up to us handle the implementation of this.
+
+#### Saga Failure Modes
+* Two types of recovery:
+	* backward recovery
+	* forward recovery
+* Backward recovery:
+	* Involves reverting the failure and cleaning up afterwards - **a rollback.**
+	* Need to define compensating actions to undo previously committed transactions
+* Forward recovery:
+	* Allows us to pick up from the failure occurred, and keep processing - for this to work, we need to able to retry transactions which implies that the system is persisting enough information to allow this retry take place
+
+{: .box-note} 
+	Depending on the nature of the business process being modeled, we may consider that any failure mode triggers a backward recovery, a forward recovery, or a mix of both.
+
+##### Saga rollbacks
+
 
 # CHAPTER:5 - Growing Pains
 ## More Services, More Pain
